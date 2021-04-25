@@ -1,0 +1,39 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+body, nav {
+    width: 70%;
+    min-width: 800px;
+    margin: 0 auto;
+  }
+
+h1 {
+    font-family: 'Zen Dots', cursive;
+    font-size: 60px;
+    color: white;
+    background-color: rgb(231, 6, 6);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.menu {
+    position: relative;
+    width: 100%;
+    flex: 100%;
+    display: flex;
+    margin: 20 auto;
+    padding-inline-start: 0px;
+}
+
+nav li {
+    position: relative;
+    padding: 20px;
+    display: inline;
+    text-align: center;
+    flex: 1;
+    border: 2px solid black;
+}
+
+nav li, nav a {
+    text-transform: uppercase;
+    color: mediumvioletred;
+}
