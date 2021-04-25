@@ -1,0 +1,31 @@
+
+.searchbox {
+    margin: 20px 20px 20px 0;
+    background-color: rgba(243, 8, 8, 0.37);
+    border-radius: 25px;
+    width: 2000px;
+    height: 200px;
+}
+
+.searchboxheading {
+    margin: 10px 20px;  
+}
+
+#carcategory {
+    margin-top: 50px;
+    margin-left: 20px;
+}
+
+#categorylabel, #carmakelabel, #carmake, #priceholderlabel, #priceholder,  #yearholderlabel, #yearholder {
+    margin: 10px;
+}
+
+#categorylabel, #carmakelabel, #priceholderlabel, #yearholderlabel {
+    position: absolute;
+    display: inline-flex;
+}
+
+#submit {
+    display: block;
+    margin-left: 20px;
+}
