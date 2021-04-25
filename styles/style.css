@@ -1,8 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
 
 body, nav {
-    width: 70%;
-    min-width: 800px;
+    width: 1200px;
     margin: 0 auto;
   }
 
@@ -36,4 +35,9 @@ nav li {
 nav li, nav a {
     text-transform: uppercase;
     color: mediumvioletred;
+}
+/**/
+
+main {
+    display: flex;
 }
