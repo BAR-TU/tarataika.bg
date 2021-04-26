@@ -1,10 +1,14 @@
 
 .searchbox {
+    position: relative;
     margin: 20px 20px 20px 0;
     background-color: rgba(243, 8, 8, 0.37);
     border-radius: 25px;
     width: 2000px;
-    height: 200px;
+    max-height: 200px;
+    display: inline-block;
+    overflow: hidden;
+    transition: max-height 0.2s ease-out;
 }
 
 .searchboxheading {
@@ -28,4 +32,9 @@
 #submit {
     display: block;
     margin-left: 20px;
+}
+
+.detailedsearch {
+    margin-left: 200px;
+    margin-bottom: 40px;
 }

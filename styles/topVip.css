@@ -1,0 +1,8 @@
+main .topVip {
+    position: absolute;
+    float: right;
+    border: solid 2px black;
+    height: 200px;
+    width: 735px;
+    margin-top: 250px;
+}
