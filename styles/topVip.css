@@ -2,7 +2,8 @@ main .topVip {
     position: absolute;
     float: right;
     border: solid 2px black;
-    height: 200px;
-    width: 735px;
-    margin-top: 250px;
+    border-radius: 25px;
+    height: 378px;
+    width: 733px;
+    margin-top: 240px;
 }
