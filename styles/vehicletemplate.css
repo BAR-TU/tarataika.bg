@@ -1,0 +1,121 @@
+
+.vehiclebasicinfo {
+    font-size: 40px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.cardescription {
+    list-style:none;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    display:inline-block;
+    width: auto;
+    height: auto;
+
+}
+.cardescription li.builddate:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/065-car-key-1.svg');
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.engine:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/047-fuel.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.horsepower:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/027-piston.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.eurostandart:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/058-exhaust-pipe-1.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.gearbox:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/012-gearshift-3.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.category:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/061-car.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.mileage:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/020-speedometer.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.color:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/070-car-painting.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+
+.cardescription li.builddate, li.engine, li.horsepower, li.eurostandart, li.gearbox, li.category, li.mileage, li.color {
+    display: inline-block;
+    margin: 2px;
+    float: left;
+    clear: left;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    font-size: 25px;
+
+}
+
+.cardescription li.datainput{
+display: inline-block;
+margin: 2px;
+font-weight: 600;
+float: right;
+clear: right;
+margin-top: 5px;
+margin-bottom: 15px;
+margin-right: 5px;
+font-size: 25px;
+}
