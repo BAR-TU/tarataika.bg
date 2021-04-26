@@ -8,7 +8,7 @@
     max-height: 200px;
     display: inline-block;
     overflow: hidden;
-    transition: max-height 0.2s ease-out;
+    transition: max-height ease-out 0.5s;
 }
 
 .searchboxheading {
