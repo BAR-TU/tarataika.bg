@@ -3,7 +3,7 @@
 body, nav {
     width: 1200px;
     margin: 0 auto;
-  }
+}
 
 h1 {
     font-family: 'Zen Dots', cursive;
@@ -21,6 +21,7 @@ h1 {
     display: flex;
     margin: 20 auto;
     padding-inline-start: 0px;
+    background-color: rgb(204, 118, 118);
 }
 
 nav li {
@@ -29,14 +30,23 @@ nav li {
     display: inline;
     text-align: center;
     flex: 1;
-    border: 2px solid black;
+    margin: 10px;
+    background-color: rgb(230, 70, 52);
+    border-radius: 10px;
+}
+
+nav li:hover {
+    background-color: slategrey;
 }
 
 nav li, nav a {
     text-transform: uppercase;
-    color: mediumvioletred;
+    color: black;
 }
 
+
 main {
+    position: relative;
     display: flex;
+    width: 1200px;
 }
