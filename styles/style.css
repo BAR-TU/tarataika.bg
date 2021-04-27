@@ -3,6 +3,7 @@
 body, nav {
     width: 1200px;
     margin: 0 auto;
+    overflow: auto;
 }
 
 h1 {
@@ -19,7 +20,7 @@ h1 {
     width: 100%;
     flex: 100%;
     display: flex;
-    margin: 20 auto;
+    margin: 0 auto;
     padding-inline-start: 0px;
     background-color: rgb(204, 118, 118);
 }
@@ -50,6 +51,8 @@ main {
     position: relative;
     display: flex;
     width: 1200px;
+    background-color: rgb(204, 118, 118);
+
 }
 
 .selected {

@@ -1,19 +1,20 @@
 .mostlyviewed {
     position: relative;
-    border: 2px solid rgba(189, 27, 27, 0.719);
+    background-color: rgb(255, 255, 255, .4);
     width: 100%;
     height: 600px;
     border-radius: 25px;
     display: inline-block;
     margin: 20px 0 20px 0;
     padding-right: auto;
+    overflow: scroll;
 }
 
 .mostlyviewedheading {
     margin: 20px;
 }
 
-.container1, .container2, .container3 {
+.container {
     margin: 20px;
     border: 2px solid black;
     height: 150px;
