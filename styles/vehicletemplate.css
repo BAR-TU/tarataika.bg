@@ -1,3 +1,54 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+.imagebox {
+    display:inline-block;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 800px;
+    height: 500px;
+    margin-top: 40px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+}
+
+.currentimage{
+    width: 800px;
+    height: 500px;
+    display: block;
+    margin: auto;
+}
+
+.image1{background-image: url('../img/testlisting/testimage1.png')}
+.image2{background-image: url('../img/testlisting/testimage2.png')}
+.image3{background-image: url('../img/testlisting/testimage3.png')}
+
+.imagebox span{
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.arrow{
+    cursor: pointer;
+    position:absolute;
+    width: 0;
+    height: 0;
+    margin-top: 10px;
+    left: 760px;
+    border-style: solid;
+}
+
+#arrow-left{
+    border-width: 10px 15px 10px 0;
+    border-color: transparent red transparent transparent;
+}
+
+#arrow-right{
+    border-width: 10px 0 10px 15px;
+    border-color: transparent transparent transparent red;
+    margin-left: 20px;
+}
 
 .vehiclebasicinfo {
     font-size: 40px;
