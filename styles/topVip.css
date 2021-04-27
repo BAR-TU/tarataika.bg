@@ -1,9 +1,17 @@
 main .topVip {
     position: absolute;
     float: right;
-    border: solid 2px black;
     border-radius: 25px;
     height: 378px;
     width: 733px;
     margin-top: 240px;
+    background-color: rgb(204, 118, 118);
+}
+
+.ad {
+    display: inline-block;
+    width: 340px;
+    height: 109px;
+    border: 2px solid black;
+    margin: 10px;
 }
