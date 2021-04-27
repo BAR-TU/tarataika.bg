@@ -27,7 +27,7 @@ h1 {
 nav li {
     position: relative;
     padding: 20px;
-    display: inline;
+    display: inline-block;
     text-align: center;
     flex: 1;
     margin: 10px;
@@ -36,17 +36,22 @@ nav li {
 }
 
 nav li:hover {
+    cursor: pointer;
     background-color: slategrey;
 }
 
-nav li, nav a {
+nav li {
+    text-decoration: none;
     text-transform: uppercase;
     color: black;
 }
-
 
 main {
     position: relative;
     display: flex;
     width: 1200px;
+}
+
+.selected {
+    background-color: rgb(177, 19, 66);
 }
