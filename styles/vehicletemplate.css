@@ -1,23 +1,26 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
 
-.imagebox {
+.imagebox, .wrap {
     display:inline-block;
     border: 1px solid black;
     border-radius: 5px;
     width: 800px;
     height: 500px;
-    margin-top: 40px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
 }
+.wrap {
+    position: relative;
+    margin-top: 40px;
+}
 
 .currentimage{
     width: 800px;
     height: 500px;
-    display: block;
-    margin: auto;
+    display: flex;
+    flex-direction: column;
 }
 
 .image1{background-image: url('../img/testlisting/testimage1.png')}
@@ -29,25 +32,33 @@
     font-size: 20px;
 }
 
-.arrow{
+.arrow {
+    display: inline-block;
     cursor: pointer;
-    position:absolute;
-    width: 0;
-    height: 0;
-    margin-top: 10px;
-    left: 760px;
-    border-style: solid;
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-top: 5px solid rgb(255, 0, 0);
+	border-right: 5px solid rgb(255, 0, 0);
+    background: transparent;
 }
 
 #arrow-left{
-    border-width: 10px 15px 10px 0;
-    border-color: transparent red transparent transparent;
+    left: 0;
+    margin-left: 10px;
+    transform: translate3d(0,-50%,0) rotate(-135deg);
 }
 
 #arrow-right{
-    border-width: 10px 0 10px 15px;
-    border-color: transparent transparent transparent red;
-    margin-left: 20px;
+    right: 0;
+    margin-right: 10px;
+    transform: translate3d(0,-50%,0) rotate(45deg);
+}
+
+#arrow-left:hover, #arrow-right:hover {
+    border-top: 5px solid rgb(59, 59, 59);
+    border-right: 5px solid rgb(59, 59, 59);
 }
 
 .vehiclebasicinfo {
