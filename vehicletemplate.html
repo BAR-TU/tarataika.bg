@@ -9,8 +9,21 @@
         <title>InsertVHModelHere</title>
     </head>
     <body>
-        <header>                                                                                                                 
+        <header>            
+                                                                                                                 
             <h1>Tarataika.bg</h1>
+
+            <nav>
+                <ul class="menu">
+                    <li class="selected" onclick="clickHome()">Home</li>
+                    <li>Get started</li>
+                    <li>Photos</li>
+                    <li>Gear</li>
+                    <li onclick="clickTrivia()">Trivia</li>
+                    <li onclick="clickTest()">TestCar</li>
+                  </ul>
+            </nav>
+
         <div class="wrap">
             <section class="imagebox image1">
                 <div class="currentimage"></div>
@@ -24,8 +37,10 @@
                 <div class="currentimage"></div>
                 <span>Снимка 3</span>
             </section>
+
             <div id="arrow-left" class="arrow"></div>
             <div id="arrow-right" class="arrow"></div>
+
         </div>
             <section>
             <p class="vehiclebasicinfo"><strong><!--Vehicle Brand and Model-->Honda CRF 450</strong></p>
