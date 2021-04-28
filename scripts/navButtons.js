@@ -9,3 +9,7 @@ function clickHome() {
 function clickTest() {
     location.href = "vehicletemplate.html";
 }
+
+function clickMazda() {
+    location.href = "mazdaRotaries.html";
+}

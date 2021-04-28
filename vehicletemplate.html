@@ -6,21 +6,21 @@
         <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="styles/style.css">
         <link rel="stylesheet" href="styles/vehicletemplate.css">
+        <link rel="stylesheet" href="styles/map.css">
         <title>InsertVHModelHere</title>
     </head>
     <body>
         <header>            
                                                                                                                  
             <h1>Tarataika.bg</h1>
-            <h2 font-size 80px> Ina e velika!</h2>
             <nav>
                 <ul class="menu">
-                    <li class="selected" onclick="clickHome()">Home</li>
+                    <li onclick="clickHome()">Home</li>
                     <li>Get started</li>
                     <li>Photos</li>
                     <li>Gear</li>
                     <li onclick="clickTrivia()">Trivia</li>
-                    <li onclick="clickTest()">TestCar</li>
+                    <li class="selected" onclick="clickTest()">TestCar</li>
                   </ul>
             </nav>
 
@@ -65,6 +65,15 @@
             </ul>
             </section>
         </header>
+        <div id="map"></div>
+
+        <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+        <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWLu356q0pXTWWLJE1tjYiFlG-JKgmodg&callback=initMap&libraries=&v=weekly"
+        async
+        ></script>
         <script src="scripts/vhlisting.js"></script>
+        <script src="scripts/navButtons.js"></script>
+        <script src="scripts/map.js"></script>
     </body>
 </html>
