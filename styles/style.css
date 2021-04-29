@@ -15,13 +15,12 @@ body, nav {
      display: inline-block;
     width: 333px;
     height: 1200px;
-    left: 0;
     position: fixed;
     background-image: url(../img/sitebackground/left.jpg);
     background-repeat: no-repeat;
-    background-position: left;
     background-size: contain;
-    background-attachment: fixed;
+    
+
 }
 
 .rightbackground {
