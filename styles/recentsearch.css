@@ -1,0 +1,27 @@
+main .recentsearch {
+    position: absolute;
+    float: right;
+    border-radius: 25px;
+    height: 378px;
+    width: 733px;
+    margin: 240px 0 0 10px;
+    background-color: rgb(238, 17, 17);
+    overflow: scroll;
+    padding-left: 20px;
+}
+
+.recentsheading {
+    margin: 5px 20px;
+}
+
+.recentsearch::-webkit-scrollbar {
+    display: none;
+}
+
+.ad {
+    display: inline-block;
+    width: 340px;
+    height: 109px;
+    border: 2px solid black;
+    margin: 10px;
+}

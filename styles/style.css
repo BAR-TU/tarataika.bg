@@ -7,10 +7,6 @@ body, nav {
     position: static;
 }
 
-.maincontent {
-    display: inline-block;
-}
-
  .leftbackground {
     display: inline-block;
     width: 333px;
@@ -78,6 +74,7 @@ main {
     position: relative;
     display: flex;
     width: 1200px;
+    height: 3000px;
     background-color: rgb(204, 118, 118);
 
 }
