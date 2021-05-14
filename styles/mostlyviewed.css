@@ -1,13 +1,17 @@
 .mostlyviewed {
     position: relative;
     background-color: rgb(255, 255, 255, .4);
-    width: 100%;
+    width: 92%;
     height: 600px;
     border-radius: 25px;
     display: inline-block;
-    margin: 20px 0 20px 0;
+    margin: 20px 10px 20px 0;
     padding-right: auto;
     overflow: scroll;
+}
+
+.mostlyviewed::-webkit-scrollbar {
+    display: none;
 }
 
 .mostlyviewedheading {
@@ -15,7 +19,9 @@
 }
 
 .container {
-    margin: 20px;
+    margin-top: 20px;
+    margin-left: 20px;
     border: 2px solid black;
-    height: 150px;
+    width: 340px;
+    height: 109px;
 }

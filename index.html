@@ -7,7 +7,7 @@
         <link rel="stylesheet" href="styles/style.css">
         <link rel="stylesheet" href="styles/searchbox.css">
         <link rel="stylesheet" href="styles/mostlyviewed.css">
-        <link rel="stylesheet" href="styles/topVip.css">
+        <link rel="stylesheet" href="styles/recentsearch.css">
         <link rel="stylesheet" href="styles/ads.css">
         <title>
             tarataika.bg
@@ -19,11 +19,11 @@
         </header>
         <nav>
             <ul class="menu">
-                <li class="selected" onclick="clickHome()">Home</li>
-                <li>Get started</li>
+                <li class="selected" onclick="clickHome()">Начало</li>
+                <li>Публикуване</li>
                 <li>Photos</li>
                 <li>Gear</li>
-                <li onclick="clickTrivia()">Trivia</li>
+                <li onclick="clickTrivia()">История</li>
                 <li onclick="clickTest()">TestCar</li>
               </ul>
         </nav>
@@ -46,16 +46,24 @@
                         <option value="Audi">Audi</option>
                         <option value="Volkswagen">Volkswagen</option>
                     </select>
+
+                    <label for="carmodel" id="carmodellabel">Модел</label>
+                    <input type="text" id="carmodel" name="carmodel" placeholder="Модел">
                     
                     <label for="priceholder" id="priceholderlabel">Цена</label>
-                    <input type="text" id="priceholder" name="price" placeholder="Цена">
+                    <input type="text" id="priceholder" name="price" placeholder="Макс. цена (лв.)">
 
                     <label for="yearholder" id="yearholderlabel">Година</label>
-                    <input type="text" id="yearholder" name="year" placeholder="Година">
+                    <input type="text" id="yearholder" name="year" placeholder="Година на производство">
+
+                    <input class="test" type="text" name="price" placeholder="Макс. цена (лв.)">
+                    <input class="test" type="text" name="price" placeholder="Макс. цена (лв.)">
+                    <input class="test" type="text" name="price" placeholder="Макс. цена (лв.)">
+                    <input class="test" type="text" name="price" placeholder="Макс. цена (лв.)">
+
+                    <input type="button" class="detailedsearch" value="Подробно търсене">
 
                     <input type="submit" value="Търси" id="submit">
-
-                    <button type="button" class="detailedsearch">Подробно търсене</button>
                 </form>
             </section>
             <section class="mostlyviewed">
@@ -71,7 +79,8 @@
                 <div class="container"></div>
                 <div class="container"></div>
             </section>
-            <section class="topVip">
+            <section class="recentsearch">
+                <header><h2 class="recentsheading">Скорошни търсения</h2></header>
                 <div class="ad"></div>
                 <div class="ad"></div>
                 <div class="ad"></div>

@@ -1,10 +1,10 @@
 
 .searchbox {
     position: relative;
-    margin: 20px 20px 20px 0;
+    margin: 20px 20px 20px 10px;
     background-color: rgba(243, 8, 8, 0.37);
     border-radius: 25px;
-    width: 2000px;
+    width: 2050px;
     max-height: 200px;
     display: inline-block;
     overflow: hidden;
@@ -20,21 +20,35 @@
     margin-left: 20px;
 }
 
-#categorylabel, #carmakelabel, #carmake, #priceholderlabel, #priceholder,  #yearholderlabel, #yearholder {
+.test {
+    display: none;
+    margin: 20px;
+}
+
+#carcategory, #carmake, #carmodel, #priceholder, #yearholder, .test {
+    width: 115px;
+}
+
+
+#categorylabel, #carmakelabel, #carmake, #priceholderlabel, #priceholder,  #yearholderlabel, #yearholder, #carmodellabel, #carmodel {
     margin: 10px;
 }
 
-#categorylabel, #carmakelabel, #priceholderlabel, #yearholderlabel {
+#categorylabel {
+    margin-left: 20px;
+}
+
+#categorylabel, #carmakelabel, #priceholderlabel, #yearholderlabel, #carmodellabel {
     position: absolute;
     display: inline-flex;
 }
 
-#submit {
-    display: block;
+.detailedsearch {
+    display: inline;
     margin-left: 20px;
 }
 
-.detailedsearch {
-    margin-left: 200px;
+#submit {
+    margin-left: 510px;
     margin-bottom: 40px;
 }
