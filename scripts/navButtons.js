@@ -1,15 +1,20 @@
-function clickTrivia() {
+let history = document.getElementById("trivia");
+let index = document.getElementById("home");
+let test = document.getElementById("testcar");
+let mazdaRotaries = document.getElementById("mazdarotaries");
+
+history.addEventListener("click", function() {
     location.href = "trivia.html";
-}
+});
 
-function clickHome() {
+index.addEventListener('click', function() {
     location.href = "index.html";
-}
+});
 
-function clickTest() {
+test.addEventListener('click', function() {
     location.href = "vehicletemplate.html";
-}
+});
 
-function clickMazda() {
+mazdaRotaries.addEventListener('click', function() {
     location.href = "mazdaRotaries.html";
-}
+});
