@@ -1,6 +1,6 @@
 {
     "git.ignoreLimitWarning": true,
-    "liveServer.settings.port": 3000,
+    "liveServer.settings.port": 5000,
     "liveServer.settings.CustomBrowser" : "chrome",
     "liveServer.settings.AdvanceCustomBrowserCmdLine": "chrome --incognito --remote-debugging-port=9222",
     "liveServer.settings.NoBrowser" : false,
