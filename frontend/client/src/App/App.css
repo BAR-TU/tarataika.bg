@@ -36,3 +36,390 @@
     transform: rotate(360deg);
   }
 }
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+body, nav {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: auto;
+    position: static;
+}
+
+ .leftbackground {
+    display: inline-block;
+    width: 333px;
+    height: 1200px;
+    position: fixed;
+    background-image: url(../img/sitebackground/left.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    margin-left: -333px;
+}
+
+.rightbackground {
+    display: inline-block;
+    margin-left: 1200px;
+    width: 333px;
+    height: 1200px;
+    position: fixed;
+    background-image: url(../img/sitebackground/right.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+h1 {
+    font-family: 'Zen Dots', cursive;
+    font-size: 60px;
+    color: white;
+    background-color: rgb(231, 6, 6);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.menu {
+    position: relative;
+    width: 100%;
+    flex: 100%;
+    display: flex;
+    margin: 0 auto;
+    padding-inline-start: 0px;
+    background-color: rgb(204, 118, 118);
+}
+
+nav li {
+    position: relative;
+    padding: 20px;
+    display: inline-block;
+    text-align: center;
+    flex: 1;
+    margin: 10px;
+    background-color: rgb(230, 70, 52);
+    border-radius: 10px;
+}
+
+nav li:hover {
+    cursor: pointer;
+    background-color: slategrey;
+}
+
+nav li {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+}
+
+main {
+    position: relative;
+    display: flex;
+    width: 1200px;
+    height: 3000px;
+    background-color: rgb(204, 118, 118);
+
+}
+
+.selected {
+    background-color: rgb(177, 19, 66);
+}
+
+
+.searchbox {
+  position: relative;
+  margin: 20px 20px 20px 10px;
+  background-color: rgba(243, 8, 8, 0.37);
+  border-radius: 25px;
+  width: 2050px;
+  max-height: 200px;
+  display: inline-block;
+  overflow: hidden;
+  transition: max-height ease-out 0.5s;
+}
+
+.searchboxheading {
+  margin: 10px 20px;  
+}
+
+#carcategory {
+  margin-top: 50px;
+  margin-left: 20px;
+}
+
+.test {
+  display: none;
+  margin: 20px;
+}
+
+#carcategory, #carmake, #carmodel, #priceholder, #yearholder, .test {
+  width: 115px;
+}
+
+
+#categorylabel, #carmakelabel, #carmake, #priceholderlabel, #priceholder,  #yearholderlabel, #yearholder, #carmodellabel, #carmodel {
+  margin: 10px;
+}
+
+#categorylabel {
+  margin-left: 20px;
+}
+
+#categorylabel, #carmakelabel, #priceholderlabel, #yearholderlabel, #carmodellabel {
+  position: absolute;
+  display: inline-flex;
+}
+
+.detailedsearch {
+  display: inline;
+  margin-left: 20px;
+}
+
+#submit {
+  margin-left: 510px;
+  margin-bottom: 40px;
+}
+
+.mostlyviewed {
+  position: relative;
+  background-color: rgb(255, 255, 255, .4);
+  width: 92%;
+  height: 600px;
+  border-radius: 25px;
+  display: inline-block;
+  margin: 20px 10px 20px 0;
+  padding-right: auto;
+  overflow: scroll;
+}
+
+.mostlyviewed::-webkit-scrollbar {
+  display: none;
+}
+
+.mostlyviewedheading {
+  margin: 20px;
+}
+
+.container {
+  margin-top: 20px;
+  margin-left: 20px;
+  border: 2px solid black;
+  width: 340px;
+  height: 109px;
+}
+
+main .recentsearch {
+  position: absolute;
+  float: right;
+  border-radius: 25px;
+  height: 378px;
+  width: 733px;
+  margin: 240px 0 0 10px;
+  background-color: rgb(238, 17, 17);
+  overflow: scroll;
+  padding-left: 20px;
+}
+
+.recentsheading {
+  margin: 5px 20px;
+}
+
+.recentsearch::-webkit-scrollbar {
+  display: none;
+}
+
+.ad {
+  display: inline-block;
+  width: 340px;
+  height: 109px;
+  border: 2px solid black;
+  margin: 10px;
+}
+
+main .ads {
+  position: absolute;
+  float: right;
+  margin-top: 640px;
+  margin-left: 30px;
+  background-color: rgb(204, 118, 118);
+}
+
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+.imagebox, .wrap {
+    display:inline-block;
+    border: 1px solid black;
+    border-radius: 5px;
+    width: 800px;
+    height: 500px;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position-x: center;
+    background-position-y: center;
+}
+.wrap {
+    position: relative;
+    margin-top: 40px;
+}
+
+.currentimage{
+    width: 800px;
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+}
+
+.image1{background-image: url('../img/testlisting/testimage1.png')}
+.image2{background-image: url('../img/testlisting/testimage2.png')}
+.image3{background-image: url('../img/testlisting/testimage3.png')}
+
+.imagebox span{
+    margin-top: 10px;
+    font-size: 20px;
+}
+
+.arrow {
+    display: inline-block;
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: 10px;
+    height: 10px;
+    border-top: 5px solid rgb(255, 0, 0);
+	border-right: 5px solid rgb(255, 0, 0);
+    background: transparent;
+}
+
+#arrow-left{
+    margin-left: 10px;
+    transform: translate3d(0,-50%,0) rotate(-135deg);
+}
+
+#arrow-right{
+    right: 0;
+    margin-right: 10px;
+    transform: translate3d(0,-50%,0) rotate(45deg);
+}
+
+#arrow-left:hover, #arrow-right:hover {
+    border-top: 5px solid rgb(59, 59, 59);
+    border-right: 5px solid rgb(59, 59, 59);
+}
+
+.vehiclebasicinfo {
+    font-size: 40px;
+    margin-bottom: 10px;
+    padding: 5px;
+}
+
+.cardescription {
+    list-style:none;
+    margin: 0;
+    padding: 10px;
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 10px;
+    display:inline-block;
+    width: auto;
+    height: auto;
+
+}
+.cardescription li.builddate:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/065-car-key-1.svg');
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.engine:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/047-fuel.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.horsepower:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/027-piston.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.eurostandart:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/058-exhaust-pipe-1.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.gearbox:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/012-gearshift-3.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.category:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/061-car.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.mileage:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/020-speedometer.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+.cardescription li.color:before{
+    content: '';
+    display: inline-block;
+    height: 1em;
+    width: 1em;
+    background-image: url('../img/cardescription/cars-components/svg/070-car-painting.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    margin-right: 3px;
+}
+
+.cardescription li.builddate, li.engine, li.horsepower, li.eurostandart, li.gearbox, li.category, li.mileage, li.color {
+    display: inline-block;
+    margin: 2px;
+    float: left;
+    clear: left;
+    margin-left: 5px;
+    margin-bottom: 15px;
+    margin-right: 10px;
+    font-size: 25px;
+
+}
+
+.cardescription li.datainput{
+display: inline-block;
+margin: 2px;
+font-weight: 600;
+float: right;
+clear: right;
+margin-top: 5px;
+margin-bottom: 15px;
+margin-right: 5px;
+font-size: 25px;
+}
