@@ -1,0 +1,82 @@
+<!DOCTYPE HTML>
+<html lang ="bg">
+    <head>
+        <meta charset="utf-8">
+        <link rel="preconnect" href="https://fonts.gstatic.com">
+        <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="styles/style.css">
+        <link rel="stylesheet" href="styles/vehicletemplate.css">
+        <link rel="stylesheet" href="styles/map.css">
+        <title>InsertVHModelHere</title>
+    </head>
+    <body>
+        <div class="leftbackground"></div>
+        <div class="rightbackground"></div>
+        <div class="maincontent">
+        <header>                                                                                                     
+            <h1>Tarataika.bg</h1>
+            <nav>
+                <ul class="menu">
+                    <li id="home">Начало</li>
+                    <li>Публикуване</li>
+                    <li>Photos</li>
+                    <li>Gear</li>
+                    <li id="trivia">История</li>
+                    <li class="selected" id="testcar">TestCar</li>
+                  </ul>
+            </nav>
+
+        </header>
+        <main>
+            <div class="wrap">
+                <section class="imagebox image1">
+                    <div class="currentimage"></div>
+                    <span>Снимка 1</span>
+                </section>
+                <section class="imagebox image2">
+                    <div class="currentimage"></div>
+                    <span>Снимка 2</span>
+                </section>
+                <section class="imagebox image3">
+                    <div class="currentimage"></div>
+                    <span>Снимка 3</span>
+                </section>
+
+                <div id="arrow-left" class="arrow"></div>
+                <div id="arrow-right" class="arrow"></div>
+
+            </div>
+                <section>
+                <p class="vehiclebasicinfo"><strong><!--Vehicle Brand and Model-->Honda CRF 450</strong></p>
+                <!--Vehicle basic information-->
+                <ul class="cardescription">
+                    <li class="builddate">Дата на производство</li>
+                    <li class="datainput">02/03/2010</li>
+                    <li class="engine">Тип двигател</li>
+                    <li class="datainput">Бензин</li>
+                    <li class="horsepower">Мощност</li>
+                    <li class="datainput">64кс.</li>
+                    <li class="eurostandart">Евростандарт</li>
+                    <li class="datainput">Няма</li>
+                    <li class="gearbox">Скоростна кутия</li>
+                    <li class="datainput">Ръчна</li>
+                    <li class="category">Категория</li>
+                    <li class="datainput">Кросов</li>
+                    <li class="mileage">Пробег</li>
+                    <li class="datainput">125 456км</li>
+                    <li class="color">Цвят</li>
+                    <li class="datainput">Червен</li>
+                </ul>
+                </section>
+            <div id="map"></div>
+        </main>
+        <!-- Async script executes immediately and must be after any DOM elements used in callback. -->
+        <script
+        src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDWLu356q0pXTWWLJE1tjYiFlG-JKgmodg&callback=initMap&libraries=&v=weekly"
+        async
+        ></script>
+        <script src="scripts/vhlisting.js"></script>
+        <script src="scripts/navButtons.js"></script>
+        <script src="scripts/map.js"></script>
+    </body>
+</html>

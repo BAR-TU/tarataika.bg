@@ -1,0 +1,7 @@
+main .ads {
+    position: absolute;
+    float: right;
+    margin-top: 640px;
+    margin-left: 30px;
+    background-color: rgb(204, 118, 118);
+}
