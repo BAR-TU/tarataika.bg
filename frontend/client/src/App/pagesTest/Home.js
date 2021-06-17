@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from 'react-helmet';
 
 class Home extends React.Component {
     componentDidMount() {
@@ -16,7 +15,7 @@ class Home extends React.Component {
         box[0].style.maxHeight = 200 + "px";
         button[0].addEventListener("click", function() {
 
-            if (box[0].style.maxHeight != "200px") {
+            if (box[0].style.maxHeight !== "200px") {
                 box[0].style.maxHeight = 200 + "px";
                 button[0].style.marginTop = 0 + "px";
             

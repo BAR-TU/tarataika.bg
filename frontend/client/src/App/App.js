@@ -1,9 +1,6 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
 import './App.css';
-import Home from './pagesTest/Home';
 import Header from './pagesTest/Header';
-import List from './pages/List';
 
 class App extends React.Component {
   render() {

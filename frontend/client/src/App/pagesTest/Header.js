@@ -2,15 +2,16 @@ import React from 'react';
 import {
     BrowserRouter as Router,
     Switch,
-    Route,
-    Link
+    Route
 } from 'react-router-dom';
 
 import Home from './Home';
 import Trivia from './Trivia';
 import VehicleTemplate from './VehicleTemplate'
+import { HomeButton, PublicButton, PhotosButton, GearButton, TriviaButton, TestCarButton } from './NavComponent';
 
-function Header() {
+class Header extends React.Component {
+    render() {
     return (
         <Router>
             <header>                                                                                                                 
@@ -18,12 +19,12 @@ function Header() {
             
                 <nav>
                     <ul className="menu">
-                        <li className="selected" id="home"> <Link to="/">Начало</Link></li>
-                        <li>  <Link to="/">Публикуване</Link></li>
-                        <li>  <Link to="/">Photos</Link></li>
-                        <li>  <Link to="/">Gear</Link></li>
-                        <li id="trivia">  <Link to="/trivia">История</Link></li>
-                        <li id="testcar">  <Link to="/vehicletemplate">TestCar</Link></li>
+                        <HomeButton />
+                        <PublicButton />
+                        <PhotosButton />
+                        <GearButton />
+                        <TriviaButton />
+                        <TestCarButton />
                       </ul>
                 </nav>
             </header>
@@ -35,6 +36,7 @@ function Header() {
             </Switch>
         </Router>
     );
+    }
 }
 
 export default Header;
