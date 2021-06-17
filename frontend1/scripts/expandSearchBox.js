@@ -1,4 +1,6 @@
-var box = document.getElementsByClassName("searchbox");
+function Expand() {
+
+var box = document.getElementsByClassName('searchbox');
 var button = document.getElementsByClassName("detailedsearch");
 var topVip = document.getElementsByClassName("recentsearch");
 var tests = document.querySelectorAll(".test");
@@ -30,3 +32,4 @@ button[0].addEventListener("click", function() {
         button[0].value = "Съкратено търсене";
     }
 });
+}

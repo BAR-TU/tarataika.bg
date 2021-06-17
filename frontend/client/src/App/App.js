@@ -1,9 +1,18 @@
-import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import React from 'react';
 import './App.css';
-import Home from './pages/Home';
-import List from './pages/List';
+import Header from './pagesTest/Header';
 
+class App extends React.Component {
+  render() {
+    return (
+      <div className="App">
+        <Header></Header>
+      </div>
+    );
+  }
+}
+
+/*
 class App extends Component {
   render() {
     const App = () => (
@@ -21,5 +30,5 @@ class App extends Component {
     );
   }
 }
-
+*/
 export default App;
