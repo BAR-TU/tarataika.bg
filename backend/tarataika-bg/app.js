@@ -13,7 +13,9 @@ const db = require('./models');
 db.sequelize.sync();
 
 var app = express();
-var routes = require('./routes/cars.routes')(app);
+var routes = require('./routes/vehicles.routes')(app);
+var categories = require('./routes/vehicle-categories.routes')(app);
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');

@@ -2,15 +2,13 @@ import React from 'react';
 import { useHistory } from "react-router-dom";
 
 const HomeButton = () => {
- let history = useHistory();
-
- const handleClick = () => {
-  history.push("/");
- }
-
- return (
-    <li className="selected" id="home" onClick={ handleClick }> Начало</li>
- );
+    let history = useHistory(); 
+    const handleClick = () => {
+     history.push("/");
+    }   
+    return (
+       <li className="selected" id="home" onClick={ handleClick }> Начало</li>
+    );
 }
 
 const PublicButton = () => {
@@ -23,13 +21,13 @@ const PublicButton = () => {
     );
 }
 
-const PhotosButton = () => {
+const SearchResultsButton = () => {
     let history = useHistory(); 
     const handleClick = () => {
         history.push("/");
     }   
     return (
-        <li onClick={ handleClick }> Снимки</li>
+        <li onClick={ handleClick }> Търсене</li>
     );
 }
 
@@ -59,8 +57,8 @@ const TestCarButton = () => {
         history.push("/vehicletemplate");
     }   
     return (
-        <li id="testcar" onClick={ handleClick }> TestCar</li>
+        <li id="testcar" onClick={ handleClick }> Акаунт</li>
     );
 }
 
-export { HomeButton, PublicButton, PhotosButton, GearButton, TriviaButton, TestCarButton };
+export { HomeButton, PublicButton, SearchResultsButton, TestCarButton };

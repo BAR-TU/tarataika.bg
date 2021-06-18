@@ -19,6 +19,7 @@ const db = {};
 db.Sequelize = Sequelize;
 db.sequelize = sequelize;
 
-db.cars = require('./cars.js')(sequelize, Sequelize);
+db.vehicles = require('./vehicles.js')(sequelize, Sequelize);
+db.vehiclesCategoies = require('./vehicle-categories.js')(sequelize, Sequelize);
 
 module.exports = db;
