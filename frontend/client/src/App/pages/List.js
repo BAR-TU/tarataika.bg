@@ -16,14 +16,13 @@ class List extends Component {
 
   // Retrieves the list of items from the Express app
   getList = () => {
-    fetch('/api/cars')
+    fetch('/api/vehicles')
     .then(res => res.json())
     .then(list => this.setState({ list }))
   }
 
   render() {
     const { list } = this.state;
-
     return (
       <div className="App">
         <h1>List of Items</h1>

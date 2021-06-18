@@ -8,7 +8,7 @@ import {
 import Home from './Home';
 import Trivia from './Trivia';
 import VehicleTemplate from './VehicleTemplate'
-import { HomeButton, PublicButton, PhotosButton, GearButton, TriviaButton, TestCarButton } from './NavComponent';
+import { HomeButton, PublicButton, SearchResultsButton, TestCarButton } from './NavComponent';
 
 class Header extends React.Component {
     render() {
@@ -20,15 +20,13 @@ class Header extends React.Component {
                 <nav>
                     <ul className="menu">
                         <HomeButton />
+                        <SearchResultsButton />
                         <PublicButton />
-                        <PhotosButton />
-                        <GearButton />
-                        <TriviaButton />
                         <TestCarButton />
-                      </ul>
+                    </ul>
                 </nav>
             </header>
-        
+
             <Switch>
                 <Route exact path="/"><Home /></Route>
                 <Route path="/trivia"><Trivia /></Route>

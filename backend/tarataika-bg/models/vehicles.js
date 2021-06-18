@@ -1,7 +1,7 @@
 module.exports = (sequelize, Sequelize) => {
-    const Cars = sequelize.define('cars', {
+    const Vehicles = sequelize.define("vehicles", {
       id: {
-        field: 'id', 
+        field: "id", 
         type: Sequelize.INTEGER,
         primaryKey: true
       },
@@ -18,5 +18,5 @@ module.exports = (sequelize, Sequelize) => {
       timestamps: false
     });
     
-    return Cars;
+    return Vehicles;
   };
