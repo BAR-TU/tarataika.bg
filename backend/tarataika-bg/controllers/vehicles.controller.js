@@ -1,5 +1,5 @@
 const db = require('../models');
-const Cars = db.cars;
+const Vehicle = db.vehicles;
 const Op = db.Sequelize.Op;
 
 // Create and Save a new Tutorial
@@ -13,14 +13,14 @@ exports.create = (req, res) => {
   }
 
   // Create a Tutorial
-  const car = {
+  const vehicle = {
     id: req.body.id,
     make: req.body.make,
     model: req.body.model ? req.body.model : false
   };
 
   // Save Tutorial in the database
-  Cars.create(car)
+  Vehicle.create(vehicle)
     .then(data => {
       res.send(data);
     })
@@ -37,7 +37,7 @@ exports.findAll = (req, res) => {
   const make = req.query.make;
   var condition = make ? { make: { [Op.iLike]: `%${make}%` } } : null;
 
-  Cars.findAll({ where: condition })
+  Vehicle.findAll({ where: condition })
     .then(data => {
       res.send(data);
     })

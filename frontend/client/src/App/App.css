@@ -46,7 +46,7 @@ body, nav {
     position: static;
 }
 
- .leftbackground {
+.leftbackground {
     display: inline-block;
     width: 333px;
     height: 1200px;
