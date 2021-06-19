@@ -96,7 +96,7 @@ class Home extends React.Component {
                     <form action="">
                         <label for="carcategory" id="categorylabel">Категория</label>
                         <select id="carcategory" name="category" onChange={ this.change } value={ this.state.category_value }>
-                        {categories.map((item) => {
+                        {categories.length > 1 && categories.map((item) => {
                             return(
                                 <option key={item.vehicle_category_id} value={ item.vehicle_category }>Търси { item.vehicle_category.toLowerCase() }</option>
                               );
