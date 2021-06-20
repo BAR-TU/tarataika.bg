@@ -1,0 +1,87 @@
+@import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
+
+body, nav {
+    width: 1200px;
+    margin: 0 auto;
+    overflow: auto;
+    position: static;
+}
+
+.maincontent {
+    display: inline-block;
+}
+
+ .leftbackground {
+     display: inline-block;
+    width: 333px;
+    height: 1200px;
+    position: fixed;
+    background-image: url(../img/sitebackground/left.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    
+
+}
+
+.rightbackground {
+    display: inline-block;
+    width: 333px;
+    height: 1200px;
+    position: fixed;
+    background-image: url(../img/sitebackground/right.jpg);
+    background-repeat: no-repeat;
+    background-size: contain;
+}
+
+h1 {
+    font-family: 'Zen Dots', cursive;
+    font-size: 60px;
+    color: white;
+    background-color: rgb(231, 6, 6);
+    margin: 0 auto;
+    text-align: center;
+}
+
+.menu {
+    position: relative;
+    width: 100%;
+    flex: 100%;
+    display: flex;
+    margin: 0 auto;
+    padding-inline-start: 0px;
+    background-color: rgb(204, 118, 118);
+}
+
+nav li {
+    position: relative;
+    padding: 20px;
+    display: inline-block;
+    text-align: center;
+    flex: 1;
+    margin: 10px;
+    background-color: rgb(230, 70, 52);
+    border-radius: 10px;
+}
+
+nav li:hover {
+    cursor: pointer;
+    background-color: slategrey;
+}
+
+nav li {
+    text-decoration: none;
+    text-transform: uppercase;
+    color: black;
+}
+
+main {
+    position: relative;
+    display: flex;
+    width: 1200px;
+    background-color: rgb(204, 118, 118);
+
+}
+
+.selected {
+    background-color: rgb(177, 19, 66);
+}

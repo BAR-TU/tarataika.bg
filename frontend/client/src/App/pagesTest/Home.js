@@ -84,6 +84,7 @@ class Home extends React.Component {
         }
     }
 
+
     loadSearchbox = () => {
         var selected = document.getElementsByClassName("selected");
         selected[0].className = "";

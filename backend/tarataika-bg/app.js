@@ -16,6 +16,7 @@ var app = express();
 var routes = require('./routes/vehicles.routes')(app);
 var categories = require('./routes/vehicle-categories.routes')(app);
 var models = require('./routes/models.routes')(app);
+var listings = require('./routes/listings.routes')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
