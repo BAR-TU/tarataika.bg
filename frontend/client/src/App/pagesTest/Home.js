@@ -1,4 +1,4 @@
-import React, { useRef } from "react";
+import React from "react";
 import { Helmet } from 'react-helmet';
 
 class Home extends React.Component {
@@ -7,31 +7,76 @@ class Home extends React.Component {
         
         this.state = {
             category_value: 'Коли',
+            make_value: '',
             categories: [],
             button_value: 'Подробно търсене',
+            makes: [],
             models: []
         }
     }
 
 
-    change = (event) => {
+    changeCategory = (event) => {
         this.setState({category_value: event.target.value});
         var box = document.getElementsByClassName("searchbox");
 
         if (box[0].style.maxHeight !== "200px")
             this.setState({button_value: "Съкратено търсене"});
 
+        let a = this.state.categories;
 
-        //извикване на всички марки и модели под съответната категория
+        for (let i = 0; i < a.length; i++) {
+            if (a[i].vehicle_category === event.target.value) {
+                this.setState({ makes: a[i].makes});
+                break;
+            }
+        }
     }
 
     getCategories = () => {
         fetch('/api/vehicle-categories')
         .then(res => res.json())
-        .then(categories => this.setState({ categories }))
+        .then(categories => {
+            this.setState({ categories });
+        })
+        .then(() => {
+            let a = this.state.categories;
+
+            for (let i = 0; i < a.length; i++) {
+                if (a[i].vehicle_category === this.state.category_value) {
+                    this.setState({ makes: a[i].makes});
+                    break;
+                }
+            }
+        })
 
         this.loadSearchbox();
     }
+
+  getModels= (event) => {
+        this.setState({make_value: event.target.value});
+        let query = 'api/models/category/';
+        let a = this.state.categories;
+        let categoryId = '';
+
+        for (let i = 0; i < a.length; i++) {
+            if (a[i].vehicle_category === this.state.category_value) {
+                categoryId = a[i].vehicle_category_id;
+                break;
+            }
+        }
+
+        const selection = this.state.makes.find(make => make.make === event.target.value);
+
+        query += categoryId + "/" + selection.make_id;
+
+        fetch(query)
+        .then(res => res.json())
+        .then(models => {
+            this.setState({ models });
+        })
+    }
+
 
     loadSearchbox = () => {
         var selected = document.getElementsByClassName("selected");
@@ -81,6 +126,8 @@ class Home extends React.Component {
     render() {
         const { categories } = this.state;
         const { button_value } = this.state;
+        const { makes } = this.state;
+        const { models } = this.state;
     return (     
         <main>
             <Helmet>
@@ -88,33 +135,43 @@ class Home extends React.Component {
                 <link rel="preconnect" href="https://fonts.gstatic.com"/>
                 <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet"/>
                 <title>
-                tarataika.bg
+                    tarataika.bg
                 </title>
             </Helmet>
                 <section className="searchbox">
                     <header className="searchboxheading"><h2>Търсачка</h2></header>
                     <form action="">
                         <label for="carcategory" id="categorylabel">Категория</label>
-                        <select id="carcategory" name="category" onChange={ this.change } value={ this.state.category_value }>
-                        {categories.length > 1 && categories.map((item) => {
-                            return(
-                                <option key={item.vehicle_category_id} value={ item.vehicle_category }>Търси { item.vehicle_category.toLowerCase() }</option>
-                              );
-                            })}
+                        <select id="carcategory" name="category" onChange={ this.changeCategory } value={ this.state.category_value }>
+                            {categories.map((item) => {
+                                return(
+                                    <option key={ item.vehicle_category_id } value={ item.vehicle_category }>Търси { item.vehicle_category.toLowerCase() }</option>
+                                  );
+                                })
+                            }
                         </select>
                         
                         
                         <label for="carmake" id="carmakelabel">Марка</label>
-                        <select id="carmake" name="carmake">
-                            <option value="BMW">BMW</option>
-                            <option value="Mercedes-Benz">Mercedes-Benz</option>
-                            <option value="Audi">Audi</option>
-                            <option value="Volkswagen">Volkswagen</option>
+                        <select id="carmake" name="carmake" onChange={ this.getModels } value={ this.state.make_value }>
+                            <option key='0' value="none">---</option>
+                            {makes.map((make) => {
+                                return(
+                                    <option key={ make.make_id } value={ make.make }>{ make.make }</option>
+                                  );
+                                })
+                            }
                         </select>
         
                         <label for="carmodel" id="carmodellabel">Модел</label>
                         <select id="carmodel" name="carmodel" placeholder="Модел">
-
+                            <option key='0' value="none">---</option>
+                            {models.map((model) => {
+                                return(
+                                    <option key={ model.model_id } value={ model.model }>{ model.model }</option>
+                                  );
+                                })
+                            }
                         </select>
                         
                         <label for="priceholder" id="priceholderlabel">Цена</label>

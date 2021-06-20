@@ -1,8 +1,35 @@
 import React from "react";
 import VehiclePictures from "./VehiclePictures";
-import "./VehiclePictures.css"
+import "./VehiclePictures.css";
 
 class VehicleTemplate extends React.Component {
+
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            details: {
+                make: '',
+                model: '',
+                vehicle_category: '',
+                price: '',
+                engine: '',
+                power: '',
+                first_registration: '',
+                mileage: '',
+                user_id: '',
+                gearbox: '',
+                vip_status: '',
+                views: '',
+                location: '',
+                paint: '',
+                info: '',
+                ecategory: ''
+            }
+
+        }
+    }
+
     componentDidMount() {
         var selected = document.getElementsByClassName("selected");
         selected[0].className = "";
@@ -59,30 +86,44 @@ class VehicleTemplate extends React.Component {
         });
 
         startSlide();
+
+        this.getListing();
     }
+
+    getListing = () => {
+        fetch('/api/listings/1')
+        .then(res => res.json())
+        .then(details => {
+            this.setState({ details });
+        });
+    }
+
     render() {
+
+        const {details} = this.state;
+
     return (
         <main>
-            <VehiclePictures/>
+            <VehiclePictures />
                     <section>
-                    <p className="vehiclebasicinfo"><strong>Honda CRF 450</strong></p>
+                    <p className="vehiclebasicinfo"><strong>{details.make.make} {details.model.model}</strong></p>
                     <ul className="cardescription">
                         <li className="builddate">Дата на производство</li>
-                        <li className="datainput">02/06/2020</li>
+                        <li className="datainput">{details.first_registration}</li>
                         <li className="engine">Тип двигател</li>
-                        <li className="datainput">Бензин</li>
+                        <li className="datainput">{details.engine.type}</li>
                         <li className="horsepower">Мощност</li>
-                        <li className="datainput">64кс.</li>
+                        <li className="datainput">{details.power} к.с.</li>
                         <li className="eurostandart">Евростандарт</li>
-                        <li className="datainput">Няма</li>
+                        <li className="datainput">{details.ecategory.category}</li>
                         <li className="gearbox">Скоростна кутия</li>
-                        <li className="datainput">Ръчна</li>
+                        <li className="datainput">{details.gearbox.type}</li>
                         <li className="category">Категория</li>
-                        <li className="datainput">Кросов</li>
+                        <li className="datainput">{details.vehicle_category.vehicle_category}</li>
                         <li className="mileage">Пробег</li>
-                        <li className="datainput">125 456км</li>
+                        <li className="datainput">{details.mileage} км</li>
                         <li className="color">Цвят</li>
-                        <li className="datainput">Червен</li>
+                        <li className="datainput">{details.paint.paint}</li>
                     </ul>
                     </section>
                 <div id="map"></div>
