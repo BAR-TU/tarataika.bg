@@ -11,10 +11,10 @@ class Home extends React.Component {
             categories: [],
             button_value: 'Подробно търсене',
             makes: [],
-            models: []
+            models: [],
+            model_value: ''
         }
     }
-
 
     changeCategory = (event) => {
         this.setState({category_value: event.target.value});
@@ -27,6 +27,8 @@ class Home extends React.Component {
 
         for (let i = 0; i < a.length; i++) {
             if (a[i].vehicle_category === event.target.value) {
+                this.setState({ models: []});
+                this.setState({ model_value: "---"});
                 this.setState({ makes: a[i].makes});
                 break;
             }
@@ -41,20 +43,21 @@ class Home extends React.Component {
         })
         .then(() => {
             let a = this.state.categories;
-
+            this.setState({ models: []});
+            this.setState({ model_value: "---"});
             for (let i = 0; i < a.length; i++) {
                 if (a[i].vehicle_category === this.state.category_value) {
                     this.setState({ makes: a[i].makes});
                     break;
                 }
             }
-        })
+        });
 
         this.loadSearchbox();
     }
 
   getModels= (event) => {
-        this.setState({make_value: event.target.value});
+        this.setState({ make_value: event.target.value });
         let query = 'api/models/category/';
         let a = this.state.categories;
         let categoryId = '';
@@ -66,15 +69,19 @@ class Home extends React.Component {
             }
         }
 
-        const selection = this.state.makes.find(make => make.make === event.target.value);
+        if (event.target.value != "---") {
+            const selection = this.state.makes.find(make => make.make === event.target.value);
 
-        query += categoryId + "/" + selection.make_id;
+            query += categoryId + "/" + selection.make_id;
 
-        fetch(query)
-        .then(res => res.json())
-        .then(models => {
-            this.setState({ models });
-        })
+            fetch(query)
+            .then(res => res.json())
+            .then(models => {
+                this.setState({ models });
+            });
+        } else {
+            this.setState({models: []});
+        }
     }
 
     loadSearchbox = () => {
@@ -118,6 +125,10 @@ class Home extends React.Component {
         });
     }
 
+    changeModel = (event) => {
+        this.setState({ model_value: event.target.value });
+    }
+
     componentDidMount() {
         this.getCategories();
     }
@@ -153,7 +164,7 @@ class Home extends React.Component {
                         
                         <label for="carmake" id="carmakelabel">Марка</label>
                         <select id="carmake" name="carmake" onChange={ this.getModels } value={ this.state.make_value }>
-                            <option key='0' value="none">---</option>
+                            <option key='0' value="---">---</option>
                             {makes.map((make) => {
                                 return(
                                     <option key={ make.make_id } value={ make.make }>{ make.make }</option>
@@ -163,8 +174,8 @@ class Home extends React.Component {
                         </select>
         
                         <label for="carmodel" id="carmodellabel">Модел</label>
-                        <select id="carmodel" name="carmodel" placeholder="Модел">
-                            <option key='0' value="none">---</option>
+                        <select id="carmodel" name="carmodel" placeholder="Модел" onChange={ this.changeModel } value={ this.state.model_value }>
+                            <option key='0' value="---">---</option>
                             {models.map((model) => {
                                 return(
                                     <option key={ model.model_id } value={ model.model }>{ model.model }</option>
@@ -179,10 +190,11 @@ class Home extends React.Component {
                         <label for="yearholder" id="yearholderlabel">Година</label>
                         <input type="text" id="yearholder" name="year" placeholder="Година на производство"></input>
         
-                        <input className="test" type="text" name="price" placeholder="Макс. цена (лв.)"></input>
-                        <input className="test" type="text" name="price" placeholder="Макс. цена (лв.)"></input>
-                        <input className="test" type="text" name="price" placeholder="Макс. цена (лв.)"></input>
-                        <input className="test" type="text" name="price" placeholder="Макс. цена (лв.)"></input>
+                        <label class="test" for="engineholder" id="enginelabel">Двигател</label>
+                        <input class="test" type="text" id="engineholder" name="engine" placeholder="Тип двигател"></input>
+                        <input class="test" type="text" name="price" placeholder="Макс. цена (лв.)"></input>
+                        <input class="test" type="text" name="price" placeholder="Макс. цена (лв.)"></input>
+                        <input class="test" type="text" name="price" placeholder="Макс. цена (лв.)"></input>
                         
                         <input type="button" className="detailedsearch" value={button_value}></input>
         

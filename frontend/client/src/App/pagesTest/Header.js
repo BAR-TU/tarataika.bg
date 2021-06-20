@@ -7,7 +7,7 @@ import {
 
 import Home from './Home';
 import Trivia from './Trivia';
-import VehicleTemplate from './VehicleTemplate'
+import VehicleTemplate from './VehicleTemplate/VehicleTemplate'
 import { HomeButton, PublicButton, SearchResultsButton, TestCarButton } from './NavComponent';
 
 class Header extends React.Component {
