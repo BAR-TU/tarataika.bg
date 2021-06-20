@@ -24,10 +24,10 @@ const PublicButton = () => {
 const SearchResultsButton = () => {
     let history = useHistory(); 
     const handleClick = () => {
-        history.push("/");
+        history.push("/listingsresults");
     }   
     return (
-        <li onClick={ handleClick }> Търсене</li>
+        <li id="searchresults" onClick={ handleClick }> Търсене</li>
     );
 }
 
