@@ -10,6 +10,12 @@ const Paint = db.paints;
 const Ecategory = db.eurocategories;
 const Categories = db.vehiclesCategories;
 
+exports.findByCriteria = (req, res) => {
+    const make = req.query.make;
+
+    
+}
+
 exports.findById = (req, res) => {
 
     const id = req.params.id;

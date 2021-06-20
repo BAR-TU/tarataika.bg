@@ -22,7 +22,7 @@
 
 .test {
     display: none;
-    margin: 20px;
+    margin: 10px;
 }
 
 #carcategory, #carmake, #carmodel, #priceholder, #yearholder, .test {
@@ -33,6 +33,19 @@
 #categorylabel, #carmakelabel, #carmake, #priceholderlabel, #priceholder,  #yearholderlabel, #yearholder, #carmodellabel, #carmodel {
     margin: 10px;
 }
+
+#enginelabel {
+    position: fixed;
+    margin-top: 100px;
+    margin-left: -695px;
+}
+
+#engineholder {
+    position: fixed;
+    margin-top: 140px;
+    margin-left: -695px;
+}
+
 
 #categorylabel {
     margin-left: 20px;

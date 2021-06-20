@@ -146,7 +146,7 @@ main {
 
 .test {
   display: none;
-  margin: 20px;
+  margin: 10px;
 }
 
 #carcategory, #carmake, #carmodel, #priceholder, #yearholder, .test {
@@ -158,8 +158,160 @@ main {
   margin: 10px;
 }
 
+#enginelabel, #powerlabel, #rangelabel, #minpricelabel, #maxyearlabel {
+  position: absolute;
+  margin-top: 100px;
+}
+
+#engineholder, #powerholder, #rangeholder, #minpriceholder, #maxyearholder {
+  position: absolute;
+  margin-top: 140px;
+}
+
+#enginelabel {
+  margin-left: -690px;
+}
+
+#engineholder {
+  margin-left: -670px;
+}
+
+#powerlabel {
+  margin-left: -565px;
+}
+
+#powerholder {
+  margin-left: -545px;
+}
+
+#minpricelabel {
+  margin-left: -295px;
+}
+
+#minpriceholder {
+  margin-left: -275px;
+}
+
+#rangelabel {
+  margin-left: -415px;
+}
+
+#rangeholder {
+  margin-left: -410px;
+}
+
+#maxyearlabel {
+  margin-left: -145px;
+}
+
+#maxyearholder {
+  margin-left: -130px
+}
+
+#gearboxlabel, #locationlabel {
+  position: absolute;
+  margin-top: 180px;
+}
+
+#gearboxholder, #locationholder {
+  position: absolute;
+  margin-top: 225px;
+}
+
+#gearboxlabel {
+  margin-left: -685px;
+}
+
+#gearboxholder {
+  margin-left: -670px;
+}
+
+#locationlabel {
+  margin-left: -565px;
+}
+
+#locationholder {
+  margin-left: -545px;
+}
+
 #categorylabel {
   margin-left: 20px;
+}
+
+.extrasheading {
+  position: absolute;
+  margin-top: 190px;
+  margin-left: 50px;
+}
+
+#electricWindowslabel, #airConditioninglabel, #alarmlabel, #fourwheellabel {
+  position: absolute;
+  margin-top: 300px;
+}
+
+#electricWindowsholder, #airConditioningholder, #servoholder, #alarmholder, #fourwheelholder {
+  position: absolute;
+  margin-top: 303px;
+}
+
+#electricWindowslabel, #bluetoothlabel {
+  margin-left: -685px;
+}
+
+#electricWindowsholder, #bluetoothholder {
+  margin-left: -630px;
+}
+
+#airConditioninglabel, #boardcomputerlabel {
+  margin-left: -550px;
+}
+
+#airConditioningholder, #boardcomputerholder {
+  margin-left: -480px;
+}
+
+#servolabel, #navigationlabel {
+  position: absolute;
+  margin-top: 290px;
+  margin-left: -415px;
+}
+
+#servoholder, #navigationholder {
+  margin-left: -360px;
+}
+
+#alarmlabel, #rainsensorlabel {
+  margin-left: -280px
+}
+
+#alarmholder, #rainsensorholder {
+  margin-left: -235px;
+}
+
+#fourwheellabel {
+  margin-left: -145px;
+}
+
+#fourwheelholder, #seatheaterholder {
+  margin-left: -120px;
+}
+
+#bluetoothlabel, #boardcomputerlabel, #navigationlabel, #rainsensorlabel, #seatheaterlabel {
+  position: absolute;
+  margin-top: 373px;
+}
+
+#rainsensorlabel, #seatheaterlabel {
+  margin-top: 363px;
+}
+
+#bluetoothholder, #boardcomputerholder, #navigationholder, #rainsensorholder, #seatheaterholder {
+  position: absolute;
+  margin-top: 376px;
+}
+
+#seatheaterlabel {
+  margin-left: -173px;
 }
 
 #categorylabel, #carmakelabel, #priceholderlabel, #yearholderlabel, #carmodellabel {
