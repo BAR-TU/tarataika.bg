@@ -184,19 +184,19 @@ main {
   margin-left: -545px;
 }
 
-#minpricelabel {
+#minpricelabel, #paintlabel {
   margin-left: -295px;
 }
 
-#minpriceholder {
+#minpriceholder, #paintholder {
   margin-left: -275px;
 }
 
-#rangelabel {
+#rangelabel, #ecategorylabel {
   margin-left: -415px;
 }
 
-#rangeholder {
+#rangeholder, #ecategoryholder {
   margin-left: -410px;
 }
 
@@ -208,12 +208,12 @@ main {
   margin-left: -130px
 }
 
-#gearboxlabel, #locationlabel {
+#gearboxlabel, #locationlabel, #ecategorylabel, #paintlabel {
   position: absolute;
   margin-top: 180px;
 }
 
-#gearboxholder, #locationholder {
+#gearboxholder, #locationholder, #ecategoryholder, #paintholder {
   position: absolute;
   margin-top: 225px;
 }

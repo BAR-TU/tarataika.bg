@@ -1,6 +1,6 @@
 const db = require('../models');
 const Listings = db.listings;
-const op = db.Sequelize.Op;
+const Op = db.Sequelize.Op;
 const Makes = db.makes;
 const Model = db.models;
 const Engine = db.engines;
@@ -9,15 +9,149 @@ const Location = db.locations;
 const Paint = db.paints;
 const Ecategory = db.eurocategories;
 const Categories = db.vehiclesCategories;
+const VehicleExtras = db.vehicleExtras;
+let extrasChosen = [];
+var yearCondition;
 
 exports.findByCriteria = (req, res) => {
-    const make = req.query.make;
+    var includeModels = [];
 
-    
+    if (req.query.make !== '---' && req.query.make !== '')
+        includeModels.push({
+            model: Makes,
+            as: 'make',
+            attributes: ["make_id", "make"],
+            where: { make: req.query.make }
+        });
+    if (req.query.model !== '---' && req.query.model !== '')
+        includeModels.push({
+            model: Model,
+            as: 'model',
+            attributes: ["model_id", "model", "make_id", "vehicle_category_id"],
+            where: { model: req.query.model}
+        });
+    if (req.query.engine !== '---' && req.query.engine !== '')
+        includeModels.push({
+            model: Engine,
+            as: 'engine',
+            attributes: ["id", "type"],
+            where: { type: req.query.engine}
+        });
+    if (req.query.gearbox !== '---' && req.query.gearbox !== '')
+        includeModels.push({
+            model: Gearbox,
+            as: 'gearbox',
+            attributes: ["id", "type"],
+            where: { type: req.query.gearbox}
+        });
+    if (req.query.location !== '---' && req.query.location !== '')
+        includeModels.push({
+            model: Location,
+            as: 'location',
+            attributes: ["id", "location", "coordinates"],
+            where: { location: req.query.location}
+        });
+    if (req.query.paint !== '---' && req.query.paint !== '')
+        includeModels.push({
+            model: Paint,
+            as: 'paint',
+            attributes: ["id", "paint"],
+            where: { paint: req.query.paint}
+        });
+    if (req.query.ecategory !== '---' && req.query.ecategory !== '')
+        includeModels.push({
+            model: Ecategory,
+            as: 'ecategory',
+            attributes: ["id", "category"],
+            where: { category: req.query.ecategory}
+        });
+    if (req.query.category !== '---' && req.query.category !== '')
+        includeModels.push({
+            model: Categories,
+            as: 'vehicle_category',
+            attributes: ["vehicle_category_id", "vehicle_category"],
+            where: { vehicle_category: req.query.category}
+        });
+        
+        var wheres = [];
+        let minYear = req.query.minYear;
+        let maxYear = req.query.maxYear;
+
+    if (req.query.maxYear !== '') {
+        if (req.query.minYear !== '') {
+            wheres.push({ first_registration: { [Op.gte]: minYear, [Op.lte]: maxYear } });
+        } else {
+            wheres.push({ first_registration: { [Op.lte]: maxYear } });
+        }
+    } else {
+        if (req.query.minYear !== '') {
+            wheres.push({ first_registration: { [Op.gte]: minYear } });
+        }
+    }
+
+    let minPrice = req.query.minPrice;
+    let maxPrice = req.query.maxPrice;
+
+    if (req.query.maxPrice !== '') {
+        if (req.query.minPrice !== '') {
+            wheres.push({ price: { [Op.gte]: minPrice, [Op.lte]: maxPrice } });
+        } else {
+            wheres.push({ price: { [Op.lte]: maxPrice } });
+        }
+    } else {
+        if (req.query.minPrice !== '') {
+            wheres.push({ price: { [Op.gte]: minPrice } });
+        }
+    }
+
+    let minPower = req.query.power;
+
+    if (req.query.power !== '') {
+        wheres.push({ power: { [Op.gte]: minPower } });
+    }
+
+    let maxRange = req.query.mileage;
+
+    if (req.query.mileage !== '') {
+        wheres.push({ mileage: { [Op.lte]: maxRange } });
+    }
+
+    Object.keys(req.query).forEach(e => {
+        if (req.query[e] === 'on') {
+            extrasChosen.push(e);
+        }
+        })
+
+        if (extrasChosen.length > 0) {
+            includeModels.push({
+                model: VehicleExtras,
+                as: 'extras',
+                attributes: ["extra_id", "extra"],
+                through: {
+                    attributes: ["listing_id", "extra_id"],
+                },
+                where: { 
+                    extra: {
+                        [Op.in]: extrasChosen
+                    }
+                }
+            })
+        }
+    Listings.findAll({ include: includeModels,
+        where: wheres
+    }
+    )
+    .then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some errors occured while retrieving listings."
+        });
+    });
 }
 
 exports.findById = (req, res) => {
-
     const id = req.params.id;
 
     Listings.findOne({ include: [
@@ -34,7 +168,7 @@ exports.findById = (req, res) => {
         {
             model: Engine,
             as: 'engine',
-            attributes: ["id", "type"]
+            attributes: ["id", "type"],
         },
         {
             model: Gearbox,
@@ -60,6 +194,14 @@ exports.findById = (req, res) => {
             model: Categories,
             as: 'vehicle_category',
             attributes: ["vehicle_category_id", "vehicle_category"]
+        },
+        {
+            model: VehicleExtras,
+            as: 'extras',
+            attributes: ["extra_id", "extra"],
+            through: {
+                attributes: ["listing_id", "extra_id"],
+            }
         }
         
     ],
