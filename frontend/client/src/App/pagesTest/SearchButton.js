@@ -5,8 +5,7 @@ import {
 import { useHistory } from "react-router-dom";
 
 const SearchButton = (props) => {
-    let history = useHistory(); 
-    console.log(props.make);
+    let history = useHistory();
 
     const handleClick = () => {
         history.push({
@@ -14,7 +13,7 @@ const SearchButton = (props) => {
             search: '',
             state: { details: props}
         });
-    } 
+    }
 
     return (
         <Router>
