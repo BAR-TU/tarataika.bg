@@ -29,6 +29,20 @@ db.gearboxes = require('./gearboxes.js')(sequelize, Sequelize);
 db.locations = require('./locations.js')(sequelize, Sequelize);
 db.paints = require('./paints.js')(sequelize, Sequelize);
 db.eurocategories = require('./eurocategories.js')(sequelize, Sequelize);
+db.vehicleExtras = require('./vehicle-extras.js')(sequelize, Sequelize);
+
+
+db.listings.belongsToMany(db.vehicleExtras, {
+  through: 'listings_vehicles_extras',
+  as: 'extras',
+  foreignKey: 'listing_id'
+});
+
+db.vehicleExtras.belongsToMany(db.listings, {
+  through: 'listings_vehicles_extras',
+  as: 'listings',
+  foreignKey: 'extra_id'
+});
 
 db.vehiclesCategories.belongsToMany(db.makes, {
   through: 'makes_vehicles_categories',

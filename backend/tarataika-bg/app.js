@@ -17,6 +17,12 @@ var routes = require('./routes/vehicles.routes')(app);
 var categories = require('./routes/vehicle-categories.routes')(app);
 var models = require('./routes/models.routes')(app);
 var listings = require('./routes/listings.routes')(app);
+var engines = require('./routes/engines.routes')(app);
+var gearboxes = require('./routes/gearboxes.routes')(app);
+var locations = require('./routes/locations.routes')(app);
+var ecategories = require('./routes/ecategories.routes')(app);
+var paints = require('./routes/paints.routes')(app);
+var vehicleExtras = require('./routes/vehicle-extras.routes')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

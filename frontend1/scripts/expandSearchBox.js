@@ -1,5 +1,3 @@
-function Expand() {
-
 var box = document.getElementsByClassName('searchbox');
 var button = document.getElementsByClassName("detailedsearch");
 var topVip = document.getElementsByClassName("recentsearch");
@@ -28,8 +26,7 @@ button[0].addEventListener("click", function() {
         }
 
         box[0].style.maxHeight = 600 + "px";
-        button[0].style.marginTop = 360 + "px";
+        button[0].style.marginTop = 250 + "px";
         button[0].value = "Съкратено търсене";
     }
 });
-}

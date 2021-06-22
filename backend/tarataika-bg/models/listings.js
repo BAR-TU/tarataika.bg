@@ -32,7 +32,7 @@ const Listings = sequelize.define("listings",{
         },
         first_registration: {
             field: "first_registration",
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         },
         mileage: {
             field: "mileage",
@@ -69,6 +69,10 @@ const Listings = sequelize.define("listings",{
         info: {
             field: "info",
             type: Sequelize.STRING
+        },
+        eurocategory: {
+            field: "eurocategory",
+            type: Sequelize.INTEGER
         }
     }, {
         timestamps: false

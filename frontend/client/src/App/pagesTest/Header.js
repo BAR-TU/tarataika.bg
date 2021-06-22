@@ -8,6 +8,7 @@ import {
 import Home from './Home';
 import Trivia from './Trivia';
 import VehicleTemplate from './VehicleTemplate/VehicleTemplate';
+import ListingsResults from './ListingsResults';
 import { HomeButton, PublicButton, SearchResultsButton, TestCarButton } from './NavComponent';
 
 class Header extends React.Component {
@@ -29,6 +30,7 @@ class Header extends React.Component {
 
             <Switch>
                 <Route exact path="/"><Home /></Route>
+                <Route path="/listingsresults"><ListingsResults/></Route>
                 <Route path="/trivia"><Trivia /></Route>
                 <Route path="/vehicletemplate/:id"><VehicleTemplate /></Route>
             </Switch>
