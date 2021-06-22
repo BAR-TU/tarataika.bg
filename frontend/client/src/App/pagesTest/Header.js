@@ -30,7 +30,7 @@ class Header extends React.Component {
             <Switch>
                 <Route exact path="/"><Home /></Route>
                 <Route path="/trivia"><Trivia /></Route>
-                <Route path="/vehicletemplate"><VehicleTemplate /></Route>
+                <Route path="/vehicletemplate/:id"><VehicleTemplate /></Route>
             </Switch>
         </Router>
     );

@@ -1,6 +1,8 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import VehiclePictures from "./VehiclePictures";
 import "./VehiclePictures.css";
+import VehicleLocation from "../VehicleLocationMap/VehicleLocation";
 
 class VehicleTemplate extends React.Component {
 
@@ -21,7 +23,7 @@ class VehicleTemplate extends React.Component {
                 gearbox: '',
                 vip_status: '',
                 views: '',
-                location: '',
+                location: {coordinates: ''},
                 paint: '',
                 info: '',
                 ecategory: ''
@@ -99,7 +101,6 @@ class VehicleTemplate extends React.Component {
     }
 
     render() {
-
         const {details} = this.state;
 
     return (
@@ -126,7 +127,12 @@ class VehicleTemplate extends React.Component {
                         <li className="datainput">{details.paint.paint}</li>
                     </ul>
                     </section>
-                <div id="map"></div>
+                <div id="map" >
+                    {console.log(details)}
+                <iframe src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11729.056516477996!2d${details.location.coordinates.split(' ')[1]}!3d${details.location.coordinates.split(' ')[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbg!4v1624215359596!5m2!1sen!2sbg`} width="600" height="450" style={{border: 'none'}} allowfullscreen="" loading="lazy"></iframe>
+                </div>
+
+
         </main>
     );
     }
