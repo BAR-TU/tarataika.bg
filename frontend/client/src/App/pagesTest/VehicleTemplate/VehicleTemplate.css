@@ -27,6 +27,8 @@
 .image2{background-image: url('./../../../img/testlisting/testimage2.png')}
 .image3{background-image: url('./../../../img/testlisting/testimage3.png')}
 
+.vipstatus{background-image: url('./../../../img/testlisting/testimage1.png')}
+
 .imagebox span{
     margin-top: 10px;
     font-size: 20px;

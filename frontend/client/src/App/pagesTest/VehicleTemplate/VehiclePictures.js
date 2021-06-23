@@ -1,4 +1,4 @@
-import "./VehiclePictures.css"
+import "./VehicleTemplate.css"
 
 const VehiclePictures = () => {
     return(
