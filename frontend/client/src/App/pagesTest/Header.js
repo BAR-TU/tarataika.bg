@@ -10,6 +10,7 @@ import Trivia from './Trivia';
 import VehicleTemplate from './VehicleTemplate/VehicleTemplate';
 import ListingsResults from './ListingsResults';
 import { HomeButton, PublicButton, SearchResultsButton, TestCarButton } from './NavComponent';
+import { withRouter } from 'react-router-dom';
 
 class Header extends React.Component {
     render() {
@@ -32,11 +33,11 @@ class Header extends React.Component {
                 <Route exact path="/"><Home /></Route>
                 <Route path="/listingsresults"><ListingsResults/></Route>
                 <Route path="/trivia"><Trivia /></Route>
-                <Route path="/vehicletemplate/:id"><VehicleTemplate /></Route>
+                <Route path="/vehicletemplate"><VehicleTemplate /></Route>
             </Switch>
         </Router>
     );
     }
 }
 
-export default Header;
+export default withRouter(Header);

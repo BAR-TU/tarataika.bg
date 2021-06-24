@@ -3,7 +3,7 @@ import { useLocation } from 'react-router-dom';
 import axios from 'axios';
 import ResultsList from './message-list';
 
-function ListingsResults(props) {
+function ListingsResults() {
     const location = useLocation();
     const [data, setData] = useState();
     const [error, setError] = useState('');

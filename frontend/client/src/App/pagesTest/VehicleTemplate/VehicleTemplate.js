@@ -6,6 +6,8 @@ import VehicleLocation from "../VehicleLocationMap/VehicleLocation";
 import { FontAwesome } from "react-icons/fa";
 import {FaCheck} from "react-icons/fa";
 import {IconContext} from "react-icons";
+import { useLocation } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
 
 class VehicleTemplate extends React.Component {
 
@@ -92,12 +94,14 @@ class VehicleTemplate extends React.Component {
         });
 
         startSlide();
-
+        console.log(this.props.location.state.id);
         this.getListing();
     }
 
     getListing = () => {
-        fetch('/api/listings/1')
+        let query = '/api/listings/';
+        query += this.props.location.state.id;
+        fetch(query)
         .then(res => res.json())
         .then(details => {
             for(let i = 0; i < details.extras.length; i++){
@@ -194,4 +198,4 @@ class VehicleTemplate extends React.Component {
     }
 }
 
-export default VehicleTemplate;
+export default withRouter(VehicleTemplate);
