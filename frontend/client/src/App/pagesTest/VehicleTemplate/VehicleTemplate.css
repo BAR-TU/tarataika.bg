@@ -1,19 +1,23 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
 
 .imagebox, .wrap {
+    position: absolute;
     display:inline-block;
-    border: 1px solid black;
-    border-radius: 5px;
-    width: 800px;
+    width: 1190px;
+    margin-left: 3px;
     height: 500px;
     background-size: contain;
     background-repeat: no-repeat;
     background-position-x: center;
     background-position-y: center;
+    z-index: 0;
 }
 .wrap {
-    position: relative;
-    margin-top: 40px;
+    position: absolute;
+    margin-top: 80px;
+    border: 3px solid black;
+    border-radius: 10px;
+    
 }
 
 .currentimage{
@@ -27,7 +31,31 @@
 .image2{background-image: url('./../../../img/testlisting/testimage2.png')}
 .image3{background-image: url('./../../../img/testlisting/testimage3.png')}
 
-.vipstatus{background-image: url('./../../../img/testlisting/testimage1.png')}
+.vipstatus{
+    background-repeat: no-repeat;
+    background-size: cover;
+    position: absolute;
+    width: 160px;
+    height: 120px;
+    margin-left: 0px;
+    margin-top: 40px;
+    z-index: 1;
+    background-image: url('./../../../img/testlisting/vip.png')
+}
+
+.vehicleinfo{
+    position: absolute;
+    display:inline-block;
+    width: 600px;
+    height: 455px;
+    top:1150px;
+    left: 20px;
+    font-size: 20px;
+    text-align:left;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    text-overflow: scroll;
+}
 
 .imagebox span{
     margin-top: 10px;
@@ -47,6 +75,7 @@
 }
 
 #arrow-left{
+    left: 0;
     margin-left: 10px;
     transform: translate3d(0,-50%,0) rotate(-135deg);
 }
@@ -62,27 +91,35 @@
     border-right: 5px solid rgb(59, 59, 59);
 }
 
-.vehiclebasicinfo {
+.vehicleMakeModel {
+    position: absolute;
     font-size: 40px;
     margin-bottom: 10px;
     padding: 5px;
+    top: 600px;
+    width: 450px;
+    text-align: center;
 }
 
 .cardescription {
+    position: absolute;
     list-style:none;
     margin: 0;
     padding: 10px;
-    border: 1px solid rgb(0, 0, 0);
+    border: 3px solid rgb(0, 0, 0);
     border-radius: 10px;
-    display:inline-block;
-    width: auto;
-    height: auto;
+    display:inline;
+    width: 400px;
+    height: 400px;
+    top: 700px;
+    left: 20px;
+    
 
 }
 .cardescription li.builddate:before{
     content: '';
     display: inline-block;
-    height: 1em;
+    height: 20px;
     width: 1em;
     background-image: url('./../../../img/cardescription/cars-components/svg/065-car-key-1.svg');
     background-repeat: no-repeat;
@@ -91,7 +128,7 @@
 .cardescription li.engine:before{
     content: '';
     display: inline-block;
-    height: 1em;
+    height: 20px;
     width: 1em;
     background-image: url('./../../../img/cardescription/cars-components/svg/047-fuel.svg');
     background-size: contain;
@@ -101,7 +138,7 @@
 .cardescription li.horsepower:before{
     content: '';
     display: inline-block;
-    height: 1em;
+    height: 20px;
     width: 1em;
     background-image: url('./../../../img/cardescription/cars-components/svg/027-piston.svg');
     background-size: contain;
@@ -111,7 +148,7 @@
 .cardescription li.eurostandart:before{
     content: '';
     display: inline-block;
-    height: 1em;
+    height: 20px;
     width: 1em;
     background-image: url('./../../../img/cardescription/cars-components/svg/058-exhaust-pipe-1.svg');
     background-size: contain;
@@ -121,7 +158,7 @@
 .cardescription li.gearbox:before{
     content: '';
     display: inline-block;
-    height: 1em;
+    height: 20px;
     width: 1em;
     background-image: url('./../../../img/cardescription/cars-components/svg/012-gearshift-3.svg');
     background-size: contain;
@@ -131,7 +168,7 @@
 .cardescription li.category:before{
     content: '';
     display: inline-block;
-    height: 1em;
+    height: 20px;
     width: 1em;
     background-image: url('./../../../img/cardescription/cars-components/svg/061-car.svg');
     background-size: contain;
@@ -141,7 +178,7 @@
 .cardescription li.mileage:before{
     content: '';
     display: inline-block;
-    height: 1em;
+    height: 20px;
     width: 1em;
     background-image: url('./../../../img/cardescription/cars-components/svg/020-speedometer.svg');
     background-size: contain;
@@ -151,7 +188,7 @@
 .cardescription li.color:before{
     content: '';
     display: inline-block;
-    height: 1em;
+    height: 20px;
     width: 1em;
     background-image: url('./../../../img/cardescription/cars-components/svg/070-car-painting.svg');
     background-size: contain;
@@ -172,13 +209,59 @@
 }
 
 .cardescription li.datainput{
-display: inline-block;
+display: block;
 margin: 2px;
 font-weight: 600;
-float: right;
 clear: right;
 margin-top: 5px;
 margin-bottom: 15px;
 margin-right: 5px;
 font-size: 25px;
+text-align: right;
+}
+
+.map {
+    display: inline-block;
+    position: absolute;
+    width: 1190px;
+    height: 750px;
+    margin-top: 1650px;
+    margin-left: 2px;
+}
+
+.userinfo {
+    display: inline-block;
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    margin-top: 1150px;
+    margin-left: 700px;
+    border: 3px solid black;
+    border-radius: 10px;
+}
+
+.pricetag {
+    position: absolute;
+    width: auto;
+    right: 0;
+    margin-right: 10px;
+    top: 590px;
+    height: 45px;
+    font-size: 30px;
+    border: 3px solid rgb(0, 102, 255);
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    text-align: center;
+}
+
+.vehicleExtras {
+    width: 460px;
+    height: 425px;
+    margin-left: 700px;
+    margin-top: 696px;
+    border: 3px solid rgb(0, 0, 0);
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    text-overflow: scroll;
+    font-size: 20px;
 }

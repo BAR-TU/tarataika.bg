@@ -3,6 +3,9 @@ import { useParams } from "react-router-dom";
 import VehiclePictures from "./VehiclePictures";
 import "./VehicleTemplate.css";
 import VehicleLocation from "../VehicleLocationMap/VehicleLocation";
+import { FontAwesome } from "react-icons/fa";
+import {FaCheck} from "react-icons/fa";
+import {IconContext} from "react-icons";
 
 class VehicleTemplate extends React.Component {
 
@@ -26,7 +29,8 @@ class VehicleTemplate extends React.Component {
                 location: {coordinates: ''},
                 paint: '',
                 info: '',
-                ecategory: ''
+                ecategory: '',
+                extras: [{extra: ''}]
             }
 
         }
@@ -96,6 +100,40 @@ class VehicleTemplate extends React.Component {
         fetch('/api/listings/1')
         .then(res => res.json())
         .then(details => {
+            for(let i = 0; i < details.extras.length; i++){
+                switch(details.extras[i].extra){
+                    case 'airConditioning':
+                        details.extras[i].extra = 'Климатик'
+                        break;
+                    case 'servo':
+                        details.extras[i].extra = 'Серво'
+                        break;
+                    case 'elWindows':
+                        details.extras[i].extra = 'Ел. стъкла'
+                        break;
+                    case 'alarm':
+                        details.extras[i].extra = 'Аларма'
+                        break;
+                    case 'fourwheel':
+                        details.extras[i].extra = '4х4'
+                        break;
+                    case 'bluetooth':
+                        details.extras[i].extra = 'Bluetooth'
+                        break;
+                    case 'boardcomputer':
+                        details.extras[i].extra = 'Бордови компютър'
+                        break;
+                    case 'navigation':
+                        details.extras[i].extra = 'Навигация'
+                        break;
+                    case 'rainsensor':
+                        details.extras[i].extra = 'Сензор за дъжд'
+                        break;
+                    case 'seatheater':
+                        details.extras[i].extra = 'Подгрев на седалките'
+                        break;
+                }
+            }
             this.setState({ details });
         });
     }
@@ -107,36 +145,50 @@ class VehicleTemplate extends React.Component {
         <main>
             <VehiclePictures />
                     <section>
-                    <p className="vehiclebasicinfo"><strong>{details.make.make} {details.model.model}</strong></p>
+                    <p className="vehicleMakeModel"><strong>{details.make.make} {details.model.model}</strong></p>
                     <ul className="cardescription">
-                        <li className="builddate">Дата на производство</li>
-                        <li className="datainput">{details.first_registration}</li>
+                        <li className="builddate">Година на производство</li>
                         <li className="engine">Тип двигател</li>
-                        <li className="datainput">{details.engine.type}</li>
                         <li className="horsepower">Мощност</li>
-                        <li className="datainput">{details.power} к.с.</li>
                         <li className="eurostandart">Евростандарт</li>
-                        <li className="datainput">{details.ecategory.category}</li>
                         <li className="gearbox">Скоростна кутия</li>
-                        <li className="datainput">{details.gearbox.type}</li>
                         <li className="category">Категория</li>
-                        <li className="datainput">{details.vehicle_category.vehicle_category}</li>
                         <li className="mileage">Пробег</li>
-                        <li className="datainput">{details.mileage} км</li>
                         <li className="color">Цвят</li>
-                        <li className="datainput">{details.paint.paint}</li>
+                    </ul>
+                    <ul className="cardescription">
+                        <li className="datainput">{details.first_registration}</li>
+                        <li className="datainput">{details.engine.type}</li>
+                        <li className="datainput" >{details.power} к.с.</li>
+                        <li className="datainput" style={{marginTop: '15px'}}>{details.ecategory.category}</li>
+                        <li className="datainput" style={{marginTop: '21px'}}>{details.gearbox.type}</li>
+                        <li className="datainput">{details.vehicle_category.vehicle_category}</li>
+                        <li className="datainput"style={{marginTop: '18px'}}>{details.mileage} км</li>
+                        <li className="datainput" style={{marginTop: '18px'}}>{details.paint.paint}</li>
                     </ul>
                     </section>
-                <div id="map" >
+                <div className="map" >
                     {console.log(details)}
-                <iframe src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11729.056516477996!2d${details.location.coordinates.split(' ')[1]}!3d${details.location.coordinates.split(' ')[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbg!4v1624215359596!5m2!1sen!2sbg`} width="600" height="450" style={{border: 'none'}} allowfullscreen="" loading="lazy"></iframe>
+                <iframe src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11729.056516477996!2d${details.location.coordinates.split(' ')[1]}!3d${details.location.coordinates.split(' ')[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbg!4v1624215359596!5m2!1sen!2sbg`} width="1190" height="750" style={{borderRadius: '10px'}} allowfullscreen="" loading="lazy"></iframe>
                 </div>
-                <div className="pricetag">{details.price}</div>
-                <div className="imagebox vipstatus">ViP</div>
-                <div className="vehicleinfo">{details.info}</div>
+                <div className="pricetag"><b>Цена:</b> {details.price}лв.</div>
+                <div className="vipstatus"></div>
+
+                <div className="vehicleinfo" style={{textAlign: 'center', fontSize: '28px'}}> <b>Описание:</b>
+                    <div style={{textAlign: 'left', fontSize: '22px'}}>{details.info}</div>
+                    </div>
+
+
                 <div className="userinfo">UserInfoPlaceHolder</div>
-
-
+                
+                <div className="vehicleExtras" style={{textAlign: 'center', fontSize: '28px'}}> <b>Екстри:</b> {details.extras.map(extra => (
+                    <div className="extrasContainer" style={{textAlign: 'left', fontSize: '22px'}}>
+                    <div className> 
+                    <IconContext.Provider value={{style: {fontSize: '15px', color: 'rgb(0,204,0)'}}}>
+                        <FaCheck /></IconContext.Provider> {extra.extra}</div>
+                    </div>
+                ))}
+                </div>
         </main>
     );
     }
