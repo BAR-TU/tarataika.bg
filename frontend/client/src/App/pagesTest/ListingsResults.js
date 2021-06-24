@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-
+import ResultsList from './message-list';
 
 function ListingsResults(props) {
     const location = useLocation();
-    const [data, setData] = useState(0);
+    const [data, setData] = useState();
+    const [error, setError] = useState('');
 
     useEffect(async () => {
         var selected = document.getElementsByClassName("selected");
@@ -14,7 +15,7 @@ function ListingsResults(props) {
         toSelect.className = "selected";
 
         if (location.state !== undefined) {
-            const res = await axios.get('/api/listings/criteria', {
+            const res = await axios.get('/api/listings/criteria/', {
                 params: {
                     make: location.state.details.make,
                     model: location.state.details.model,
@@ -42,14 +43,15 @@ function ListingsResults(props) {
                     paint: location.state.details.paint
                 }
             });
-            setData(res.data[0].info);
-        } else {
-            setData("Не сте въвели критерии за тръсене."); 
-        }
+            if (res.data.length > 0)
+                setData(res.data);
+            } else {
+                setError("Не сте въвели критерии за търсене."); 
+            }
     });
     return (
         <main>
-            <span>{data}</span>
+            <ResultsList results={data} error={error}/>
         </main>
     );
 }

@@ -10,26 +10,40 @@ const Paint = db.paints;
 const Ecategory = db.eurocategories;
 const Categories = db.vehiclesCategories;
 const VehicleExtras = db.vehicleExtras;
-let extrasChosen = [];
+let extrasChosen;
 var yearCondition;
 
 exports.findByCriteria = (req, res) => {
     var includeModels = [];
 
-    if (req.query.make !== '---' && req.query.make !== '')
+    if (req.query.make !== '---' && req.query.make !== '') {
         includeModels.push({
             model: Makes,
             as: 'make',
             attributes: ["make_id", "make"],
             where: { make: req.query.make }
         });
-    if (req.query.model !== '---' && req.query.model !== '')
+    } else {
+        includeModels.push({
+            model: Makes,
+            as: 'make',
+            attributes: ["make_id", "make"]
+        });
+    }
+    if (req.query.model !== '---' && req.query.model !== '') {
         includeModels.push({
             model: Model,
             as: 'model',
             attributes: ["model_id", "model", "make_id", "vehicle_category_id"],
             where: { model: req.query.model}
         });
+    } else {
+        includeModels.push({
+            model: Model,
+            as: 'model',
+            attributes: ["model_id", "model", "make_id", "vehicle_category_id"]
+        });
+    }
     if (req.query.engine !== '---' && req.query.engine !== '')
         includeModels.push({
             model: Engine,
@@ -44,13 +58,20 @@ exports.findByCriteria = (req, res) => {
             attributes: ["id", "type"],
             where: { type: req.query.gearbox}
         });
-    if (req.query.location !== '---' && req.query.location !== '')
+    if (req.query.location !== '---' && req.query.location !== '') {
         includeModels.push({
             model: Location,
             as: 'location',
             attributes: ["id", "location", "coordinates"],
             where: { location: req.query.location}
         });
+    } else {
+        includeModels.push({
+            model: Location,
+            as: 'location',
+            attributes: ["id", "location", "coordinates"],
+        });
+    }
     if (req.query.paint !== '---' && req.query.paint !== '')
         includeModels.push({
             model: Paint,
@@ -115,6 +136,8 @@ exports.findByCriteria = (req, res) => {
     if (req.query.mileage !== '') {
         wheres.push({ mileage: { [Op.lte]: maxRange } });
     }
+    
+    extrasChosen = [];
 
     Object.keys(req.query).forEach(e => {
         if (req.query[e] === 'on') {
@@ -142,6 +165,13 @@ exports.findByCriteria = (req, res) => {
     }
     )
     .then(data => {
+        if (extrasChosen.length > 0) {
+            for (let i = 0; i < data.length; i++) {
+                if (extrasChosen.length !== data[i].extras.length) {
+                    data.splice(i, 1);
+                }
+            }
+        }
         res.send(data);
     })
     .catch(err => {
