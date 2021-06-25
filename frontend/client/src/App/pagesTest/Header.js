@@ -9,8 +9,9 @@ import Home from './Home';
 import Trivia from './Trivia';
 import VehicleTemplate from './VehicleTemplate/VehicleTemplate';
 import ListingsResults from './ListingsResults';
-import { HomeButton, PublicButton, SearchResultsButton, TestCarButton } from './NavComponent';
+import { HomeButton, PublicButton, SearchResultsButton, AccountButton } from './NavComponent';
 import { withRouter } from 'react-router-dom';
+import Account from './Account';
 
 class Header extends React.Component {
     render() {
@@ -24,7 +25,7 @@ class Header extends React.Component {
                         <HomeButton />
                         <SearchResultsButton />
                         <PublicButton />
-                        <TestCarButton />
+                        <AccountButton />
                     </ul>
                 </nav>
             </header>
@@ -32,8 +33,8 @@ class Header extends React.Component {
             <Switch>
                 <Route exact path="/"><Home /></Route>
                 <Route path="/listingsresults"><ListingsResults/></Route>
-                <Route path="/trivia"><Trivia /></Route>
-                <Route path="/vehicletemplate"><VehicleTemplate /></Route>
+                <Route path="/account"><Account /></Route>
+                <Route path="/vehicleTemplate"><VehicleTemplate /></Route>
             </Switch>
         </Router>
     );

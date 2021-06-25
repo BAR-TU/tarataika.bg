@@ -3,10 +3,8 @@ import { useParams } from "react-router-dom";
 import VehiclePictures from "./VehiclePictures";
 import "./VehicleTemplate.css";
 import VehicleLocation from "../VehicleLocationMap/VehicleLocation";
-import { FontAwesome } from "react-icons/fa";
 import {FaCheck} from "react-icons/fa";
 import {IconContext} from "react-icons";
-import { useLocation } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
 
 class VehicleTemplate extends React.Component {
@@ -41,7 +39,7 @@ class VehicleTemplate extends React.Component {
     componentDidMount() {
         var selected = document.getElementsByClassName("selected");
         selected[0].className = "";
-        var toSelect = document.getElementById("testcar");
+        var toSelect = document.getElementById("searchresults");
         toSelect.className = "selected";
         
         let sliderImages = document.querySelectorAll('.imagebox'),
@@ -94,7 +92,6 @@ class VehicleTemplate extends React.Component {
         });
 
         startSlide();
-        console.log(this.props.location.state.id);
         this.getListing();
     }
 
@@ -172,8 +169,7 @@ class VehicleTemplate extends React.Component {
                     </ul>
                     </section>
                 <div className="map" >
-                    {console.log(details)}
-                <iframe src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11729.056516477996!2d${details.location.coordinates.split(' ')[1]}!3d${details.location.coordinates.split(' ')[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbg!4v1624215359596!5m2!1sen!2sbg`} width="1190" height="750" style={{borderRadius: '10px'}} allowfullscreen="" loading="lazy"></iframe>
+                <iframe src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11729.056516477996!2d${details.location.coordinates.split(' ')[1]}!3d${details.location.coordinates.split(' ')[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbg!4v1624215359596!5m2!1sen!2sbg`} width="1190" height="750" style={{borderRadius: '10px'}} allowFullScreen="" loading="lazy"></iframe>
                 </div>
                 <div className="pricetag"><b>Цена:</b> {details.price}лв.</div>
                 <div className="vipstatus"></div>
@@ -185,13 +181,17 @@ class VehicleTemplate extends React.Component {
 
                 <div className="userinfo">UserInfoPlaceHolder</div>
                 
-                <div className="vehicleExtras" style={{textAlign: 'center', fontSize: '28px'}}> <b>Екстри:</b> {details.extras.map(extra => (
+                <div className="vehicleExtras" style={{textAlign: 'center', fontSize: '28px'}}> <b>Екстри:</b> 
                     <div className="extrasContainer" style={{textAlign: 'left', fontSize: '22px'}}>
-                    <div className> 
-                    <IconContext.Provider value={{style: {fontSize: '15px', color: 'rgb(0,204,0)'}}}>
-                        <FaCheck /></IconContext.Provider> {extra.extra}</div>
-                    </div>
+                        
+                        {details.extras.map(extra => (
+                        <div key={ extra.extra_id } value={ extra.extra }> 
+                            <IconContext.Provider value={{style: {fontSize: '15px', color: 'rgb(0,204,0)'}}}><FaCheck /></IconContext.Provider>
+                            {extra.extra}
+                        </div>
+                    
                 ))}
+                </div>
                 </div>
         </main>
     );
