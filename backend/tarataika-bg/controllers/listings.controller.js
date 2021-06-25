@@ -181,6 +181,29 @@ exports.findByCriteria = (req, res) => {
     });
 }
 
+exports.update = (req, res) => {
+    const id = req.query.id;
+    Listings.update({ views: req.query.views }, {
+        where: { id: id }
+    })
+    .then(num => {
+        if (num == 1) {
+            res.send({
+              message: "Tutorial was updated successfully."
+            });
+          } else {
+            res.send({
+              message: 'Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!'
+            });
+          }
+        })
+        .catch(err => {
+          res.status(500).send({
+            message: "Error updating Tutorial with id=" + id
+          });
+        });
+}
+
 exports.findById = (req, res) => {
     const id = req.params.id;
 

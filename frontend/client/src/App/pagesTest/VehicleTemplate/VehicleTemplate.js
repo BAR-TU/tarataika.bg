@@ -8,6 +8,7 @@ import {FaCheck} from "react-icons/fa";
 import {IconContext} from "react-icons";
 import { useLocation } from 'react-router-dom';
 import { withRouter } from 'react-router-dom';
+import axios from "axios";
 
 class VehicleTemplate extends React.Component {
 
@@ -34,11 +35,10 @@ class VehicleTemplate extends React.Component {
                 ecategory: '',
                 extras: [{extra: ''}]
             }
-
         }
     }
 
-    componentDidMount() {
+    async componentDidMount() {
         var selected = document.getElementsByClassName("selected");
         selected[0].className = "";
         var toSelect = document.getElementById("testcar");
@@ -95,13 +95,25 @@ class VehicleTemplate extends React.Component {
 
         startSlide();
         console.log(this.props.location.state.id);
-        this.getListing();
+        await this.getListing();
+        this.updateViews();
     }
 
-    getListing = () => {
+    updateViews = () => {
+        let newViews = parseInt(this.state.details.views)
+        newViews++;
+        axios.put('/api/listings/updateViews/', null, {
+            params: {
+                views: newViews,
+                id: this.props.location.state.id 
+            }
+        });
+    }
+
+    async getListing() {
         let query = '/api/listings/';
         query += this.props.location.state.id;
-        fetch(query)
+        await fetch(query)
         .then(res => res.json())
         .then(details => {
             for(let i = 0; i < details.extras.length; i++){
@@ -193,6 +205,8 @@ class VehicleTemplate extends React.Component {
                     </div>
                 ))}
                 </div>
+
+                <div className="pricetag"> {details.views}</div>
         </main>
     );
     }

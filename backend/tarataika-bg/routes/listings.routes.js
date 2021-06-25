@@ -7,5 +7,7 @@ module.exports = app => {
 
     router.get('/:id', listings.findById);
 
+    router. put('/updateViews', listings.update);
+
     app.use('/api/listings', router);
 };
