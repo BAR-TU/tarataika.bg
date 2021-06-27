@@ -15,6 +15,10 @@ module.exports = (sequelize, Sequelize) => {
         email: {
             field: "email",
             type: Sequelize.STRING
+        },
+        role: {
+            field: "role",
+            type: Sequelize.STRING
         }
     }, {
         timestamps: false

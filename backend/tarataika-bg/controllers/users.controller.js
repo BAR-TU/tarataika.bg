@@ -12,7 +12,8 @@ exports.register = (req, res) => {
             username: username,
             password: hash,
             phone_number: phone_number,
-            email: email
+            email: email,
+            role: "user"
         }).then(() => {
             res.json("Успешна регистрация!");
         }).catch((err) => {

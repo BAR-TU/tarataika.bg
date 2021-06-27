@@ -12,6 +12,7 @@ import ListingsResults from './ListingsResults';
 import { HomeButton, PublicButton, SearchResultsButton, AccountButton } from './NavComponent';
 import { withRouter } from 'react-router-dom';
 import Account from './Account';
+import Register from './Login';
 
 class Header extends React.Component {
     render() {
