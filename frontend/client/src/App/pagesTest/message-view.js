@@ -1,6 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { useHistory } from "react-router-dom";
+import {
+  BrowserRouter as Router, Route
+} from 'react-router-dom';
+import VehicleTemplate from './VehicleTemplate/VehicleTemplate';
 
 const ResultsView = ({ result }) => {
     let history = useHistory();
@@ -13,6 +17,7 @@ const ResultsView = ({ result }) => {
     }
 
   return(
+    <Router>
     <div className="message" onClick={redirectToTemplate}>
       <div className="field">
         <span className="label">Марка: </span>
@@ -27,6 +32,9 @@ const ResultsView = ({ result }) => {
         <span className="value">{result.price}</span>
       </div>
     </div>
+
+    <Route path="/vehicleTemplate"><VehicleTemplate /></Route>
+    </Router>
   );
 };
 

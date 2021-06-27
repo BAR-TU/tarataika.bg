@@ -30,6 +30,7 @@ db.locations = require('./locations.js')(sequelize, Sequelize);
 db.paints = require('./paints.js')(sequelize, Sequelize);
 db.eurocategories = require('./eurocategories.js')(sequelize, Sequelize);
 db.vehicleExtras = require('./vehicle-extras.js')(sequelize, Sequelize);
+db.users = require('./users')(sequelize, Sequelize);
 
 
 db.listings.belongsToMany(db.vehicleExtras, {

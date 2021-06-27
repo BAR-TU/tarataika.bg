@@ -13,6 +13,7 @@ const db = require('./models');
 db.sequelize.sync();
 
 var app = express();
+app.use(cookieParser());
 var routes = require('./routes/vehicles.routes')(app);
 var categories = require('./routes/vehicle-categories.routes')(app);
 var models = require('./routes/models.routes')(app);
@@ -23,6 +24,7 @@ var locations = require('./routes/locations.routes')(app);
 var ecategories = require('./routes/ecategories.routes')(app);
 var paints = require('./routes/paints.routes')(app);
 var vehicleExtras = require('./routes/vehicle-extras.routes')(app);
+var users = require('./routes/users.routes')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
@@ -31,9 +33,9 @@ app.set('view engine', 'pug');
 app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
-app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
+
 
 app.use('/', indexRouter);
 app.use('/users', usersRouter);

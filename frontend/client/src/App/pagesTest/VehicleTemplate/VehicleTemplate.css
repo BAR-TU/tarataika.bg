@@ -265,3 +265,15 @@ text-align: right;
     text-overflow: scroll;
     font-size: 20px;
 }
+
+.viewsCounter{
+        position: absolute;
+        width: auto;
+        right: 0;
+        margin-right: 10px;
+        top: 50px;
+        height: auto;
+        font-size: 20px;
+        border-radius: 10px;
+        text-align: center;
+}

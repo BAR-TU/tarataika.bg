@@ -31,34 +31,14 @@ const SearchResultsButton = () => {
     );
 }
 
-const GearButton = () => {
+const AccountButton = () => {
     let history = useHistory(); 
     const handleClick = () => {
-        history.push("/");
+        history.push("/account");
     }   
     return (
-        <li onClick={ handleClick }> Gear</li>
+        <li id="trivia" onClick={ handleClick }> Акаунт</li>
     );
 }
 
-const TriviaButton = () => {
-    let history = useHistory(); 
-    const handleClick = () => {
-        history.push("/trivia");
-    }   
-    return (
-        <li id="trivia" onClick={ handleClick }> История</li>
-    );
-}
-
-const TestCarButton = () => {
-    let history = useHistory(); 
-    const handleClick = () => {
-        history.push("/vehicletemplate");
-    }   
-    return (
-        <li id="testcar" onClick={ handleClick }> Акаунт</li>
-    );
-}
-
-export { HomeButton, PublicButton, SearchResultsButton, TestCarButton };
+export { HomeButton, PublicButton, SearchResultsButton, AccountButton };
