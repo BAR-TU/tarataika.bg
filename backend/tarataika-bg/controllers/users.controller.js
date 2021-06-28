@@ -68,13 +68,8 @@ exports.profile = (req, res) => {
 };
 
 exports.logout = (req, res) => {
-    const accessToken = sign({},
-        "BAR-LogisticsTopJWTSecret1234", { expiresIn: '5s' })
 
-    res.cookie("access-token", accessToken, {
-        maxAge: 5*1000,
-        httpOnly: true,
-    }); 
+    res.cookie("access-token", {expires: Date.now()}); 
 
-    res.send("Logout successful");
+    res.json("Logout successful");
 };
