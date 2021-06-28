@@ -1,7 +1,7 @@
 const {sign, verify} = require("jsonwebtoken");
 
 const createTokens = (user) => {
-    const accessToken = sign({username: user.username, id: user.id},
+    const accessToken = sign({username: user.username, id: user.id, role: user.role},
         "BAR-LogisticsTopJWTSecret1234")
         return accessToken;
 };

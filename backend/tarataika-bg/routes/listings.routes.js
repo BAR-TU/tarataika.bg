@@ -1,3 +1,4 @@
+const {authListings, authPage} = require('../../auth/middleware');
 module.exports = app => {
     const listings = require('../controllers/listings.controller.js');
 
@@ -5,9 +6,9 @@ module.exports = app => {
     
     router.get('/criteria', listings.findByCriteria);
 
-    router.get('/:id', listings.findById);
+    router.get('/:id', authPage(["admin"]) , listings.findById);
 
-    router. put('/updateViews', listings.update);
+    router.put('/updateViews', listings.update);
 
     app.use('/api/listings', router);
 };
