@@ -2,7 +2,6 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import VehiclePictures from "./VehiclePictures";
 import "./VehicleTemplate.css";
-import VehicleLocation from "../VehicleLocationMap/VehicleLocation";
 import {FaCheck} from "react-icons/fa";
 import {IconContext} from "react-icons";
 import { withRouter } from 'react-router-dom';
@@ -106,7 +105,11 @@ class VehicleTemplate extends React.Component {
     }
 
     updateViews = () => {
-        if (sessionStorage.getItem('viewsUpdated') === null) {
+        let visited = [];
+        if (sessionStorage.getItem('viewsUpdated'))
+            visited = JSON.parse(sessionStorage.getItem('viewsUpdated'));
+
+        if (!visited.includes(this.props.location.state.id)) {
             let newViews = parseInt(this.state.details.views)
             newViews++;
             axios.put('/api/listings/updateViews/', null, {
@@ -115,8 +118,11 @@ class VehicleTemplate extends React.Component {
                     id: this.props.location.state.id 
                 }
             });
+
+            visited.push(this.props.location.state.id);
         }
-        sessionStorage.setItem('viewsUpdated', 'true');
+
+        sessionStorage.setItem('viewsUpdated', JSON.stringify(visited));
     }
 
 

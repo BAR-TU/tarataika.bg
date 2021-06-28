@@ -6,16 +6,28 @@ import {
 } from 'react-router-dom';
 
 import Home from './Home';
-import Trivia from './Trivia';
 import VehicleTemplate from './VehicleTemplate/VehicleTemplate';
 import ListingsResults from './ListingsResults';
 import { HomeButton, PublicButton, SearchResultsButton, AccountButton } from './NavComponent';
 import { withRouter } from 'react-router-dom';
 import Account from './Account';
-import Register from './Login';
+import Login from './Login';
+import Register from './Register';
 
 class Header extends React.Component {
+    constructor (props) {
+        super(props);
+
+        this.state = {
+            token: ''
+        };
+    }
+
+    componentDidMount() {
+        this.setState({token: localStorage.getItem('token')})
+    }
     render() {
+        const { token } = this.state;
     return (
         <Router>
             <header>                                                                                                                 
@@ -26,7 +38,7 @@ class Header extends React.Component {
                         <HomeButton />
                         <SearchResultsButton />
                         <PublicButton />
-                        <AccountButton />
+                        <AccountButton token={ token }/>
                     </ul>
                 </nav>
             </header>
@@ -34,8 +46,10 @@ class Header extends React.Component {
             <Switch>
                 <Route exact path="/"><Home /></Route>
                 <Route path="/listingsresults"><ListingsResults/></Route>
-                <Route path="/account"><Account /></Route>
+                <Route path="/login"><Login /></Route>
                 <Route path="/vehicleTemplate"><VehicleTemplate /></Route>
+                <Route path="/account"><Account /></Route>
+                <Route path="/register"><Register/></Route>
             </Switch>
         </Router>
     );

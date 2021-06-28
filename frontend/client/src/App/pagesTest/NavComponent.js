@@ -1,6 +1,7 @@
 import React from 'react';
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
+import axios from 'axios';
 
 const HomeButton = () => {
     let history = useHistory(); 
@@ -32,20 +33,32 @@ const SearchResultsButton = () => {
     );
 }
 
-const AccountButton = () => {
+const AccountButton = (props) => {
     let history = useHistory(); 
+    
     const handleClick = () => {
+      if(props.token !== '') {
+        history.push("/login")
+      } else {
         history.push("/account");
+      }
     }   
     return (
         <li id="account" onClick={ handleClick }> Акаунт</li>
     );
 }
 
-const LoginBtn = () => {
+const LoginBtn = (props) => {
     let history = useHistory(); 
     const handleClick = () => {
-     history.push("/");
+      axios.post('/api/users/login', {
+        username: props.username,
+        password: props.password
+      }, {withCredentials: true}).then(() => {
+        history.push('/account');
+      }, (error) => {
+        console.log(error);
+      })
     }   
     return (
       <Button variant="outlined" color="primary" onClick={handleClick}>

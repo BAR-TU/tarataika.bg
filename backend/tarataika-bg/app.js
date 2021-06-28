@@ -4,7 +4,7 @@ var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var cors = require('cors');
-var bodyParser = require('body-parser');
+var myParser = require('body-parser');
 
 
 var indexRouter = require('./routes');
@@ -15,7 +15,8 @@ db.sequelize.sync();
 
 var app = express();
 app.use(cookieParser());
-app.use(bodyParser());
+app.use(myParser.urlencoded({extended: true}));
+app.use(myParser.json())
 var routes = require('./routes/vehicles.routes')(app);
 var categories = require('./routes/vehicle-categories.routes')(app);
 var models = require('./routes/models.routes')(app);
