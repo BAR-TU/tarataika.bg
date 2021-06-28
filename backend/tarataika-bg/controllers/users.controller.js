@@ -3,9 +3,14 @@ const User = db.users;
 const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 const {createTokens, validateToken} = require('../JWT/JWT');
+const {sign, verify} = require("jsonwebtoken");
 
 exports.register = (req, res) => {
-    const { username, password, phone_number, email } = req.query;
+    const username = req.body.username;
+    const password = req.body.password;
+    const phone_number = req.body.phone_number;
+    const email = req.body.email;
+
     bcrypt.hash(password, 10).then((hash) => {
         User.create({
             username: username,
@@ -16,9 +21,7 @@ exports.register = (req, res) => {
         }).then(() => {
             res.json("Успешна регистрация!");
         }).catch((err) => {
-            if(err) {
-                res.status(400).json({error: err});
-            }
+            res.status(400).json({error: err});
         });
     });
 };
@@ -52,7 +55,7 @@ exports.login = async (req, res) => {
 
 exports.profile = (req, res) => {
     if (req.authenticated && req.id) {
-
+        
         User.findOne({where: { id: req.id } }).then(data => {
             res.send(data);
         })
@@ -61,5 +64,17 @@ exports.profile = (req, res) => {
                 message: err.message || "Some errors occured while retrieving the user info."
             });
         });
-}
+    }
+};
+
+exports.logout = (req, res) => {
+    const accessToken = sign({},
+        "BAR-LogisticsTopJWTSecret1234", { expiresIn: '5s' })
+
+    res.cookie("access-token", accessToken, {
+        maxAge: 5*1000,
+        httpOnly: true,
+    }); 
+
+    res.send("Logout successful");
 };

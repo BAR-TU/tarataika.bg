@@ -11,10 +11,19 @@ function Account() {
 
     const getUserInfo = () => {
         axios.get('/api/users/profile').then((res) =>  {
+            sessionStorage.setItem('loggedIn', 'true');
+            sessionStorage.setItem('user', JSON.stringify(res.data));
             setData(res.data.username);
-            console.log(res.data.username);
         });
     }
+    const logout = () => {
+        sessionStorage.removeItem('loggedIn');
+        sessionStorage.removeItem('user');
+        axios.post('api/users/logout').then((res) => {
+            setData(res.data);
+        })
+    }
+
     useEffect(() => {
         var selected = document.getElementsByClassName("selected");
         selected[0].className = "";
@@ -25,6 +34,7 @@ function Account() {
     return (
         <main>
             <div>{ data } </div>
+            <input type="button" onClick={logout} value="Изход"></input>
         </main>
     );
 }

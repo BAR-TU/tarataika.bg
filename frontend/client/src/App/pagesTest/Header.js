@@ -15,19 +15,7 @@ import Login from './Login';
 import Register from './Register';
 
 class Header extends React.Component {
-    constructor (props) {
-        super(props);
-
-        this.state = {
-            token: ''
-        };
-    }
-
-    componentDidMount() {
-        this.setState({token: localStorage.getItem('token')})
-    }
     render() {
-        const { token } = this.state;
     return (
         <Router>
             <header>                                                                                                                 
@@ -38,7 +26,7 @@ class Header extends React.Component {
                         <HomeButton />
                         <SearchResultsButton />
                         <PublicButton />
-                        <AccountButton token={ token }/>
+                        <AccountButton/>
                     </ul>
                 </nav>
             </header>

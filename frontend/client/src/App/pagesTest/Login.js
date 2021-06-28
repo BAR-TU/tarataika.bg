@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { LoginBtn, RegBtn } from './NavComponent';
@@ -24,8 +25,10 @@ const useStyles = makeStyles((theme) => ({
 
 function Login() {
   const classes = useStyles();
+  const location = useLocation();
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const [response, setResponse] = useState('');
 
   const usernameChange = (e) => {
     setUsername(e.target.value);
@@ -40,6 +43,12 @@ function Login() {
     selected[0].className = "";
     var toSelect = document.getElementById("account");
     toSelect.className = "selected";
+
+    if (location.state !== undefined) {
+      setResponse(location.state.response);
+    } else {
+      setResponse('');
+    }
 });
   return (
     <main>
@@ -67,6 +76,7 @@ function Login() {
           <LoginBtn username={username} password={password}/>
       </div>
       </form>
+      <div>{response}</div>
     </main>
   );
 }
