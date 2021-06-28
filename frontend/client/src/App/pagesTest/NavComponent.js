@@ -49,18 +49,15 @@ const AccountButton = () => {
   }
 
 const LoginBtn = (props) => {
-    let history = useHistory(); 
+    let history = useHistory();
+
     const handleClick = () => {
       axios.post('/api/users/login', {
         username: props.username,
         password: props.password
       }, {withCredentials: true}).then((res) => {
         if (res.status === 200) { 
-          history.push({
-          pathname: '/account',
-          search: '',
-          state: { username: props.username }
-        });
+          history.push("/account");
         }
       }, (error) => {
         console.log(error);

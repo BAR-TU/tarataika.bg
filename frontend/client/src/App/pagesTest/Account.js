@@ -1,10 +1,5 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
-import {
-    BrowserRouter as Router,
-    Switch,
-    Route
-  } from 'react-router-dom';
 
 function Account() {
     const [data, setData] = useState();
@@ -17,7 +12,7 @@ function Account() {
         });
     }
     const logout = () => {
-        sessionStorage.removeItem('loggedIn');
+        sessionStorage.setItem('loggedIn', 'false');
         sessionStorage.removeItem('user');
         axios.post('api/users/logout').then((res) => {
             setData(res.data);
