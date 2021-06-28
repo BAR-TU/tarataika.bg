@@ -6,7 +6,7 @@ module.exports = app => {
     
     router.get('/criteria', listings.findByCriteria);
 
-    router.get('/:id', authPage(["admin"]) , listings.findById);
+    router.get('/:id', listings.findById);
 
     router.put('/updateViews', listings.update);
 

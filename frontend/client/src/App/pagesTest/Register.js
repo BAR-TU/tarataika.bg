@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { RegisterBtn } from './NavComponent';
@@ -21,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const Register = () => {
+function Register() {
   const classes = useStyles();
 
   useEffect(() => {
@@ -30,44 +30,46 @@ const Register = () => {
     var toSelect = document.getElementById("account");
     toSelect.className = "selected";
 });
-
+  
   return (
     <Router>
-    <form className={classes.root} noValidate autoComplete="off">
-      <div>
-        <TextField
-          id="standard-username-input"
-          label="Потребителско име"
-          type="text"
-          autoComplete="current-username"
-        />
-        <TextField
-          id="standard-password-input"
-          label="Парола"
-          type="password"
-          autoComplete="current-password"
-        />
-        <TextField
-          id="standard-email-input"
-          label="Email"
-          type="email"
-          autoComplete="current-email"
-        />
-        <TextField
-          id="standard-password-input"
-          label="Тел. Номер"
-          type="phone_number"
-          autoComplete="current-phone_number"
-        />
-      </div>
-      <div className={classes.root}>
-        <RegisterBtn/>
-    </div>
-    </form>
+      <main>
+        <form className={classes.root} noValidate autoComplete="off">
+          <div>
+            <TextField
+              id="standard-username-input"
+              label="Потребителско име"
+              type="text"
+              autoComplete="current-username"
+            />
+            <TextField
+              id="standard-password-input"
+              label="Парола"
+              type="password"
+              autoComplete="current-password"
+            />
+            <TextField
+              id="standard-email-input"
+              label="Email"
+              type="email"
+              autoComplete="current-email"
+            />
+            <TextField
+              id="standard-password-input"
+              label="Тел. Номер"
+              type="phone_number"
+              autoComplete="current-phone_number"
+            />
+          </div>
+          <div className={classes.root}>
+            <RegisterBtn/>
+         </div>
+        </form>
+      </main>
       <Switch>
-      <Route path="/"></Route>
-  </Switch>
-</Router>
+        <Route path="/"></Route>
+      </Switch>
+  </Router>
   );
 }
 

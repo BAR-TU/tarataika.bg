@@ -24,7 +24,7 @@ exports.register = (req, res) => {
 };
 
 exports.login = async (req, res) => {
-    const {username, password} = req.query;
+    const {username, password} = req.body;
 
     const user = await User.findOne({where: {username: username}});
 
@@ -45,11 +45,21 @@ exports.login = async (req, res) => {
                 httpOnly: true,
             });
 
-            res.json("Logged in");
+            res.json(username);
         }
     });
 };
 
 exports.profile = (req, res) => {
-    res.json("Profile");
+    if (req.authenticated && req.id) {
+
+        User.findOne({where: { id: req.id } }).then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Some errors occured while retrieving the user info."
+            });
+        });
+}
 };

@@ -18,6 +18,7 @@ const validateToken = (req, res, next) => {
         const validToken = verify(accessToken, "BAR-LogisticsTopJWTSecret1234")
         if(validToken) {
             req.authenticated = true;
+            req.id = validToken.id;
             return next();
         }
     } catch (err) {
