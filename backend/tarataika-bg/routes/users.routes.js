@@ -11,5 +11,7 @@ module.exports = app => {
     
     router.get("/profile", validateToken, users.profile);
 
+    router.post('/logout', users.logout);
+
     app.use('/api/users', router);
   };

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
@@ -33,11 +33,11 @@ const SearchResultsButton = () => {
     );
 }
 
-const AccountButton = (props) => {
+const AccountButton = () => {
     let history = useHistory(); 
     
     const handleClick = () => {
-      if(props.token !== '') {
+      if(sessionStorage.getItem('loggedIn') !== 'true') {
         history.push("/login")
       } else {
         history.push("/account");
@@ -46,7 +46,7 @@ const AccountButton = (props) => {
     return (
         <li id="account" onClick={ handleClick }> Акаунт</li>
     );
-}
+  }
 
 const LoginBtn = (props) => {
     let history = useHistory(); 
@@ -54,11 +54,18 @@ const LoginBtn = (props) => {
       axios.post('/api/users/login', {
         username: props.username,
         password: props.password
-      }, {withCredentials: true}).then(() => {
-        history.push('/account');
+      }, {withCredentials: true}).then((res) => {
+        if (res.status === 200) { 
+          history.push({
+          pathname: '/account',
+          search: '',
+          state: { username: props.username }
+        });
+        }
       }, (error) => {
         console.log(error);
-      })
+        history.push('/login')
+      });
     }   
     return (
       <Button variant="outlined" color="primary" onClick={handleClick}>
@@ -78,15 +85,36 @@ const LoginBtn = (props) => {
     );
   }
 
-  const RegisterBtn = () => {
-    let history = useHistory(); 
+  const RegisterBtn = (props) => {
+    let history = useHistory();
+    const [respond, setRespond] = useState('');
+    
     const handleClick = () => {
-     history.push("/login");
-    }   
+      axios.post('/api/users/register', {
+        username: props.username,
+        password: props.password,
+        phone_number: props.phone_number,
+        email: props.email
+      }).then((res) => {
+        console.log(res);
+        history.push({
+          pathname: '/login',
+          search: '',
+          state: { response: res.data }
+        });
+      }
+    ).catch(
+      function (error) {
+        setRespond('Неуспешна регистрация!');
+      });
+  }
     return (
+      <div>
   <Button variant="outlined" color="primary" onClick={handleClick}>
           Регистрация
         </Button>
+        <div>{respond}</div>
+        </div>
     );
   }
 
