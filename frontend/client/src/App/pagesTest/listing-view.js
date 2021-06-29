@@ -18,7 +18,7 @@ const ResultsView = ({ result }) => {
 
   return(
     <Router>
-    <div className="message" onClick={redirectToTemplate}>
+    <div className="listin" onClick={redirectToTemplate}>
       <div className="field">
         <span className="label">Марка: </span>
         <span className="value">{result.make.make}</span>

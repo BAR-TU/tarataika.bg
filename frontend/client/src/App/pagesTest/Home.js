@@ -1,6 +1,8 @@
 import React from "react";
 import { Helmet } from 'react-helmet';
 import { SearchButton } from './SearchButton';
+import RecentSearches from "./RecentSearches";
+import MostlyViewed from "./MostlyViewed";
 
 class Home extends React.Component {
     constructor (props) {
@@ -495,28 +497,8 @@ class Home extends React.Component {
                         paint={this.state.paint_value}/>
                     </form>
                 </section>
-                <section className="mostlyviewed">
-                    <header><h2 className="mostlyviewedheading">Най-посещавани</h2></header>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                    <div className="container"></div>
-                </section>
-                <section className="recentsearch">
-                    <header><h2 className="recentsheading">Скорошни търсения</h2></header>
-                    <div className="ad"></div>
-                    <div className="ad"></div>
-                    <div className="ad"></div>
-                    <div className="ad"></div>
-                    <div className="ad"></div>
-                    <div className="ad"></div>
-                </section>
+                <MostlyViewed/>
+                <RecentSearches/>
                 <section className="ads">
                     <div className="ad"></div>
                     <div className="ad"></div>
