@@ -11,6 +11,7 @@ function Account() {
             setData(res.data.username);
         });
     }
+    
     const logout = () => {
         sessionStorage.setItem('loggedIn', 'false');
         sessionStorage.removeItem('user');

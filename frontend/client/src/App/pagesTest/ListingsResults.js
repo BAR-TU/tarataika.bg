@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 import axios from 'axios';
-import ResultsList from './message-list';
+import ResultsList from './listing-list';
 
 function ListingsResults() {
     const location = useLocation();
