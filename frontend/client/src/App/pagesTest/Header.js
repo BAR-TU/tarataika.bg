@@ -13,6 +13,7 @@ import { withRouter } from 'react-router-dom';
 import Account from './Account';
 import Login from './Login';
 import Register from './Register';
+import Publish from './Publish';
 
 class Header extends React.Component {
     render() {
@@ -36,6 +37,7 @@ class Header extends React.Component {
                 <Route path="/listingsresults"><ListingsResults/></Route>
                 <Route path="/login"><Login /></Route>
                 <Route path="/vehicleTemplate"><VehicleTemplate /></Route>
+                <Route path="/publish"><Publish /></Route>
                 <Route path="/account"><Account /></Route>
                 <Route path="/register"><Register/></Route>
             </Switch>

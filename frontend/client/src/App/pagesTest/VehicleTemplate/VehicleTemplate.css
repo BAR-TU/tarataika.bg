@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap');
 
-.imagebox, .wrap {
+.carouselInner, .carousel {
     position: absolute;
     display:inline-block;
     width: 1190px;
@@ -12,12 +12,16 @@
     background-position-y: center;
     z-index: 0;
 }
-.wrap {
+.carousel {
     position: absolute;
     margin-top: 80px;
     border: 3px solid black;
     border-radius: 10px;
     
+}
+.carouselInner span{
+    margin-top: 10px;
+    font-size: 20px;
 }
 
 .currentimage{
@@ -55,11 +59,6 @@
     background-color: rgb(255, 255, 255);
     border-radius: 10px;
     text-overflow: scroll;
-}
-
-.imagebox span{
-    margin-top: 10px;
-    font-size: 20px;
 }
 
 .arrow {

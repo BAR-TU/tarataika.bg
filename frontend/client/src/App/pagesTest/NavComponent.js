@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
+import { Alert, AlertTitle } from '@material-ui/lab';
 
 const HomeButton = () => {
     let history = useHistory(); 
@@ -16,10 +17,14 @@ const HomeButton = () => {
 const PublicButton = () => {
     let history = useHistory(); 
     const handleClick = () => {
-        history.push("/");
+        if(sessionStorage.getItem("loggedIn") === "true"){
+          history.push("/publish");
+        } else {
+          alert("Влезте в своя профил!");
+        }
     }   
     return (
-        <li onClick={ handleClick }> Публикуване</li>
+        <li id="publish" onClick={ handleClick }> Публикуване</li>
     );
 }
 
