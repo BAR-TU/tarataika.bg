@@ -7,6 +7,10 @@ module.exports = app => {
     
     router.get('/criteria', listings.findByCriteria);
 
+    router.get('/mostlyViewed', listings.findMostlyViewed)
+
+    router.get('/info/:id', listings.findByIdInfo)
+
     router.get('/:id', listings.findById);
 
     router.put('/updateViews', listings.update);

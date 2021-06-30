@@ -123,9 +123,29 @@ class VehicleTemplate extends React.Component {
         }
 
         sessionStorage.setItem('viewsUpdated', JSON.stringify(visited));
+
+        this.updateRecentlyViewed();
     }
 
+    updateRecentlyViewed = () => {
+        let recentlyVisited = [];
+        
+        if (localStorage.getItem('recentlyVisited')) {
+            recentlyVisited = JSON.parse(localStorage.getItem('recentlyVisited'));
+            recentlyVisited.reverse();
+        }
 
+        if (recentlyVisited.length >= 10) {
+            recentlyVisited.shift();
+            recentlyVisited.push(this.props.location.state.id);
+        } else {
+            recentlyVisited.push(this.props.location.state.id);
+        }
+
+        recentlyVisited.reverse();
+        
+        localStorage.setItem('recentlyVisited', JSON.stringify(recentlyVisited));
+    }
 
     async getListing() {
         let query = '/api/listings/';

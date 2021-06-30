@@ -2,12 +2,6 @@ import React, { useEffect, useState } from 'react';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { RegisterBtn } from './NavComponent';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
-import Login from './Login';
 
 const useStyles = makeStyles((theme) => ({
   root: {

@@ -1,5 +1,5 @@
 import React, { useEffect, useState }  from 'react';
-import ResultsView from './message-view';
+import ResultsView from './listing-view';
 
 export default function ResultsList (props) {
     return (

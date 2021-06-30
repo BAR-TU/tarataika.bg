@@ -205,6 +205,46 @@ exports.update = (req, res) => {
         });
 }
 
+exports.findMostlyViewed = (req, res) => {
+    Listings.findAll({
+        limit: 10,
+        order: [['views', 'DESC']]
+    }).then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some errors occured while retrieving listings."
+        });
+    });
+}
+
+exports.findByIdInfo = (req, res) => {
+    const id = req.params.id;
+
+    Listings.findOne({ include: [
+        {
+            model: Makes,
+            as: 'make',
+            attributes: ['make_id', 'make']
+        },
+        {
+            model: Model,
+            as: 'model',
+            attributes: ["model_id", "model", "make_id", "vehicle_category_id"]
+        }
+    ],
+    where: { id: id }
+    }).then(data => {
+        res.send(data);
+    })
+    .catch(err => {
+        res.status(500).send({
+            message: err.message || "Some errors occured while retrieving listings."
+        });
+    });
+}
+
 exports.findById = (req, res) => {
     const id = req.params.id;
 
