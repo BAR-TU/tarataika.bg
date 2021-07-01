@@ -11,6 +11,7 @@ const Paint = db.paints;
 const Ecategory = db.eurocategories;
 const Categories = db.vehiclesCategories;
 const VehicleExtras = db.vehicleExtras;
+const Pictures = db.pictures;
 let extrasChosen;
 var yearCondition;
 
@@ -413,6 +414,17 @@ exports.addlisting = async (req, res) => {
                 VehicleExtras.findOne({where: {extra_id: extras[i]}})
                 .then((vehicle_extra) => {
                     listing.addExtras(vehicle_extra);
+                });
+            });
+        }
+        for(let j = 0; j<pictures.length; j++){
+            Listings.findOne({where: {id: listingid}})
+            .then((listing) => {
+                Pictures.create({
+                    
+                })
+                .then((picture_id) => {
+                    listing.addExtras(picture_id);
                 });
             });
         }

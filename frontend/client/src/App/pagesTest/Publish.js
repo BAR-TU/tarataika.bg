@@ -37,6 +37,13 @@ function Publish() {
     const [rainsensor, setRainsensor] = useState('');
     const [seatheater, setSeatheater] = useState('');
 
+    let picture = {
+        id: '',
+        blob: ''
+    }
+    let indexPic = 0;
+    let pictures = [];
+
 
     useEffect(() => {
         var selected = document.getElementsByClassName("selected");
@@ -53,12 +60,22 @@ function Publish() {
     }, []);
 
     const fileSelectedHandler = event => {
-        setSelectedFile( event.target.files[0]);
+
+        picture = {
+            id: indexPic,
+            blob: event.target.files[0]
+        }
     }
 
     const fileUploadHandler = () => {
-        //axios.post('')
-        console.log(selectedFile)
+        pictures.push(picture);
+        //setPicturesState(pictures);
+        indexPic++;
+        picture = {
+            id: '',
+            blob: ''
+        }
+        console.log(pictures);
     }
 
 
@@ -254,14 +271,26 @@ function Publish() {
                 event.preventDefault();
             }
         }
-
     return(
     <main>
             <header><h2>Публикация</h2></header>
             <input type="file" onChange={fileSelectedHandler} style={{height: "200px"}} />
             <button onClick={fileUploadHandler} style={{height: "20px"}}>Качи</button>
 
+            <label   for="pictures" id="pictureslabel">Снимки:</label>
+
+                            {pictures ? pictures.map((pic, index) => 
+                                    <div key={index}>
+                                        {console.log(pic)}
+                                    </div>
+                                ) : (
+                                    <div>
+                                    </div>
+                                )
+                            } 
+
             <section>
+
                     <form action="">
                         <label for="carcategory" id="categorylabel">Категория:</label>
                         <select id="carcategory" name="category" onChange={ changeCategory } value={ category_value }>
@@ -404,7 +433,7 @@ function Publish() {
                         location={ locations_value } elWindows={ elWindows} airConditioning={ airConditioning} servo={ servo }
                         alarm={ alarm } fourwheel={ fourwheel } bluetooth={ bluetooth } boardcomputer={ boardcomputer } 
                         navigation={ navigation } rainsensor={ rainsensor } seatheater={ seatheater } ecategory={ ecategory_value }
-                        paint={ paint_value } info={ info }/>
+                        paint={ paint_value } info={ info } pictures={ pictures }/>
                     </form>
                 </section>
             
