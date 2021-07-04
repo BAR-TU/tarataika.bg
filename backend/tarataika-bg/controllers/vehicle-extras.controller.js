@@ -1,7 +1,6 @@
 const db = require('../models');
 const VehicleExtras = db.vehicleExtras;
 const Listings = db.listings;
-const Op = db.Sequelize.Op;
 
 exports.findAll = (req, res) => {
 
@@ -23,7 +22,7 @@ exports.findAll = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving cars."
+          err.message || "Възникна грешка докато се сваляха екстрите."
       });
     });
 };

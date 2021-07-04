@@ -178,7 +178,7 @@ exports.findByCriteria = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some errors occured while retrieving listings."
+            message: err.message || "Възникна грешка докато се сваляха обявите."
         });
     });
 }
@@ -191,17 +191,17 @@ exports.update = (req, res) => {
     .then(num => {
         if (num == 1) {
             res.send({
-              message: "Tutorial was updated successfully."
+              message: "Обявата беше обновена успешно!"
             });
           } else {
             res.send({
-              message: 'Cannot update Tutorial with id=${id}. Maybe Tutorial was not found or req.body is empty!'
+              message: 'Неуспешно обновяване на обява с id=${id}. Може би обявате не е била намерена или req.body е празно!'
             });
           }
         })
         .catch(err => {
           res.status(500).send({
-            message: "Error updating Tutorial with id=" + id
+            message: "Грешка при обновяването на обява с id=" + id
           });
         });
 }
@@ -216,7 +216,7 @@ exports.findMostlyViewed = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some errors occured while retrieving listings."
+            message: err.message || "Възникна грешка докато се сваляха обявите."
         });
     });
 }
@@ -242,7 +242,7 @@ exports.findByIdInfo = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some errors occured while retrieving listings."
+            message: err.message || "Възникна грешка докато се сваляха обявите."
         });
     });
 }
@@ -307,7 +307,7 @@ exports.findById = (req, res) => {
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Some errors occured while retrieving listings."
+            message: err.message || "Възникна грешка докато се сваляха обявите."
         });
     });
 

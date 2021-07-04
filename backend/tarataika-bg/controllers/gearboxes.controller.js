@@ -1,8 +1,6 @@
 const db = require('../models');
 const Gearboxes = db.gearboxes;
-const Op = db.Sequelize.Op;
 
-// Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
     Gearboxes.findAll()
       .then(data => {
@@ -11,7 +9,7 @@ exports.findAll = (req, res) => {
       .catch(err => {
         res.status(500).send({
           message:
-            err.message || "Some error occurred while retrieving cars."
+            err.message || "Възникна грешка докато се сваляха скоростните кутии."
         });
       });
   };

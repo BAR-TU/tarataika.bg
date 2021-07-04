@@ -1,29 +1,35 @@
 const db = require('../models');
 const User = db.users;
-const Op = db.Sequelize.Op;
 const bcrypt = require('bcrypt');
 const {createTokens, validateToken} = require('../JWT/JWT');
 const {sign, verify} = require("jsonwebtoken");
 
 exports.register = (req, res) => {
-    const username = req.body.username;
-    const password = req.body.password;
-    const phone_number = req.body.phone_number;
-    const email = req.body.email;
 
-    bcrypt.hash(password, 10).then((hash) => {
-        User.create({
-            username: username,
-            password: hash,
-            phone_number: phone_number,
-            email: email,
-            role: "user"
-        }).then(() => {
-            res.json("Успешна регистрация!");
-        }).catch((err) => {
-            res.status(400).json({error: err});
+    if (req.body.username !== '' && req.body.password !== '' &&
+    req.body.phone_number !== '' && req.body.email !== '') {
+
+        const username = req.body.username;
+        const password = req.body.password;
+        const phone_number = req.body.phone_number;
+        const email = req.body.email;
+
+        bcrypt.hash(password, 10).then((hash) => {
+            User.create({
+                username: username,
+                password: hash,
+                phone_number: phone_number,
+                email: email,
+                role: "user"
+            }).then(() => {
+                res.json("Успешна регистрация!");
+            }).catch(() => {
+                res.status(400).json({error: "Неуспешна регистрация!"});
+            });
         });
-    });
+    } else {
+        res.status(400).json({error: "Неуспешна регистрация!"});
+    }
 };
 
 exports.login = async (req, res) => {
@@ -61,7 +67,7 @@ exports.profile = (req, res) => {
         })
         .catch(err => {
             res.status(500).send({
-                message: err.message || "Some errors occured while retrieving the user info."
+                message: err.message || "Възникна грешка докато се сваляше информацията за потребителя."
             });
         });
     }
@@ -71,5 +77,5 @@ exports.logout = (req, res) => {
 
     res.cookie("access-token", {expires: Date.now()}); 
 
-    res.json("Logout successful");
+    res.json("Успешно излизане от профила.");
 };

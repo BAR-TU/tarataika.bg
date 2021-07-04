@@ -8,14 +8,15 @@ function ListingsResults() {
     const [data, setData] = useState();
     const [error, setError] = useState('');
 
-    useEffect(async () => {
+    useEffect(() => {
         var selected = document.getElementsByClassName("selected");
         selected[0].className = "";
         var toSelect = document.getElementById("searchresults");
         toSelect.className = "selected";
 
-        if (location.state !== undefined) {
-            const res = await axios.get('/api/listings/criteria/', {
+        async function getResults() {
+            if (location.state !== undefined) {
+             let res = await axios.get('/api/listings/criteria/', {
                 params: {
                     make: location.state.details.make,
                     model: location.state.details.model,
@@ -43,12 +44,16 @@ function ListingsResults() {
                     paint: location.state.details.paint
                 }
             });
-            if (res.data.length > 0)
-                setData(res.data);
+                if (res.data.length > 0)
+                    setData(res.data);
             } else {
                 setError("Не сте въвели критерии за търсене."); 
             }
-    });
+        }
+
+        getResults();
+        
+    }, [location.state, data]);
     return (
         <main>
             <ResultsList results={data} error={error}/>

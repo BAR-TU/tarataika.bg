@@ -16,9 +16,8 @@ const MostViewed = (props) => {
         axios.get(query)
         .then(details => {
             setResult(details.data);
-            console.log(details.data);
         });
-      }, []);
+      }, [props.id]);
 
     
     const redirectToTemplate = () => {

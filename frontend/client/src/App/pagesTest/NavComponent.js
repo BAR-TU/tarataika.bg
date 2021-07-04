@@ -2,7 +2,6 @@ import React, { useState } from 'react';
 import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button';
 import axios from 'axios';
-import { Alert, AlertTitle } from '@material-ui/lab';
 
 const HomeButton = () => {
     let history = useHistory(); 
@@ -55,6 +54,7 @@ const AccountButton = () => {
 
 const LoginBtn = (props) => {
     let history = useHistory();
+    const [error, setError] = useState();
 
     const handleClick = () => {
       axios.post('/api/users/login', {
@@ -64,15 +64,21 @@ const LoginBtn = (props) => {
         if (res.status === 200) { 
           history.push("/account");
         }
-      }, (error) => {
-        console.log(error);
+      }).catch((error) => {
+        setError(error);
         history.push('/login')
       });
     }   
     return (
-      <Button variant="outlined" color="primary" onClick={handleClick}>
-      Вход
-    </Button>
+      <div style={{display: "inline"}}>
+        <Button variant="outlined" color="primary" onClick={handleClick}>
+        Вход
+        </Button>
+        { error ? 
+          <div style={{display: "block", margin: "20px"}}>Неправилно име или парола!</div> :
+          <div></div>  
+        }
+      </div>
     );
   }
   const RegBtn = () => {
@@ -81,7 +87,7 @@ const LoginBtn = (props) => {
      history.push("/register");
     }   
     return (
-  <Button variant="outlined" color="primary" onClick={handleClick}>
+        <Button variant="outlined" color="primary" onClick={handleClick}>
           Регистрация
         </Button>
     );
@@ -98,7 +104,6 @@ const LoginBtn = (props) => {
         phone_number: props.phone_number,
         email: props.email
       }).then((res) => {
-        console.log(res);
         history.push({
           pathname: '/login',
           search: '',

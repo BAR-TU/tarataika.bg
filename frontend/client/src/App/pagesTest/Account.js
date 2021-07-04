@@ -1,23 +1,36 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { useHistory } from 'react-router-dom';
 
 function Account() {
     const [data, setData] = useState();
+    const [loggedIn, setLoggedIn] = useState();
+    let history = useHistory();
 
     const getUserInfo = () => {
         axios.get('/api/users/profile').then((res) =>  {
-            sessionStorage.setItem('loggedIn', 'true');
-            sessionStorage.setItem('user', JSON.stringify(res.data));
-            setData(res.data.username);
+            if (res.data.username) {
+                setData(res.data.username);
+                sessionStorage.setItem('loggedIn', 'true');
+                setLoggedIn(true);
+                sessionStorage.setItem('user', JSON.stringify(res.data));
+            }
         });
     }
     
     const logout = () => {
-        sessionStorage.setItem('loggedIn', 'false');
-        sessionStorage.removeItem('user');
         axios.post('api/users/logout').then((res) => {
+            sessionStorage.setItem('loggedIn', 'false');
+            sessionStorage.removeItem('user');
             setData(res.data);
+            setLoggedIn(false);
+            history.push({
+                pathname: '/login',
+                search: '',
+                state: { response: res.data }
+            });
         })
+        
     }
 
     useEffect(() => {
@@ -29,8 +42,10 @@ function Account() {
     });
     return (
         <main>
-            <div>{ data } </div>
-            <input type="button" onClick={logout} value="Изход"></input>
+            <div>{ data }</div>
+            { loggedIn ? 
+            <input id="logoutbtn" type="button" onClick={logout} value="Изход" ></input>
+            : <div></div> }
         </main>
     );
 }

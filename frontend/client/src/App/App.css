@@ -118,10 +118,9 @@ main {
 
 }
 
-.selected {
+.selected, footer {
     background-color: rgb(177, 19, 66);
 }
-
 
 .searchbox {
   position: relative;
@@ -496,4 +495,9 @@ h2 {
 
 #vip {
   color: red;
+}
+
+#logoutbtn {
+  height: 20px;
+  margin-left: 1080px;
 }

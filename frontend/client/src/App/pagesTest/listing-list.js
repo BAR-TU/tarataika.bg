@@ -1,4 +1,4 @@
-import React, { useEffect, useState }  from 'react';
+import React from 'react';
 import ResultsView from './listing-view';
 
 export default function ResultsList (props) {

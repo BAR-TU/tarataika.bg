@@ -3,12 +3,6 @@ import { useLocation } from 'react-router-dom';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import { LoginBtn, RegBtn } from './NavComponent';
-import {
-  BrowserRouter as Router,
-  Switch,
-  Route
-} from 'react-router-dom';
-import Register from './Register';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -49,7 +43,7 @@ function Login() {
     } else {
       setResponse('');
     }
-});
+}, [location.state]);
   return (
     <main>
       <form className={classes.root} noValidate autoComplete="off">

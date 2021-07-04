@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from 'react';
-import PropTypes from 'prop-types';
 import { useHistory } from "react-router-dom";
 import {
   BrowserRouter as Router, Route
@@ -21,9 +20,8 @@ const RecentResultsView = (props) => {
       axios.get(query)
       .then(details => {
           setResult(details.data);
-          console.log(details.data);
       });
-    }, []);
+    }, [props.id]);
 
     
     const redirectToTemplate = () => {

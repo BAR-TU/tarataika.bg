@@ -3,7 +3,6 @@ module.exports = app => {
   
     var router = require('express').Router();
   
-    // Retrieve all published Tutorials
     router.get('/category/:category/:make', models.findAllByCategoryAndMake);
   
     app.use('/api/models', router);

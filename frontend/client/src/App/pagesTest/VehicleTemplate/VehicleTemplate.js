@@ -1,5 +1,4 @@
 import React from "react";
-import { useParams } from "react-router-dom";
 import VehiclePictures from "./VehiclePictures";
 import "./VehicleTemplate.css";
 import {FaCheck} from "react-icons/fa";
@@ -50,10 +49,10 @@ class VehicleTemplate extends React.Component {
         var toSelect = document.getElementById("searchresults");
         toSelect.className = "selected";
         
-        let sliderImages = document.querySelectorAll('.imagebox'),
-        arrowLeft = document.querySelector('#arrow-left'),
-        arrowRight = document.querySelector('#arrow-right'),
-        current = 0;
+        // let sliderImages = document.querySelectorAll('.imagebox'),
+        // arrowLeft = document.querySelector('#arrow-left'),
+        // arrowRight = document.querySelector('#arrow-right'),
+        // current = 0;
 
         // //Clear all images
         // function reset(){
@@ -129,6 +128,7 @@ class VehicleTemplate extends React.Component {
 
     updateRecentlyViewed = () => {
         let recentlyVisited = [];
+        let adId = this.props.location.state.id;
         
         if (localStorage.getItem('recentlyVisited')) {
             recentlyVisited = JSON.parse(localStorage.getItem('recentlyVisited'));
@@ -137,9 +137,17 @@ class VehicleTemplate extends React.Component {
 
         if (recentlyVisited.length >= 10) {
             recentlyVisited.shift();
-            recentlyVisited.push(this.props.location.state.id);
+            if (recentlyVisited.includes(adId)) {
+                let index = recentlyVisited.findIndex(lis => lis === adId);
+                recentlyVisited.splice(index, 1);
+            }
+            recentlyVisited.push(adId);
         } else {
-            recentlyVisited.push(this.props.location.state.id);
+            if (recentlyVisited.includes(adId)) {
+                let index = recentlyVisited.findIndex(lis => lis === adId);
+                recentlyVisited.splice(index, 1);
+            }
+            recentlyVisited.push(adId);
         }
 
         recentlyVisited.reverse();
@@ -185,6 +193,8 @@ class VehicleTemplate extends React.Component {
                     case 'seatheater':
                         details.extras[i].extra = 'Подгрев на седалките'
                         break;
+                    default:
+                        break;
                 }
             }
             this.setState({ details });
@@ -221,7 +231,7 @@ class VehicleTemplate extends React.Component {
                     </ul>
                     </section>
                 <div className="map" >
-                <iframe src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11729.056516477996!2d${details.location.coordinates.split(' ')[1]}!3d${ details.location.coordinates.split(' ')[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbg!4v1624215359596!5m2!1sen!2sbg` } width="1190" height="750" style={{borderRadius: '10px'}} allowFullScreen="" loading="lazy"></iframe>
+                    <iframe title="map" src={`https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d11729.056516477996!2d${details.location.coordinates.split(' ')[1]}!3d${ details.location.coordinates.split(' ')[0]}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2sbg!4v1624215359596!5m2!1sen!2sbg` } width="1190" height="750" style={{borderRadius: '10px'}} allowFullScreen="" loading="lazy"></iframe>
                 </div>
                 <div className="pricetag"><b>Цена:</b> { details.price }лв.</div>
                 <VipStatus vip_status={ details.vip_status }/>

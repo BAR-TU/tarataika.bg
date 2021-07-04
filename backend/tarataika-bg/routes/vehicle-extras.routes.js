@@ -3,7 +3,6 @@ module.exports = app => {
   
     var router = require('express').Router();
   
-    // Retrieve all Tutorials
     router.get('/:id', vehicleExtras.findAll);
   
     app.use('/api/vehicle-extras', router);

@@ -6,9 +6,6 @@ var logger = require('morgan');
 var cors = require('cors');
 var myParser = require('body-parser');
 
-
-var indexRouter = require('./routes');
-var usersRouter = require('./routes/users');
 const db = require('./models');
 
 db.sequelize.sync();
@@ -17,7 +14,6 @@ var app = express();
 app.use(cookieParser());
 app.use(myParser.urlencoded({extended: true}));
 app.use(myParser.json())
-var routes = require('./routes/vehicles.routes')(app);
 var categories = require('./routes/vehicle-categories.routes')(app);
 var models = require('./routes/models.routes')(app);
 var listings = require('./routes/listings.routes')(app);
@@ -38,10 +34,6 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
-
-
-app.use('/', indexRouter);
-app.use('/users', usersRouter);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

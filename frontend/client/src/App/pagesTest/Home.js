@@ -1,5 +1,4 @@
 import React from "react";
-import { Helmet } from 'react-helmet';
 import { SearchButton } from './SearchButton';
 import RecentSearches from "./RecentSearches";
 import MostlyViewed from "./MostlyViewed";
@@ -337,14 +336,6 @@ class Home extends React.Component {
         const { paints } = this.state;
     return (     
         <main>
-            <Helmet>
-                <meta charset="utf-8"/>
-                <link rel="preconnect" href="https://fonts.gstatic.com"/>
-                <link href="https://fonts.googleapis.com/css2?family=Zen+Dots&display=swap" rel="stylesheet"/>
-                <title>
-                    tarataika.bg
-                </title>
-            </Helmet>
                 <section className="searchbox">
                     <header className="searchboxheading"><h2>Търсачка</h2></header>
                     <form action="">
@@ -499,7 +490,7 @@ class Home extends React.Component {
                 </section>
                 <MostlyViewed/>
                 <RecentSearches/>
-                <section className="ads">
+                {/* <section className="ads">
                     <div className="ad"></div>
                     <div className="ad"></div>
                     <div className="ad"></div>
@@ -507,7 +498,7 @@ class Home extends React.Component {
                     <div className="ad"></div>
                     <div className="ad"></div>
                     <div className="ad"></div>
-                </section>
+                </section> */}
         </main>
     );
     }

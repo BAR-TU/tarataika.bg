@@ -1,13 +1,8 @@
 const db = require('../models');
 const Makes = db.makes;
 const Categories = db.vehiclesCategories;
-const Op = db.Sequelize.Op;
 
-// Retrieve all Tutorials from the database.
 exports.findAll = (req, res) => {
-  const vehicle_category = req.query.vehicle_category;
-  var condition = vehicle_category ? { vehicle_category: { [Op.iLike]: `%${vehicle_category}%` } } : null;
-
   Categories.findAll({
     include: [
       {
@@ -19,7 +14,6 @@ exports.findAll = (req, res) => {
         }
       },
     ]
-     //where: condition
      })
     .then(data => {
       res.send(data);
@@ -27,7 +21,7 @@ exports.findAll = (req, res) => {
     .catch(err => {
       res.status(500).send({
         message:
-          err.message || "Some error occurred while retrieving cars."
+          err.message || "Възникна грешка докато се сваляха категориите."
       });
     });
 };
