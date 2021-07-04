@@ -13,7 +13,7 @@ function MostlyViewed() {
             setResult(details.data);
             console.log(details.data);
         });
-    });
+    }, []);
 
     return(
         <section className="mostlyviewed">

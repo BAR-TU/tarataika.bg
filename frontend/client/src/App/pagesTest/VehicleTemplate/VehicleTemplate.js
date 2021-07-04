@@ -55,51 +55,51 @@ class VehicleTemplate extends React.Component {
         arrowRight = document.querySelector('#arrow-right'),
         current = 0;
 
-        //Clear all images
-        function reset(){
-            for(let i = 0; i < sliderImages.length; i++){
-                sliderImages[i].style.display = 'none';
-            }
-        }
+        // //Clear all images
+        // function reset(){
+        //     for(let i = 0; i < sliderImages.length; i++){
+        //         sliderImages[i].style.display = 'none';
+        //     }
+        // }
 
-        //Initialize slider
-        function startSlide(){
-            reset();
+        // //Initialize slider
+        // function startSlide(){
+        //     reset();
 
-            sliderImages[0].style.display = 'block';
-        }
+        //     sliderImages[0].style.display = 'block';
+        // }
 
-        //Show Previous
-        function slideLeft(){
-            reset();
-            sliderImages[current - 1].style.display = 'block';
-            current--;
-        }
+        // //Show Previous
+        // function slideLeft(){
+        //     reset();
+        //     sliderImages[current - 1].style.display = 'block';
+        //     current--;
+        // }
 
-        //Show Next
-        function slideRight(){
-            reset();
-            sliderImages[current + 1].style.display = 'block';
-            current++;
-        }
+        // //Show Next
+        // function slideRight(){
+        //     reset();
+        //     sliderImages[current + 1].style.display = 'block';
+        //     current++;
+        // }
 
-        //Left arrow click
-        arrowLeft.addEventListener('click', function(){
-            if(current === 0){
-                current = sliderImages.length;
-            }
-            slideLeft();
-        });
+        // //Left arrow click
+        // arrowLeft.addEventListener('click', function(){
+        //     if(current === 0){
+        //         current = sliderImages.length;
+        //     }
+        //     slideLeft();
+        // });
 
-        //Right arrow click
-        arrowRight.addEventListener('click', function(){
-            if(current === sliderImages.length - 1){
-                current = -1;
-            }
-            slideRight();
-        });
+        // //Right arrow click
+        // arrowRight.addEventListener('click', function(){
+        //     if(current === sliderImages.length - 1){
+        //         current = -1;
+        //     }
+        //     slideRight();
+        // });
 
-        startSlide();
+        // startSlide();
         await this.getListing();
         this.updateViews();
     }

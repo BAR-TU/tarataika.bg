@@ -4,7 +4,8 @@ const Listings = sequelize.define("listings",{
         id: {
             field: "id",
             type: Sequelize.INTEGER,
-            primaryKey: true
+            primaryKey: true,
+            autoIncrement: true
         },
         make_id: {
             field: "make_id",

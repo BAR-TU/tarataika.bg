@@ -31,6 +31,7 @@ db.paints = require('./paints.js')(sequelize, Sequelize);
 db.eurocategories = require('./eurocategories.js')(sequelize, Sequelize);
 db.vehicleExtras = require('./vehicle-extras.js')(sequelize, Sequelize);
 db.users = require('./users')(sequelize, Sequelize);
+db.pictures = require('./pictures')(sequelize, Sequelize);
 
 
 db.listings.belongsToMany(db.vehicleExtras, {
@@ -97,5 +98,9 @@ db.listings.belongsTo(db.vehiclesCategories, {
   foreignKey: 'vehicle_category_id'
 });
 
+db.pictures.belongsTo(db.listings, {
+  as: 'listing',
+  foreignKey: 'listing_id'
+});
 
 module.exports = db;
