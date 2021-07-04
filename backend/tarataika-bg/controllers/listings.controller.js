@@ -205,6 +205,7 @@ exports.update = (req, res) => {
 }
 
 exports.findMostlyViewed = (req, res) => {
+
     Listings.findAll({
         limit: 10,
         order: [['views', 'DESC']]
