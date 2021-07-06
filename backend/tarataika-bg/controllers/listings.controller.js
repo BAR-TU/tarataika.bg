@@ -15,6 +15,98 @@ const Pictures = db.pictures;
 let extrasChosen;
 var yearCondition;
 
+exports.deleteById = (req, res) => {
+    let extras = [];
+
+    Listings.findOne({include: [
+        {
+            model: VehicleExtras,
+            as: 'extras',
+            attributes: ["extra_id", "extra"],
+            through: {
+                attributes: ["listing_id", "extra_id"],
+            }
+        }], where: {
+        id: req.params.id
+    }}).then((res) => {
+        for (let i = 0; i < res.extras.length; i++) {
+            extras.push(res.extras[i].extra_id);
+        }
+
+        for (let i = 0; i < extras.length; i++) {
+            VehicleExtras.findOne({
+                where: { extra_id: extras[i]}
+            }).then((vehicle_extra) => {
+                    Listings.findOne({where: {
+                    id: req.params.id
+                }}).then((listing) => {
+                    listing.removeExtras(vehicle_extra);
+                });
+            });
+        }
+    }).then(() => {
+        Listings.destroy({
+            where: {
+                id: req.params.id,
+                user_id: req.id
+            }
+        }).then((data) => {
+            res.send('Обявата беше успешно изтрита.');
+        }).catch(err => {
+            res.status(500).send({
+                message: 'Възникна грешка, докато се опитвахте да изтриете обявата.'
+            });
+        });
+    });  
+}
+
+exports.findByUserId = (req, res) => {
+    let userId = req.id;
+
+    if (req.role === 'admin') {
+        Listings.findAll({ include: [
+            {
+                model: Makes,
+                as: 'make',
+                attributes: ['make_id', 'make']
+            },
+            {
+                model: Model,
+                as: 'model',
+                attributes: ["model_id", "model", "make_id", "vehicle_category_id"]
+            }
+        ]}).then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message
+            });
+        });
+    } else if (req.role === 'user') {
+        Listings.findAll({ include: [
+            {
+                model: Makes,
+                as: 'make',
+                attributes: ['make_id', 'make']
+            },
+            {
+                model: Model,
+                as: 'model',
+                attributes: ["model_id", "model", "make_id", "vehicle_category_id"]
+            }
+        ],where: { user_id: userId } })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Възникна грешка докато се сваляха обявите."
+            });
+        });
+    }
+}
+
 exports.findByCriteria = (req, res) => {
     var includeModels = [];
 

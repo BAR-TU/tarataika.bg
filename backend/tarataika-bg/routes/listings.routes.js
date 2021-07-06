@@ -5,6 +5,10 @@ module.exports = app => {
 
     var router = require('express').Router();
     
+    router.delete('/delete/:id', validateToken, authPage(['user', 'admin']), listings.deleteById);
+
+    router.get('/foredit', validateToken, authPage(['user', 'admin']), listings.findByUserId)
+    
     router.get('/criteria', listings.findByCriteria);
 
     router.get('/mostlyViewed', listings.findMostlyViewed)

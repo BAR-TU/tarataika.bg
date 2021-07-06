@@ -14,6 +14,7 @@ import Account from './Account';
 import Login from './Login';
 import Register from './Register';
 import Publish from './Publish';
+import EditMyListings from './EditMyListings';
 
 class Header extends React.Component {
     render() {
@@ -40,6 +41,7 @@ class Header extends React.Component {
                 <Route path="/publish"><Publish /></Route>
                 <Route path="/account"><Account /></Route>
                 <Route path="/register"><Register/></Route>
+                <Route path="/editlistings"><EditMyListings/></Route>
             </Switch>
         </Router>
     );

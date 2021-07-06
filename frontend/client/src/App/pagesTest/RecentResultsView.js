@@ -7,10 +7,6 @@ import VehicleTemplate from './VehicleTemplate/VehicleTemplate';
 import axios from 'axios';
 
 const RecentResultsView = (props) => {
-    //заявка до бакенд за инфо на листингите но само текста\
-    
-    
-    //след това навигиране с 'useHistory' до VehicleTemplate с id-то на самата обява
     let history = useHistory();
     const [result, setResult] = useState('');
     
@@ -19,7 +15,15 @@ const RecentResultsView = (props) => {
       query += props.id;
       axios.get(query)
       .then(details => {
+        if (details.data === "")
+        {
+          let data = JSON.parse(localStorage.getItem('recentlyVisited'));
+          let i = data.indexOf(props.id);
+          data.splice(i , 1);
+          localStorage.setItem('recentlyVisited', JSON.stringify(data));
+        } else {
           setResult(details.data);
+        }
       });
     }, [props.id]);
 
@@ -32,16 +36,17 @@ const RecentResultsView = (props) => {
         });
     }
 
-  return(
+return(
     <Router>
+      { result && (
+      <>
     <div className="recentSearches" onClick={ redirectToTemplate }>
       { result.vip_status === true && (
         <>
           <span id="vip">VIP</span>
         </>
       )}
-      { result && (
-      <>
+      
         <div className="field">
           <span className="label">Марка: </span>
           <span className="value">{ result.make.make }</span>
@@ -54,10 +59,10 @@ const RecentResultsView = (props) => {
           <span className="label">Цена: </span>
           <span className="value">{ result.price }</span>
         </div>
-      </>
-      )}
-    </div>
 
+    </div>
+    </>
+      )}
     <Route path="/vehicleTemplate"><VehicleTemplate /></Route>
     </Router>
   );
