@@ -13,7 +13,7 @@ import { withRouter } from 'react-router-dom';
 import Account from './Account';
 import Login from './Login';
 import Register from './Register';
-import Publish from './Publish';
+import Publish from './publish/Publish';
 
 class Header extends React.Component {
     render() {
