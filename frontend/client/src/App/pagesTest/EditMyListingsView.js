@@ -45,11 +45,7 @@ const EditMyListingsView = ({ result }) => {
     }
 
     async function editListing () {
-      history.push({
-        pathname: '/updatelisting',
-        search: '',
-        state: { id: result.id }
-      });
+      history.push(`/updatelisting/${result.id}`);
     }
 
     async function deleteListing () {

@@ -10,6 +10,7 @@ export default function EditMyListings () {
     const location = useLocation();
     const [message, setMessage] = useState('');
     const [results, setResults] = useState([]);
+    const [changed, setChanged] = useState('');
 
     useEffect(() => {
         if (location.state !== undefined) {
@@ -18,7 +19,20 @@ export default function EditMyListings () {
             setTimeout(() => {
                 setMessage('');
               }, 5000)
+
+            if (location.state.details !== undefined) {
+                axios.put('/api/listings/update', location.state.details).then((res) => {
+                    setMessage(res.data.message);
+                    setChanged('true');
+                })
+            }
+
+            setTimeout(() => {
+                setMessage('');
+              }, 5000)
         }
+
+
 
         async function getListings() {
             let query = '/api/listings/foredit';
@@ -30,7 +44,7 @@ export default function EditMyListings () {
         getListings();
 
         
-    }, [location.state]);
+    }, [location.state, changed]);
 
     return (
         <main>

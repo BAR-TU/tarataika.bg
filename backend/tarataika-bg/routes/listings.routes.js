@@ -4,20 +4,22 @@ module.exports = app => {
     const listings = require('../controllers/listings.controller.js');
 
     var router = require('express').Router();
+
+    router.put('/update', listings.updateL);
     
     router.delete('/delete/:id', validateToken, authPage(['user', 'admin']), listings.deleteById);
 
-    router.get('/foredit', validateToken, authPage(['user', 'admin']), listings.findByUserId)
+    router.get('/foredit', validateToken, authPage(['user', 'admin']), listings.findByUserId);
     
     router.get('/criteria', listings.findByCriteria);
 
-    router.get('/mostlyViewed', listings.findMostlyViewed)
+    router.get('/mostlyViewed', listings.findMostlyViewed);
 
-    router.get('/info/:id', listings.findByIdInfo)
+    router.get('/info/:id', listings.findByIdInfo);
 
     router.get('/:id', listings.findById);
 
-    router.put('/updateViews', listings.update);
+    router.put('/updateViews', listings.updateViews);
 
     router.post('/addlisting', validateToken, listings.addlisting);
 
