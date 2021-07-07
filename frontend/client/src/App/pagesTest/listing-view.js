@@ -19,6 +19,11 @@ const ResultsView = ({ result }) => {
   return(
     <Router>
     <div className="listin" onClick={redirectToTemplate}>
+    { result.vip_status === true && (
+        <>
+          <span id="vip">VIP</span>
+        </>
+      )}
       <div className="field">
         <span className="label">Марка: </span>
         <span className="value">{result.make.make}</span>

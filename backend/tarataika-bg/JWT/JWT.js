@@ -20,6 +20,7 @@ const validateToken = (req, res, next) => {
             req.authenticated = true;
             req.id = validToken.id;
             req.username = validToken.username;
+            req.role = validToken.role;
             return next();
         }
     } catch (err) {
