@@ -15,6 +15,98 @@ const Pictures = db.pictures;
 let extrasChosen;
 var yearCondition;
 
+exports.deleteById = (req, res) => {
+    let extras = [];
+
+    Listings.findOne({include: [
+        {
+            model: VehicleExtras,
+            as: 'extras',
+            attributes: ["extra_id", "extra"],
+            through: {
+                attributes: ["listing_id", "extra_id"],
+            }
+        }], where: {
+        id: req.params.id
+    }}).then((res) => {
+        for (let i = 0; i < res.extras.length; i++) {
+            extras.push(res.extras[i].extra_id);
+        }
+
+        for (let i = 0; i < extras.length; i++) {
+            VehicleExtras.findOne({
+                where: { extra_id: extras[i]}
+            }).then((vehicle_extra) => {
+                    Listings.findOne({where: {
+                    id: req.params.id
+                }}).then((listing) => {
+                    listing.removeExtras(vehicle_extra);
+                });
+            });
+        }
+    }).then(() => {
+        Listings.destroy({
+            where: {
+                id: req.params.id,
+                user_id: req.id
+            }
+        }).then((data) => {
+            res.send('Обявата беше успешно изтрита.');
+        }).catch(err => {
+            res.status(405).send({
+                message: 'Възникна грешка, докато се опитвахте да изтриете обявата.'
+            });
+        });
+    });  
+}
+
+exports.findByUserId = (req, res) => {
+    let userId = req.id;
+
+    if (req.role === 'admin') {
+        Listings.findAll({ include: [
+            {
+                model: Makes,
+                as: 'make',
+                attributes: ['make_id', 'make']
+            },
+            {
+                model: Model,
+                as: 'model',
+                attributes: ["model_id", "model", "make_id", "vehicle_category_id"]
+            }
+        ]}).then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(405).send({
+                message: err.message
+            });
+        });
+    } else if (req.role === 'user') {
+        Listings.findAll({ include: [
+            {
+                model: Makes,
+                as: 'make',
+                attributes: ['make_id', 'make']
+            },
+            {
+                model: Model,
+                as: 'model',
+                attributes: ["model_id", "model", "make_id", "vehicle_category_id"]
+            }
+        ],where: { user_id: userId } })
+        .then(data => {
+            res.send(data);
+        })
+        .catch(err => {
+            res.status(500).send({
+                message: err.message || "Възникна грешка докато се сваляха обявите."
+            });
+        });
+    }
+}
+
 exports.findByCriteria = (req, res) => {
     var includeModels = [];
 
@@ -183,7 +275,149 @@ exports.findByCriteria = (req, res) => {
     });
 }
 
-exports.update = (req, res) => {
+exports.updateL = async (req, res) => {    
+    const id = req.body.id;
+
+    //
+    let makeid = "";
+    await Makes.findOne({ where: {make: req.body.make}})
+    .then(res => {
+        makeid = res.make_id
+    });
+
+let modelid = "";
+    await Model.findOne({where: {model: req.body.model}})
+    .then(res => {
+    modelid = res.model_id
+    });
+
+let categoryid = "";
+    await Categories.findOne({where: {vehicle_category: req.body.category}})
+    .then(res => {
+        categoryid = res.vehicle_category_id
+});
+
+let price = req.body.price;
+
+let engine = "";
+await Engine.findOne({where: {type: req.body.engine}})
+    .then(res => {
+        engine = res.id
+});
+
+let mileage = req.body.mileage;
+
+let gearboxid = "";
+await Gearbox.findOne({where: {type: req.body.gearbox}})
+    .then(res => {
+        gearboxid = res.id
+});
+
+let vip_status = false;
+let views = 0;
+
+let locationid = "";
+await Location.findOne({where: {location: req.body.location}})
+    .then(res => {
+        locationid = res.id
+});
+
+let status = true;
+
+let paintid = "";
+await Paint.findOne({where: {paint: req.body.paint}})
+    .then(res => {
+        paintid = res.id
+});
+
+let info = req.body.info;
+
+let eurocategoryid = "";
+await Ecategory.findOne({where: {category: req.body.ecategory}})
+    .then(res => {
+        eurocategoryid = res.id
+});
+
+let first_registration = req.body.year;
+let power = req.body.power;
+
+let userid = req.id;
+
+let extras = [];
+Object.keys(req.body).forEach(e => {
+    if(req.body[e] === 'checked' || req.body[e] === 'on'){
+        VehicleExtras.findOne({where: {extra: e}})
+        .then(res => {
+            extras.push(res.extra_id);
+        });
+    }
+});
+
+
+Listings.update({
+    make_id: makeid,
+    model_id: modelid,
+    vehicle_category_id: categoryid,
+    price: price,
+    engine_id: engine,
+    mileage: mileage,
+    gearbox_id: gearboxid,
+    user_id: userid,
+    vip_status: vip_status,
+    views: views,
+    location_id: locationid,
+    status: status,
+    paint_id: paintid,
+    info: info,
+    eurocategory: eurocategoryid,
+    first_registration: first_registration,
+    power: power
+ }, { where: { id: req.body.id } }).then((res) => {
+     if (res == 1) {
+    const listingid = req.body.id;
+
+        Listings.findOne({where: {id: listingid}})
+        .then((listing) => {
+            listing.setExtras(extras);
+        });
+} else {
+    res.send({
+         message: 'Неуспешно обновяване на обява с id=${id}. Може би обявате не е била намерена или req.body е празно!'
+    });
+}
+ }).then(() => {
+    res.send({
+        message: "Обявата беше обновена успешно!"
+      });
+ }).catch(err => {
+    res.status(500).send({
+        message: 'Неуспешно обновяване на обява с id=' + id + ' Може би обявате не е била намерена или req.body е празно!'
+      });
+ });
+
+    //
+    // Listings.update({ price: 33333 }, {
+    //     where: { id: id }
+    // })
+    // .then(num => {
+    //     if (num == 1) {
+    //         res.send({
+    //           message: "Обявата беше обновена успешно!"
+    //         });
+    //       } else {
+    //         res.send({
+    //           message: 'Неуспешно обновяване на обява с id=${id}. Може би обявате не е била намерена или req.body е празно!'
+    //         });
+    //       }
+    //     })
+    //     .catch(err => {
+    //       res.status(500).send({
+    //         message: "Грешка при обновяването на обява с id=" + id
+    //       });
+    //     });
+}
+
+exports.updateViews = (req, res) => {
     const id = req.query.id;
     Listings.update({ views: req.query.views }, {
         where: { id: id }
@@ -302,85 +536,86 @@ exports.findById = (req, res) => {
         
     ],
         where: {id: id}})
-    .then(data => {
+    .   then(data => {
         res.send(data);
     })
     .catch(err => {
         res.status(500).send({
-            message: err.message || "Възникна грешка докато се сваляха обявите."
+            message: err.message || "Възникна грешка докато се сваляше обявата."
         });
     });
 
 };
 
 exports.addlisting = async (req, res) => {
-     let makeid = "";
-        await Makes.findOne({ where: {make: req.body.make}})
-        .then(res => {
-            makeid = res.make_id
+        let makeid = "";
+            await Makes.findOne({ where: {make: req.body.make}})
+            .then(res => {
+                makeid = res.make_id
+            });
+
+        let modelid = "";
+            await Model.findOne({where: {model: req.body.model}})
+            .then(res => {
+            modelid = res.model_id
+            });
+
+        let categoryid = "";
+            await Categories.findOne({where: {vehicle_category: req.body.category}})
+            .then(res => {
+                categoryid = res.vehicle_category_id
         });
 
-    let modelid = "";
-        await Model.findOne({where: {model: req.body.model}})
-        .then(res => {
-        modelid = res.model_id
+        let price = req.body.price;
+
+        let engine = "";
+        await Engine.findOne({where: {type: req.body.engine}})
+            .then(res => {
+                engine = res.id
         });
 
-    let categoryid = "";
-        await Categories.findOne({where: {vehicle_category: req.body.category}})
-        .then(res => {
-            categoryid = res.vehicle_category_id
-    });
+        let mileage = req.body.mileage;
 
-    let price = req.body.price;
+        let gearboxid = "";
+        await Gearbox.findOne({where: {type: req.body.gearbox}})
+            .then(res => {
+                gearboxid = res.id
+        });
 
-    let engine = "";
-    await Engine.findOne({where: {type: req.body.engine}})
-        .then(res => {
-            engine = res.id
-    });
+        let vip_status = false;
+        let views = 0;
 
-    let mileage = req.body.mileage;
+        let locationid = "";
+        await Location.findOne({where: {location: req.body.location}})
+            .then(res => {
+                locationid = res.id
+        });
 
-    let gearboxid = "";
-    await Gearbox.findOne({where: {type: req.body.gearbox}})
-        .then(res => {
-            gearboxid = res.id
-    });
+        let status = true;
 
-    let vip_status = false;
-    let views = 0;
+        let paintid = "";
+        await Paint.findOne({where: {paint: req.body.paint}})
+            .then(res => {
+                paintid = res.id
+        });
 
-    let locationid = "";
-    await Location.findOne({where: {location: req.body.location}})
-        .then(res => {
-            locationid = res.id
-    });
+        let info = req.body.info;
 
-    let status = true;
+        let eurocategoryid = "";
+        await Ecategory.findOne({where: {category: req.body.ecategory}})
+            .then(res => {
+                eurocategoryid = res.id
+        });
 
-    let paintid = "";
-    await Paint.findOne({where: {paint: req.body.paint}})
-        .then(res => {
-            paintid = res.id
-    });
+        let first_registration = req.body.year;
+        let power = req.body.power;
 
-    let info = req.body.info;
+        let userid = req.id;
 
-    let eurocategoryid = "";
-    await Ecategory.findOne({where: {category: req.body.ecategory}})
-        .then(res => {
-            eurocategoryid = res.id
-    });
+        let extras = [];
 
-    let first_registration = req.body.year;
-    let power = req.body.power;
-
-    let userid = req.id;
-
-    let extras = [];
     Object.keys(req.body).forEach(e => {
-        if(req.body[e] === 'on'){
+        if(req.body[e] === 'checked' || req.body[e] === 'on'){
             VehicleExtras.findOne({where: {extra: e}})
             .then(res => {
                 extras.push(res.extra_id);
@@ -388,46 +623,54 @@ exports.addlisting = async (req, res) => {
         }
     });
 
-
-    Listings.create({
-        make_id: makeid,
-        model_id: modelid,
-        vehicle_category_id: categoryid,
-        price: price,
-        engine_id: engine,
-        mileage: mileage,
-        gearbox_id: gearboxid,
-        user_id: userid,
-        vip_status: vip_status,
-        views: views,
-        location_id: locationid,
-        status: status,
-        paint_id: paintid,
-        info: info,
-        eurocategory: eurocategoryid,
-        first_registration: first_registration,
-        power: power
-     }).then((res ) => {
-        const listingid = res.id;
-        for(let i = 0; i < extras.length; i++){
-            Listings.findOne({where: {id: listingid}})
-            .then((listing) => {
-                VehicleExtras.findOne({where: {extra_id: extras[i]}})
-                .then((vehicle_extra) => {
-                    listing.addExtras(vehicle_extra);
+        Listings.create({
+            make_id: makeid,
+            model_id: modelid,
+            vehicle_category_id: categoryid,
+            price: price,
+            engine_id: engine,
+            mileage: mileage,
+            gearbox_id: gearboxid,
+            user_id: userid,
+            vip_status: vip_status,
+            views: views,
+            location_id: locationid,
+            status: status,
+            paint_id: paintid,
+            info: info,
+            eurocategory: eurocategoryid,
+            first_registration: first_registration,
+            power: power
+        }).then((res ) => {
+            const listingid = res.id;
+            for(let i = 0; i < extras.length; i++){
+                Listings.findOne({where: {id: listingid}})
+                .then((listing) => {
+                    VehicleExtras.findOne({where: {extra_id: extras[i]}})
+                    .then((vehicle_extra) => {
+                        listing.addExtras(vehicle_extra);
+                    });
                 });
-            });
-        }
-        for(let j = 0; j<pictures.length; j++){
-            Listings.findOne({where: {id: listingid}})
-            .then((listing) => {
-                Pictures.create({
-                    
-                })
-                .then((picture_id) => {
-                    listing.addExtras(picture_id);
-                });
-            });
-        }
-     });
+            }
+                Listings.findOne({where: {id: listingid}})
+                .then((listing) => {
+                    for(let i = 0; i < req.body.pictures.length; i++){
+                        Pictures.create({
+                            path: req.body.pictures[i].blob.name,
+                            type: req.body.pictures[i].blob.type,
+                            img: req.body.pictures[i].blob,
+                            listing_id: listingid
+                        }).then(data => {
+                            res.send(data);
+                        })
+                        .catch(err => {
+                            res.status(500).send({
+                                message: err.message});          
+                    })
+            }
+        })
+    }).catch(err => {
+            console.log(err);
+            res.json({msg: 'Error', detail: err});
+    });
 }

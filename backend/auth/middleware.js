@@ -1,6 +1,6 @@
 const authPage = (permissions) => {
     return (req, res, next) => {
-        const userRole = req.body.role;
+        const userRole = req.role;
         if(permissions.includes(userRole)) {
             next();
         } else {

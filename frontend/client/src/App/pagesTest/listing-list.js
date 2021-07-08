@@ -11,4 +11,4 @@ export default function ResultsList (props) {
         ) : (<h2>{ props.error ? props.error : 'Loading...'}</h2>)}
       </div>
     );
-  }
+ }

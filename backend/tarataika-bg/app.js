@@ -12,7 +12,11 @@ db.sequelize.sync();
 
 var app = express();
 app.use(cookieParser());
-app.use(myParser.urlencoded({extended: true}));
+app.use(myParser.urlencoded({
+  parameterLimit: 100000,
+  limit: '50mb',
+  extended: true
+}));
 app.use(myParser.json())
 var categories = require('./routes/vehicle-categories.routes')(app);
 var models = require('./routes/models.routes')(app);
@@ -24,6 +28,7 @@ var ecategories = require('./routes/ecategories.routes')(app);
 var paints = require('./routes/paints.routes')(app);
 var vehicleExtras = require('./routes/vehicle-extras.routes')(app);
 var users = require('./routes/users.routes')(app);
+var pictures = require('./routes/pictures.routes')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

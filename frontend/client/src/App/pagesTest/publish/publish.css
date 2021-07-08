@@ -1,0 +1,89 @@
+
+.carousel {
+    width: 60%;
+    height: 700px;
+    background-color: black;
+    display: inline-block;
+    position:absolute;
+    vertical-align: middle;
+}
+
+.carouselInner {
+    height: 100%;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+}
+
+.carouselInner .left {
+    flex: 5%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.6);
+    display: grid;
+    place-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.carouselInner .center {
+    flex: 80%;
+    height: 100%;
+    display: grid;
+    place-items: center;
+    font-family: Arial, Helvetica, sans-serif;
+    text-align: justify;
+    text-align-last: center;
+}
+
+.carouselInner .right {
+    flex: 5%;
+    height: 100%;
+    background-color: rgb(0, 0, 0, 0.6);
+    display: grid;
+    place-items: center;
+    color: white;
+    cursor: pointer;
+}
+
+.publishMain .box {
+    background-color: rgba(243, 8, 8, 0.37);
+    border-radius: 25px;
+    max-height: 1000px;
+    overflow: hidden;
+    transition: max-height ease-out 0.5s;
+    vertical-align: middle;
+    float: left;
+    margin-left: 20px;
+    position:relative;
+    width:2000px;
+    margin-top: 10%;
+  }
+  .publishMain label {
+    text-align:center;
+    line-height:150%;
+    font-size:.85em;
+  }
+
+  h2.titlePub {
+      text-align: center;
+      
+  }
+
+  .publishMain #categorylabel, #carmakelabel, #carmake, #priceholderlabel, #priceholder,  #yearholderlabel, #yearholder, #carmodellabel, #carmodel {
+    margin: 10px;
+  }
+  
+  .publishMain #enginelabel, #powerlabel, #rangelabel, #minpricelabel, #maxyearlabel {
+    margin-top: 100px;
+  }
+  .infoholder {
+      margin-top: 60%;
+  }
+
+  .carousel {
+      margin-top: 90%;
+      margin-left: 50px;
+      position: absolute;
+  }
