@@ -66,31 +66,30 @@ function Publish() {
     }, []);
 
     const fileSelectedHandler = event => {
-        // const reader = new FileReader();
-        // reader.readAsDataURL(event.target.files[0]);
-        // let url1;
-        // reader.onload = function () {
-        //     for(let i = 0; i < 100; i++){
-        //         if(reader.result[i] === ','){
-        //             url1 = reader.result.substring(i+1);
-        //             break;
-        //         }
-        //     }
-        //     console.log(url1);
-        //     let buff = Buffer.from(url1, 'base64');
-        //     picture = {
-        //         id: pictures.length,
-        //         blob: event.target.files[0],
-        //     }
-        // };
-        picture =   {
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        let url1;
+        reader.onload = function () {
+            for(let i = 0; i < 100; i++){
+                if(reader.result[i] === ','){
+                    url1 = reader.result.substring(i+1);
+                    break;
+                }
+            }
+            console.log(url1);
+            picture = {
+                id: pictures.length,
+                blob: event.target.files[0],
+                url: url1
+            }
+            
+            let p = pictures;
+            p.push(picture);
+            setPictures(p);
+        };
 
-                     id: pictures.length,
-                     blob: event.target.files[0],
-
-        }
-
-        formData.append('file', event.target.files[0]);
+        
+        //formData.append('file', event.target.files[0]);
         
     }
 
@@ -99,6 +98,7 @@ function Publish() {
             
         pictures.push(picture);
         handlePictureChange();
+        setPictures(pictures);
         setIndexPic(indexPic+1);
         }
         picture = {
@@ -327,7 +327,7 @@ function Publish() {
     return(
     <main className="publishMain">
 
-            <header><h2 className="titlePub">Публикация</h2></header>
+            <header><h2 className="titlePub"></h2></header>
 
             
             <section className="box">
@@ -474,7 +474,7 @@ function Publish() {
                         location={ locations_value } elWindows={ elWindows} airConditioning={ airConditioning} servo={ servo }
                         alarm={ alarm } fourwheel={ fourwheel } bluetooth={ bluetooth } boardcomputer={ boardcomputer } 
                         navigation={ navigation } rainsensor={ rainsensor } seatheater={ seatheater } ecategory={ ecategory_value }
-                        paint={ paint_value } info={ info } pictures={ formData }/>
+                        paint={ paint_value } info={ info } pictures={ pictures }/>
                         
                     </form>
                 </section>
