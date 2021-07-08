@@ -9,6 +9,7 @@ function VehiclePictures(props) {
     const [currentPicture, setCurrentPicture] = useState('');
     const [pictures, setPictures] = useState([]);
     const [indexPic, setIndexPic] = useState(0);
+    let urls = '';
 
     useEffect(() => {
        getPictures(props.listingid)
@@ -22,34 +23,38 @@ function VehiclePictures(props) {
             let arr = [];
             for(let i = 0; i < res.data.length; i++){
 
-                let binary = '';
-                let bytes = [].slice.call(new Uint8Array(res.data[i].img.data));
-                bytes.forEach((b) => binary += String.fromCharCode(b));
-                let a = window.btoa(binary);
+                let z = Buffer.from(res.data[i].img.data, 'base64').toString();
+                z = z.substring(2);
 
                 let base64Flag = 'data:image/jpeg;base64,';
-                let imageStr = a;
 
-                let imgStr = base64Flag + imageStr;
-                arr.push(imgStr);
+                let url = base64Flag + z;
+
+                // fetch(url)
+                // .then(res => {
+                //     arr.push(res);
+                //     console.log(res);
+                // })
+                arr.push(url);
+
             }
-            console.log(arr);
+            setPictures(arr);
             setCurrentPicture(arr[0]);
         });
     }
 
     let picture = {
-        id: 'a',
-        blob: 'a'
+        url: 'a'
     }
     return(
         <div className="carousel">
+            <img src={pictures[0]}></img>
         <div className="carouselInner"
-        style={{backgroundImage: `url(${currentPicture})`}}>
+        style={{backgroundImage: `${currentPicture ? currentPicture.url : '' }`}}>
             <div
             className="left"
             onClick={() => {
-                indexPic - 1 > 0 && setCurrentPicture(URL.createObjectURL(pictures[indexPic - 2]))
+                indexPic - 1 > 0 && setCurrentPicture(pictures[indexPic - 2])
                 if(typeof(pictures[indexPic - 2]) !== 'undefined' && pictures[indexPic - 2] !== null){
                     setIndexPic(indexPic-1)
                 }
@@ -64,7 +69,7 @@ function VehiclePictures(props) {
             <div
             className="right"
             onClick={() => {
-                 indexPic < pictures.length && setCurrentPicture(URL.createObjectURL(pictures[indexPic]))
+                 indexPic < pictures.length && setCurrentPicture(pictures[indexPic])
                  if( typeof(pictures[indexPic]) !== 'undefined' && pictures[indexPic] !== null ){
                     setIndexPic(indexPic+1)
                 }

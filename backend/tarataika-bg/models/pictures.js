@@ -17,7 +17,7 @@ module.exports = (sequelize, Sequelize) => {
             },
             img: {
                 field: "img",
-                type: Sequelize.BLOB
+                type: Sequelize.BLOB('long')
             },
             listing_id: {
                 field: "listing",
