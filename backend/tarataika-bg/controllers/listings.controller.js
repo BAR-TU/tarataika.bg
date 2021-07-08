@@ -613,6 +613,7 @@ exports.addlisting = async (req, res) => {
         let userid = req.id;
 
         let extras = [];
+        let pictures = [];
 
     Object.keys(req.body).forEach(e => {
         if(req.body[e] === 'checked' || req.body[e] === 'on'){
@@ -658,7 +659,7 @@ exports.addlisting = async (req, res) => {
                         let buff = Buffer.from("\\x" + Buffer.from(req.body.pictures[i].url, "base64").toString("base64"));                        ;
                         Pictures.create({
                             path: req.body.pictures[i].blob.name,
-                            type: req.body.pictures[i].blob.type,
+                            type: req.body.pictures[i].type,
                             img: buff,
                             listing_id: listingid
                         }).then(data => {

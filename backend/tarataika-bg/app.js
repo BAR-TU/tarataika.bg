@@ -17,7 +17,7 @@ app.use(myParser.urlencoded({
   limit: '50mb',
   extended: true
 }));
-app.use(myParser.json())
+app.use(myParser.json());
 var categories = require('./routes/vehicle-categories.routes')(app);
 var models = require('./routes/models.routes')(app);
 var listings = require('./routes/listings.routes')(app);
@@ -35,8 +35,8 @@ app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'pug');
 
 app.use(logger('dev'));
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.json({limit: '50mb'}));
+app.use(express.urlencoded({ extended: false, limit: '50mb' }));
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors());
 

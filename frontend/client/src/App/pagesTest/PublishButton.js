@@ -9,8 +9,8 @@ const PublishButton = (props) => {
 
     }, [])
 
-    async function handleClick() {
-
+    async function handleClick(e) {
+            e.preventDefault();
         if (props.update === undefined) {
             await axios.post('/api/listings/addlisting', props).then(() => {
                 history.push({
@@ -33,7 +33,7 @@ const PublishButton = (props) => {
 
     return (
             <button style={{height: "20px", width: "200px"}} 
-            //disabled={!props.category || !props.make || !props.model || !props.price || !props.year || !props.engine || !props.power || !props.mileage || !props.gearbox || !props.location || !props.paint || !props.ecategory} 
+            disabled={!props.category || !props.make || !props.model || !props.price || !props.year || !props.engine || !props.power || !props.mileage || !props.gearbox || !props.location || !props.paint || !props.ecategory} 
             id="publishbutton" onClick={ handleClick }>
             Публикувай
             </button>

@@ -29,12 +29,6 @@ function VehiclePictures(props) {
                 let base64Flag = 'data:image/jpeg;base64,';
 
                 let url = base64Flag + z;
-
-                // fetch(url)
-                // .then(res => {
-                //     arr.push(res);
-                //     console.log(res);
-                // })
                 arr.push(url);
 
             }
@@ -50,7 +44,7 @@ function VehiclePictures(props) {
         <div className="carousel">
             <img src={pictures[0]}></img>
         <div className="carouselInner"
-        style={{backgroundImage: `${currentPicture ? currentPicture.url : '' }`}}>
+        style={{backgroundImage: `${currentPicture ? currentPicture.url : 'https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg' }`}}>
             <div
             className="left"
             onClick={() => {

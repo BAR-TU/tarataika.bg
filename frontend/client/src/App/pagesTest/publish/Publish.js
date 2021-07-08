@@ -42,14 +42,6 @@ function Publish() {
     const [currentPicture, setCurrentPicture] = useState('');
     const [pictures, setPictures] = useState([]);
     const [indexPic, setIndexPic] = useState(0);
-    const formData = new FormData();
-
-    let picture = {
-        id: 'a',
-        blob: 'a',
-        url: 'a'
-    }
-
 
     useEffect(() => {
         var selected = document.getElementsByClassName("selected");
@@ -63,7 +55,15 @@ function Publish() {
         getEngines();
         getGearboxes();
         getLocations();
+        setCurrentPicture("https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg");
     }, []);
+
+    let picture = {
+            id: 'a',
+            blob: 'a',
+            url: 'a',
+            type: 'a'
+    }
 
     const fileSelectedHandler = event => {
         const reader = new FileReader();
@@ -80,17 +80,10 @@ function Publish() {
             picture = {
                 id: pictures.length,
                 blob: event.target.files[0],
-                url: url1
+                url: url1,
+                type: event.target.files[0].type
             }
-            
-            let p = pictures;
-            p.push(picture);
-            setPictures(p);
         };
-
-        
-        //formData.append('file', event.target.files[0]);
-        
     }
 
     const fileUploadHandler = () => {
@@ -99,12 +92,13 @@ function Publish() {
         pictures.push(picture);
         handlePictureChange();
         setPictures(pictures);
-        setIndexPic(indexPic+1);
+        setIndexPic(pictures.length-1);
         }
         picture = {
             id: 'a',
             blob: 'a',
-            url: 'a'
+            url: 'a',
+            type: 'a'
         }
     }
 
@@ -317,7 +311,7 @@ function Publish() {
                     setCurrentPicture(URL.createObjectURL(pictures[0].blob));
                 }
                 else {
-                    //insert placeholder picture
+                    setCurrentPicture("https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg");
                 }
             } else {
                 alert("Няма снимка за изтриване!");
