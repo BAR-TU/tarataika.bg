@@ -497,7 +497,45 @@ h2 {
   color: red;
 }
 
-#logoutbtn {
-  height: 20px;
-  margin-left: 1080px;
+.editmylistin {
+    background-color: #e9876f;
+    width: 400px;
+    height: 60px;
+    margin-top: 20px;
+    margin-right: 20px;
+    border-top: solid 2px rgb(224, 144, 124);
+    border-radius: 8px;
+    padding: 12px;
+    box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+    display: inline-block;
+}
+
+.editmylistin:hover {
+  background-color: #be6a55;
+  width: 400px;
+  height: 60px;
+  margin-top: 20px;
+  margin-right: 20px;
+  border-top: solid 2px rgb(194, 124, 106);
+  border-radius: 8px;
+  padding: 12px;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  display: inline-block;
+  cursor: pointer;
+}
+
+.infoforedit:hover {
+  margin-right: 10px;
+  margin-top: -5px;
+  position: absolute;
+  display: inline-block;
+  background-color: #a15a48;
+}
+
+.infoforedit {
+  margin-left: -180px;
+  margin-right: 10px;
+  margin-top: -5px;
+  position: absolute;
+  display: inline-block;
 }
