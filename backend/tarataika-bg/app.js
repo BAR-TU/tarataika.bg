@@ -24,6 +24,7 @@ var ecategories = require('./routes/ecategories.routes')(app);
 var paints = require('./routes/paints.routes')(app);
 var vehicleExtras = require('./routes/vehicle-extras.routes')(app);
 var users = require('./routes/users.routes')(app);
+var pictures = require('./routes/pictures.routes')(app);
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

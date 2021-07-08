@@ -15,6 +15,7 @@ const Pictures = db.pictures;
 let extrasChosen;
 var yearCondition;
 
+
 exports.findByCriteria = (req, res) => {
     var includeModels = [];
 
@@ -314,120 +315,129 @@ exports.findById = (req, res) => {
 };
 
 exports.addlisting = async (req, res) => {
-     let makeid = "";
-        await Makes.findOne({ where: {make: req.body.make}})
-        .then(res => {
-            makeid = res.make_id
-        });
-
-    let modelid = "";
-        await Model.findOne({where: {model: req.body.model}})
-        .then(res => {
-        modelid = res.model_id
-        });
-
-    let categoryid = "";
-        await Categories.findOne({where: {vehicle_category: req.body.category}})
-        .then(res => {
-            categoryid = res.vehicle_category_id
-    });
-
-    let price = req.body.price;
-
-    let engine = "";
-    await Engine.findOne({where: {type: req.body.engine}})
-        .then(res => {
-            engine = res.id
-    });
-
-    let mileage = req.body.mileage;
-
-    let gearboxid = "";
-    await Gearbox.findOne({where: {type: req.body.gearbox}})
-        .then(res => {
-            gearboxid = res.id
-    });
-
-    let vip_status = false;
-    let views = 0;
-
-    let locationid = "";
-    await Location.findOne({where: {location: req.body.location}})
-        .then(res => {
-            locationid = res.id
-    });
-
-    let status = true;
-
-    let paintid = "";
-    await Paint.findOne({where: {paint: req.body.paint}})
-        .then(res => {
-            paintid = res.id
-    });
-
-    let info = req.body.info;
-
-    let eurocategoryid = "";
-    await Ecategory.findOne({where: {category: req.body.ecategory}})
-        .then(res => {
-            eurocategoryid = res.id
-    });
-
-    let first_registration = req.body.year;
-    let power = req.body.power;
-
-    let userid = req.id;
-
-    let extras = [];
-    Object.keys(req.body).forEach(e => {
-        if(req.body[e] === 'on'){
-            VehicleExtras.findOne({where: {extra: e}})
+        let makeid = "";
+            await Makes.findOne({ where: {make: req.body.make}})
             .then(res => {
-                extras.push(res.extra_id);
+                makeid = res.make_id
             });
-        }
+
+        let modelid = "";
+            await Model.findOne({where: {model: req.body.model}})
+            .then(res => {
+            modelid = res.model_id
+            });
+
+        let categoryid = "";
+            await Categories.findOne({where: {vehicle_category: req.body.category}})
+            .then(res => {
+                categoryid = res.vehicle_category_id
+        });
+
+        let price = req.body.price;
+
+        let engine = "";
+        await Engine.findOne({where: {type: req.body.engine}})
+            .then(res => {
+                engine = res.id
+        });
+
+        let mileage = req.body.mileage;
+
+        let gearboxid = "";
+        await Gearbox.findOne({where: {type: req.body.gearbox}})
+            .then(res => {
+                gearboxid = res.id
+        });
+
+        let vip_status = false;
+        let views = 0;
+
+        let locationid = "";
+        await Location.findOne({where: {location: req.body.location}})
+            .then(res => {
+                locationid = res.id
+        });
+
+        let status = true;
+
+        let paintid = "";
+        await Paint.findOne({where: {paint: req.body.paint}})
+            .then(res => {
+                paintid = res.id
+        });
+
+        let info = req.body.info;
+
+        let eurocategoryid = "";
+        await Ecategory.findOne({where: {category: req.body.ecategory}})
+            .then(res => {
+                eurocategoryid = res.id
+        });
+
+        let first_registration = req.body.year;
+        let power = req.body.power;
+
+        let userid = req.id;
+
+        let extras = [];
+        Object.keys(req.body).forEach(e => {
+            if(req.body[e] === 'on'){
+                VehicleExtras.findOne({where: {extra: e}})
+                .then(res => {
+                    extras.push(res.extra_id);
+                });
+            }
+        });
+
+
+        Listings.create({
+            make_id: makeid,
+            model_id: modelid,
+            vehicle_category_id: categoryid,
+            price: price,
+            engine_id: engine,
+            mileage: mileage,
+            gearbox_id: gearboxid,
+            user_id: userid,
+            vip_status: vip_status,
+            views: views,
+            location_id: locationid,
+            status: status,
+            paint_id: paintid,
+            info: info,
+            eurocategory: eurocategoryid,
+            first_registration: first_registration,
+            power: power
+        }).then((res ) => {
+            const listingid = res.id;
+            for(let i = 0; i < extras.length; i++){
+                Listings.findOne({where: {id: listingid}})
+                .then((listing) => {
+                    VehicleExtras.findOne({where: {extra_id: extras[i]}})
+                    .then((vehicle_extra) => {
+                        listing.addExtras(vehicle_extra);
+                    });
+                });
+            }
+                Listings.findOne({where: {id: listingid}})
+                .then((listing) => {
+                    for(let i = 0; i < req.body.pictures.length; i++){
+                        Pictures.create({
+                            path: req.body.pictures[i].id,
+                            type: req.body.pictures[i].id,
+                            img: req.body.pictures[i].blob,
+                            listing_id: listingid
+                        }).then(data => {
+                            res.send(data);
+                        })
+                        .catch(err => {
+                            res.status(500).send({
+                                message: err.message});          
+                    })
+            }
+        })
+    }).catch(err => {
+            console.log(err);
+            res.json({msg: 'Error', detail: err});
     });
-
-
-    Listings.create({
-        make_id: makeid,
-        model_id: modelid,
-        vehicle_category_id: categoryid,
-        price: price,
-        engine_id: engine,
-        mileage: mileage,
-        gearbox_id: gearboxid,
-        user_id: userid,
-        vip_status: vip_status,
-        views: views,
-        location_id: locationid,
-        status: status,
-        paint_id: paintid,
-        info: info,
-        eurocategory: eurocategoryid,
-        first_registration: first_registration,
-        power: power
-     }).then((res ) => {
-        const listingid = res.id;
-        for(let i = 0; i < extras.length; i++){
-            Listings.findOne({where: {id: listingid}})
-            .then((listing) => {
-                VehicleExtras.findOne({where: {extra_id: extras[i]}})
-                .then((vehicle_extra) => {
-                    listing.addExtras(vehicle_extra);
-                });
-            });
-        }
-        for(let j = 0; j<pictures.length; j++){
-            Listings.findOne({where: {id: listingid}})
-            .then((listing) => {
-                Pictures.create({
-                    
-                })
-                .then((picture_id) => {
-                    listing.addExtras(picture_id);
-                });
-            });
-        }
-     });
 }

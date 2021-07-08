@@ -286,10 +286,16 @@ function Publish() {
         }
 
         const removeSelectedPicture = () => {
-            alert("Няма снимка за изтриване!");
-            console.log(indexPic)
-            if(indexPic => 0 && typeof(currentPicture) !== 'undefined'){
-                console.log();
+            if(indexPic > 0 && typeof(currentPicture) !== ""){
+                pictures.splice(indexPic -1, 1)
+                setIndexPic(indexPic => 0);
+                console.log(indexPic);
+                if(pictures.length > 0){
+                    setCurrentPicture(URL.createObjectURL(pictures[0].blob));
+                }
+                else {
+                    //insert placeholder picture
+                }
             } else {
                 alert("Няма снимка за изтриване!");
             }

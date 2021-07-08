@@ -20,7 +20,7 @@ module.exports = (sequelize, Sequelize) => {
                 type: Sequelize.BLOB
             },
             listing_id: {
-                field: "listing_id",
+                field: "listing",
                 type: Sequelize.INTEGER
             }
         }, {

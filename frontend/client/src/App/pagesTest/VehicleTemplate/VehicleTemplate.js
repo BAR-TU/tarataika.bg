@@ -206,7 +206,7 @@ class VehicleTemplate extends React.Component {
 
     return (
         <main>
-            <VehiclePictures />
+            <VehiclePictures listingid={this.props.location.state.id} />
                     <section>
                     <p className="vehicleMakeModel"><strong>{details.make.make} {details.model.model}</strong></p>
                     <ul className="cardescription">
