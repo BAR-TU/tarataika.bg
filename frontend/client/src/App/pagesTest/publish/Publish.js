@@ -321,12 +321,13 @@ function Publish() {
     return(
     <main className="publishMain">
 
-            <header><h2 className="titlePub"></h2></header>
+            <header><h2 className="titlePub">Публикувай</h2></header>
 
             
-            <section className="box">
+            <div className="publishbox">
 
                     <form action="">
+                    <div className="row1">
                         <label for="carcategory" id="categorylabel">Категория:</label>
                         <select id="carcategory" name="category" onChange={ changeCategory } value={ category_value }>
                             {categories.map((item) => {
@@ -365,7 +366,9 @@ function Publish() {
         
                         <label for="yearholder" id="yearholderlabel">Година:</label>
                         <input type="text" id="yearholder" name="year" placeholder="Година на производство" onChange={ changeYear } onKeyPress={ inputNums }></input>
-        
+                    </div>
+
+                    <div className="row2">     
                         <label   for="engineholder" id="enginelabel">Двигател:</label>
                         <select   id="engineholder" placeholder="Двигател" name="engine" onChange={ changeEngine } value={ engine_value }>
                             <option key='0' value="---">---</option>
@@ -378,12 +381,14 @@ function Publish() {
                         </select>
                         
                         <label   for="power" id="powerlabel">Мощност:</label>
-                        <input   type="text" id="powerholder" name="power" placeholder="Мин. мощност" onChange={ changePower } onKeyPress={ inputNums }></input>
+                        <input   type="text" id="powerholder" name="power" placeholder="Мощност" onChange={ changePower } onKeyPress={ inputNums }></input>
 
                         <label   for="kmrange" id="rangelabel">Пробег (в км):</label>
-                        <input   type="text" id="rangeholder" name="kmrange" placeholder="Макс. пробег" onChange={ changeMileage } onKeyPress={ inputNums }></input>
+                        <input   type="text" id="rangeholder" name="kmrange" placeholder="Пробег" onChange={ changeMileage } onKeyPress={ inputNums }></input>
 
+                    </div> 
 
+                    <div className="row3">
                         <label   for="gearboxholder" id="gearboxlabel">Скоростна кутия:</label>
                         <select   id="gearboxholder" placeholder="Скоростна кутия" name="gearbox" onChange={ changeGearbox } value={ gearbox_value }>
                             <option key='0' value="---">---</option>
@@ -427,8 +432,12 @@ function Publish() {
                                 })
                             }
                         </select>
-                        
-                        <div  ><div className="extrasheading">Допълнителни екстри:</div></div>
+                    </div>
+
+                    <div className="extrasComponent">
+
+                        <div className="extrasheading"><b>Допълнителни екстри:</b></div>
+
                         <label class=""  for="elWindows" id="electricWindowslabel">Eл. стъкла</label>
                         <input   type="checkbox" id="electricWindowsholder" name="elWindows" onChange={ changeElWindows }/>
 
@@ -459,59 +468,64 @@ function Publish() {
                         <label   for="seatheater" id="seatheaterlabel">Подгрев на седалките</label>
                         <input   type="checkbox" id="seatheaterholder" name="seatheater" onChange={ changeSeatHeater }/>
                         
-                        <label   for="info" id="infolabel">Описание:</label>
-                        <input  class="infoholder" type="text" id="infoholder" name="info" onChange={ getInfo } style={{height: "200px", width: "200px", textAlign: "left", textOverflow: "scroll"}}></input>
+                    </div>
+                        <label   for="info" id="infolabel"><b>Описание</b></label>
+                        <input  className="infoholder" type="text" id="infoholder" name="info" onChange={ getInfo }></input>
+                    </form>
+            </div>
+            
+            <div className="picturesDiv">
 
-                        <PublishButton category={ category_value} make={ make_value} model={ model_value}
+                <div className="uploadImage">
+                    <div className="uploadImageInner">
+                    <input id="file" type="file" onChange={fileSelectedHandler} />
+                    <label for="file">Изберете снимка</label>
+                    </div>
+                    <button className="uploadPic"onClick={fileUploadHandler}>Качи</button>
+                </div>
+
+                <div className="carouselPublish">
+                    <div className="carouselInnerPublish"
+                    style={{backgroundImage: `url(${currentPicture})`}}>
+                        <div
+                        className="left"
+                        onClick={() => {
+                            indexPic - 1 > 0 && setCurrentPicture(URL.createObjectURL(pictures[indexPic - 2].blob))
+                            if(typeof(pictures[indexPic - 2]) !== 'undefined' && pictures[indexPic - 2] !== null){
+                                setIndexPic(indexPic-1)
+                            }
+                            
+                        }}
+                        >
+                        <ArrowBackIosIcon style={{ fontSize: 30 }} />
+                        </div>
+
+                        <div className="center"></div>
+
+                        <div
+                        className="right"
+                        onClick={() => {
+                            indexPic < pictures.length && setCurrentPicture(URL.createObjectURL(pictures[indexPic].blob))
+                            if( typeof(pictures[indexPic]) !== 'undefined' && pictures[indexPic] !== null ){
+                                setIndexPic(indexPic+1)
+                            }
+                            
+                        }}
+                        >
+                        <ArrowForwardIosIcon style={{ fontSize: 30 }} />
+                        </div>
+                    </div>
+                </div>
+                <button className="removeButton" onClick={removeSelectedPicture}>Премахни</button>
+
+                <PublishButton category={ category_value} make={ make_value} model={ model_value}
                         price={ price_value} year={ year_value} engine={ engine_value} power={ power }
                         mileage={ mileage } gearbox={ gearbox_value}
                         location={ locations_value } elWindows={ elWindows} airConditioning={ airConditioning} servo={ servo }
                         alarm={ alarm } fourwheel={ fourwheel } bluetooth={ bluetooth } boardcomputer={ boardcomputer } 
                         navigation={ navigation } rainsensor={ rainsensor } seatheater={ seatheater } ecategory={ ecategory_value }
                         paint={ paint_value } info={ info } pictures={ pictures }/>
-                        
-                    </form>
-                </section>
-
-                <div className="uploadImage">
-            <input type="file" onChange={fileSelectedHandler} style={{height: "200px"}} />
-            <button onClick={fileUploadHandler} style={{height: "20px"}}>Качи</button>
-
-            <div className="carousel">
-                <div className="carouselInner"
-                style={{backgroundImage: `url(${currentPicture})`}}>
-                    <div
-                    className="left"
-                    onClick={() => {
-                        indexPic - 1 > 0 && setCurrentPicture(URL.createObjectURL(pictures[indexPic - 2].blob))
-                        if(typeof(pictures[indexPic - 2]) !== 'undefined' && pictures[indexPic - 2] !== null){
-                            setIndexPic(indexPic-1)
-                        }
-                        
-                    }}
-                    >
-                    <ArrowBackIosIcon style={{ fontSize: 30 }} />
-                    </div>
-
-                    <div className="center"></div>
-
-                    <div
-                    className="right"
-                    onClick={() => {
-                         indexPic < pictures.length && setCurrentPicture(URL.createObjectURL(pictures[indexPic].blob))
-                         if( typeof(pictures[indexPic]) !== 'undefined' && pictures[indexPic] !== null ){
-                            setIndexPic(indexPic+1)
-                        }
-                        
-                    }}
-                    >
-                    <ArrowForwardIosIcon style={{ fontSize: 30 }} />
-                    </div>
-                </div>
-            </div>
-            <button className="removeButton" style={{height: '20px' }} onClick={removeSelectedPicture}>Премахни</button>
-            </div>
-            
+        </div> 
     </main>
     );
 }
