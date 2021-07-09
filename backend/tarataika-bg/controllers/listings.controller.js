@@ -382,11 +382,13 @@ Listings.update({
             listing.setExtras(extras);
         });
 
-        await Pictures.destroy({
-            where: {
-                listing: listingid
-            }
-        });
+        if (req.body.pictures.length > 0) {
+            await Pictures.destroy({
+                where: {
+                    listing: listingid
+                }
+            });
+        }
 
         await Listings.findOne({where: {id: listingid}})
                 .then((listing) => {

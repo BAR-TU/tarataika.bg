@@ -26,7 +26,6 @@ function UpdateListing() {
         info: ''
     })
 
-    const [selectedFile, setSelectedFile] = useState();
     const [category_value, setCategoryValue] = useState('Коли');
     const [make_value, setMakeValue] = useState('');
     const [categories, setCategories] = useState([]);
@@ -170,7 +169,7 @@ function UpdateListing() {
         })
     }
 
-    const fileSelectedHandler = event => {
+    const fileSelectedHandler = (event) => {
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
         let url1;
@@ -194,9 +193,10 @@ function UpdateListing() {
     const fileUploadHandler = () => {
         if(picture.id !== 'a' && picture.blob !== undefined){
             
-            pictures.push(picture);
+            let arr = pictures;
+            arr.push(picture);
             handlePictureChange();
-            setPictures(pictures);
+            setPictures(arr);
             setIndexPic(pictures.length-1);
             }
             picture = {
@@ -205,7 +205,10 @@ function UpdateListing() {
                 url: 'a',
                 type: 'a'
             }
-    }
+            
+            document.getElementById("file").value = "";
+
+            }
 
 
         const changeCategory = (event) => {
@@ -450,9 +453,9 @@ function UpdateListing() {
         }
 
         const removeSelectedPicture = () => {
-            if(indexPic > 0 && typeof(currentPicture) !== ""){
+            if(typeof(currentPicture) !== "" && currentPicture !== "https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg"){
                 pictures.splice(indexPic -1, 1)
-                setIndexPic(indexPic => 0);
+                setIndexPic(0);
                 console.log(indexPic);
                 if(pictures.length > 0){
                     setCurrentPicture(URL.createObjectURL(pictures[0].blob));
@@ -593,7 +596,7 @@ function UpdateListing() {
 
                     <div className="extrasComponent">
 
-                    <div className="extrasheading"><b>Допълнителни екстри:</b></div>
+                        <div className="extrasheading"><b>Допълнителни екстри:</b></div>
                         <label className=""  for="elWindows" id="electricWindowslabel">Eл. стъкла</label>
                         <input   type="checkbox" checked={elWindows} id="electricWindowsholder" name="elWindows" onClick={ changeElWindows }/>
 

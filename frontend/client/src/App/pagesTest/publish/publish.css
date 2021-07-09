@@ -29,8 +29,6 @@
     place-items: center;
     color: white;
     cursor: pointer;
-    position: absolute;
-    margin-left: 30px;
 }
 
 .carouselInnerPublish .center {
@@ -51,8 +49,6 @@
     place-items: center;
     color: white;
     cursor: pointer;
-    position: absolute;
-    margin-left: 1150px;
 }
  .publishbox {
     background-color: rgba(243, 8, 8, 0.37);

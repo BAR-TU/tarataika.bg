@@ -54,7 +54,7 @@ export default function EditMyListings () {
         getListings();
 
         
-    }, [location.state, changed]);
+    }, [location.state, changed, history]);
 
     return (
         <main>
