@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import "./VehicleTemplate.css"
+import "./../publish/publish.css"
 import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 import axios from 'axios';
+
 
 
 function VehiclePictures(props) {
     const [currentPicture, setCurrentPicture] = useState('');
     const [pictures, setPictures] = useState([]);
     const [indexPic, setIndexPic] = useState(0);
-    let urls = '';
 
     useEffect(() => {
        getPictures(props.listingid)
@@ -41,9 +41,9 @@ function VehiclePictures(props) {
         url: 'a'
     }
     return(
-        <div className="carousel">
-            <img src={pictures[0]}></img>
-        <div className="carouselInner"
+        <div className="carouselPublish">
+            <img src={currentPicture}></img>
+        <div className="carouselInnerPublish"
         style={{backgroundImage: `${currentPicture ? currentPicture.url : 'https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg' }`}}>
             <div
             className="left"

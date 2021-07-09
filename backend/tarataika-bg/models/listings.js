@@ -21,7 +21,7 @@ const Listings = sequelize.define("listings",{
         },
         price: {
             field: "price",
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         },
         engine_id: {
             field: "engine_id",
@@ -37,7 +37,7 @@ const Listings = sequelize.define("listings",{
         },
         mileage: {
             field: "mileage",
-            type: Sequelize.STRING
+            type: Sequelize.INTEGER
         },
         user_id: {
             field: "user_id",

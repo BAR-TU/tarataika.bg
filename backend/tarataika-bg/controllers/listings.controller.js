@@ -12,6 +12,7 @@ const Ecategory = db.eurocategories;
 const Categories = db.vehiclesCategories;
 const VehicleExtras = db.vehicleExtras;
 const Pictures = db.pictures;
+const User = db.users;
 let extrasChosen;
 var yearCondition;
 
@@ -28,7 +29,7 @@ exports.deleteById = (req, res) => {
             }
         }], where: {
         id: req.params.id
-    }}).then((res) => {
+    }}).then(async (res) => {
         for (let i = 0; i < res.extras.length; i++) {
             extras.push(res.extras[i].extra_id);
         }
@@ -44,6 +45,11 @@ exports.deleteById = (req, res) => {
                 });
             });
         }
+            await Pictures.destroy({
+                where: {
+                    listing: req.params.id
+                }
+            });
     }).then(() => {
         Listings.destroy({
             where: {
@@ -313,9 +319,6 @@ await Gearbox.findOne({where: {type: req.body.gearbox}})
         gearboxid = res.id
 });
 
-let vip_status = false;
-let views = 0;
-
 let locationid = "";
 await Location.findOne({where: {location: req.body.location}})
     .then(res => {
@@ -363,8 +366,6 @@ Listings.update({
     mileage: mileage,
     gearbox_id: gearboxid,
     user_id: userid,
-    vip_status: vip_status,
-    views: views,
     location_id: locationid,
     status: status,
     paint_id: paintid,
@@ -372,14 +373,37 @@ Listings.update({
     eurocategory: eurocategoryid,
     first_registration: first_registration,
     power: power
- }, { where: { id: req.body.id } }).then((res) => {
+ }, { where: { id: req.body.id } }).then(async (res) => {
      if (res == 1) {
     const listingid = req.body.id;
 
-        Listings.findOne({where: {id: listingid}})
+        await Listings.findOne({where: {id: listingid}})
         .then((listing) => {
             listing.setExtras(extras);
         });
+
+        await Pictures.destroy({
+            where: {
+                listing: listingid
+            }
+        });
+
+        await Listings.findOne({where: {id: listingid}})
+                .then((listing) => {
+                    for(let i = 0; i < req.body.pictures.length; i++){
+                        let buff = Buffer.from("\\x" + Buffer.from(req.body.pictures[i].url, "base64").toString("base64"));                        ;
+                        Pictures.create({
+                            path: req.body.pictures[i].blob.name,
+                            type: req.body.pictures[i].type,
+                            img: buff,
+                            listing_id: listingid
+                        })
+                        .catch(err => {
+                            res.status(500).send({
+                                message: err.message});          
+                        })
+                    }
+                })
 } else {
     res.send({
          message: 'Неуспешно обновяване на обява с id=${id}. Може би обявате не е била намерена или req.body е празно!'
@@ -485,6 +509,11 @@ exports.findById = (req, res) => {
     const id = req.params.id;
 
     Listings.findOne({ include: [
+        {
+            model: User,
+            as: 'user',
+            attributes: ["id", "username", "phone_number", "email"]
+        },
         {
             model: Makes,
             as: 'make',
@@ -668,10 +697,15 @@ exports.addlisting = async (req, res) => {
                         .catch(err => {
                             res.status(500).send({
                                 message: err.message});          
-                    })
-            }
-        })
-    }).catch(err => {
+                        })
+                    }
+                })
+    }).then(() => {
+        res.send({
+            message: "Обявата беше качена успешно!"
+          });
+     })
+    .catch(err => {
             console.log(err);
             res.json({msg: 'Error', detail: err});
     });

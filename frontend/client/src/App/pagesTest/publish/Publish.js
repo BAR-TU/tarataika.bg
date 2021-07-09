@@ -486,7 +486,7 @@ function Publish() {
 
                 <div className="carouselPublish">
                     <div className="carouselInnerPublish"
-                    style={{backgroundImage: `url(${currentPicture})`}}>
+                    style={{backgroundImage: `${currentPicture ? currentPicture.url : 'https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg' }`}}>
                         <div
                         className="left"
                         onClick={() => {

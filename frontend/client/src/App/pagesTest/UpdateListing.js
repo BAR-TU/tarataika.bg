@@ -8,7 +8,6 @@ import axios from 'axios';
 
 function UpdateListing() {
     const { id } = useParams();
-    console.log(id);
     
     const [initialData, setData] = useState({
         category: '',
@@ -67,9 +66,10 @@ function UpdateListing() {
 
     let picture = {
         id: 'a',
-        blob: 'a'
+        blob: 'a',
+        url: 'a',
+        type: 'a'
     }
-
 
     useEffect(() => {
         var selected = document.getElementsByClassName("selected");
@@ -163,7 +163,7 @@ function UpdateListing() {
             setLocationsValue(res.data.location.location);
             setEcategoryValue(res.data.ecategory.category);
             setPaintValue(res.data.paint.paint);
-
+            setCurrentPicture("https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg");
             
 
             setInfo(res.data.info);
@@ -171,25 +171,40 @@ function UpdateListing() {
     }
 
     const fileSelectedHandler = event => {
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        let url1;
+        reader.onload = function () {
+            for(let i = 0; i < 100; i++){
+                if(reader.result[i] === ','){
+                    url1 = reader.result.substring(i+1);
+                    break;
+                }
+            }
 
-        picture = {
-            id: pictures.length,
-            blob: event.target.files[0]
-        }
+            picture = {
+                id: pictures.length,
+                blob: event.target.files[0],
+                url: url1,
+                type: event.target.files[0].type
+            }
+        };
     }
 
     const fileUploadHandler = () => {
         if(picture.id !== 'a' && picture.blob !== undefined){
             
-        pictures.push(picture);
-        handlePictureChange();
-        setIndexPic(indexPic+1);
-        console.log(indexPic);
-        }
-        picture = {
-            id: 'a',
-            blob: 'a'
-        }
+            pictures.push(picture);
+            handlePictureChange();
+            setPictures(pictures);
+            setIndexPic(pictures.length-1);
+            }
+            picture = {
+                id: 'a',
+                blob: 'a',
+                url: 'a',
+                type: 'a'
+            }
     }
 
 
@@ -435,10 +450,16 @@ function UpdateListing() {
         }
 
         const removeSelectedPicture = () => {
-            alert("Няма снимка за изтриване!");
-            console.log(indexPic)
-            if(indexPic => 0 && typeof(currentPicture) !== 'undefined'){
-                console.log();
+            if(indexPic > 0 && typeof(currentPicture) !== ""){
+                pictures.splice(indexPic -1, 1)
+                setIndexPic(indexPic => 0);
+                console.log(indexPic);
+                if(pictures.length > 0){
+                    setCurrentPicture(URL.createObjectURL(pictures[0].blob));
+                }
+                else {
+                    setCurrentPicture("https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg");
+                }
             } else {
                 alert("Няма снимка за изтриване!");
             }
@@ -447,11 +468,12 @@ function UpdateListing() {
     return(
     <main className="publishMain">
 
-            <header><h2 className="titlePub">Публикация</h2></header>
+            <header><h2 className="titlePub">Редактирай</h2></header>
             
-            <section className="box">
+            <section className="publishbox">
 
                     <form action="">
+                    <div className="row1">
                         <label for="carcategory" id="categorylabel">Категория:</label>
                         <select id="carcategory" name="category" onChange={ changeCategory } value={ category_value }>
                             {categories.map((item) => {
@@ -502,7 +524,9 @@ function UpdateListing() {
         
                         <label for="yearholder" id="yearholderlabel">Година:</label>
                         <input type="text" value={year_value} id="yearholder" name="year" placeholder="Година на производство" onChange={ changeYear } onKeyPress={ inputNums }></input>
-        
+                    </div>
+
+                    <div className="row2">
                         <label   for="engineholder" id="enginelabel">Двигател:</label>
                         <select   id="engineholder" placeholder="Двигател" name="engine" onChange={ changeEngine } value={ engine_value }>
                             <option key='0' value="---">---</option>
@@ -519,8 +543,9 @@ function UpdateListing() {
 
                         <label   for="kmrange" id="rangelabel">Пробег (в км):</label>
                         <input   type="text" value={mileage} id="rangeholder" name="kmrange" placeholder="Макс. пробег" onChange={ changeMileage } onKeyPress={ inputNums }></input>
+                    </div>
 
-
+                    <div className="row3">
                         <label   for="gearboxholder" id="gearboxlabel">Скоростна кутия:</label>
                         <select   id="gearboxholder" placeholder="Скоростна кутия" name="gearbox" onChange={ changeGearbox } value={ gearbox_value }>
                             <option key='0' value="---">---</option>
@@ -564,8 +589,11 @@ function UpdateListing() {
                                 })
                             }
                         </select>
-                        
-                        <div  ><div className="extrasheading">Допълнителни екстри:</div></div>
+                    </div>
+
+                    <div className="extrasComponent">
+
+                    <div className="extrasheading"><b>Допълнителни екстри:</b></div>
                         <label className=""  for="elWindows" id="electricWindowslabel">Eл. стъкла</label>
                         <input   type="checkbox" checked={elWindows} id="electricWindowsholder" name="elWindows" onClick={ changeElWindows }/>
 
@@ -595,27 +623,26 @@ function UpdateListing() {
 
                         <label   for="seatheater" id="seatheaterlabel">Подгрев на седалките</label>
                         <input   type="checkbox"  checked={seatheater} id="seatheaterholder" name="seatheater" onClick={ changeSeatHeater }/>
-                        
-                        <label   for="info" id="infolabel">Описание:</label>
-                        <input  className="infoholder" value={info} type="text" id="infoholder" name="info" onChange={ getInfo } style={{height: "200px", width: "200px", textAlign: "left", textOverflow: "scroll"}}></input>
+                    </div>
+                        <label   for="info" id="infolabel"><b>Описание</b></label>
+                        <input  className="infoholder" value={info} type="text" id="infoholder" name="info" onChange={ getInfo }></input>
 
-                        <PublishButton id={id} update='true' category={ category_value} make={ make_value} model={ model_value}
-                        price={ price_value} year={ year_value} engine={ engine_value} power={ power }
-                        mileage={ mileage } gearbox={ gearbox_value}
-                        location={ locations_value } elWindows={ elWindows} airConditioning={ airConditioning} servo={ servo }
-                        alarm={ alarm } fourwheel={ fourwheel } bluetooth={ bluetooth } boardcomputer={ boardcomputer } 
-                        navigation={ navigation } rainsensor={ rainsensor } seatheater={ seatheater } ecategory={ ecategory_value }
-                        paint={ paint_value } info={ info } pictures={ pictures }/>
                         
                     </form>
                 </section>
 
-                <div className="uploadImage">
-            <input type="file" onChange={fileSelectedHandler} style={{height: "200px"}} />
-            <button onClick={fileUploadHandler} style={{height: "20px"}}>Качи</button>
+        <div className="picturesDiv">
 
-            <div className="carousel">
-                <div className="carouselInner"
+            <div className="uploadImage">
+                    <div className="uploadImageInner">
+                    <input id="file" type="file" onChange={fileSelectedHandler} />
+                    <label for="file">Качете нови снимки</label>
+                    </div>
+                    <button className="uploadPic"onClick={fileUploadHandler}>Качи</button>
+            </div>
+
+            <div className="carouselPublish">
+                <div className="carouselInnerPublish"
                 style={{backgroundImage: `url(${currentPicture})`}}>
                     <div
                     className="left"
@@ -646,9 +673,18 @@ function UpdateListing() {
                     </div>
                 </div>
             </div>
-            <button className="removeButton" style={{height: '20px' }} onClick={removeSelectedPicture}>Премахни</button>
-            </div>
-            
+            <button className="removeButton" onClick={removeSelectedPicture}>Премахни</button>
+
+            <PublishButton id={id} update='true' category={ category_value} make={ make_value} model={ model_value}
+                        price={ price_value} year={ year_value} engine={ engine_value} power={ power }
+                        mileage={ mileage } gearbox={ gearbox_value}
+                        location={ locations_value } elWindows={ elWindows} airConditioning={ airConditioning} servo={ servo }
+                        alarm={ alarm } fourwheel={ fourwheel } bluetooth={ bluetooth } boardcomputer={ boardcomputer } 
+                        navigation={ navigation } rainsensor={ rainsensor } seatheater={ seatheater } ecategory={ ecategory_value }
+                        paint={ paint_value } info={ info } pictures={ pictures }/>
+                        
+        </div>
+    
     </main>
     );
 }
