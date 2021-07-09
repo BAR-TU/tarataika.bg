@@ -5,7 +5,6 @@ import ArrowBackIosIcon from "@material-ui/icons/ArrowBackIos";
 import ArrowForwardIosIcon from "@material-ui/icons/ArrowForwardIos";
 function Publish() {
 
-    const [selectedFile, setSelectedFile] = useState();
     const [category_value, setCategoryValue] = useState('Коли');
     const [make_value, setMakeValue] = useState('');
     const [categories, setCategories] = useState([]);
@@ -43,11 +42,21 @@ function Publish() {
     const [pictures, setPictures] = useState([]);
     const [indexPic, setIndexPic] = useState(0);
 
+    let picture = {
+        id: 'a',
+        blob: 'a',
+        url: 'a',
+        type: 'a'
+    }
+
     useEffect(() => {
         var selected = document.getElementsByClassName("selected");
         selected[0].className = "";
         var toSelect = document.getElementById("publish");
         toSelect.className = "selected";
+
+        setCurrentPicture("https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg");
+
 
         getCategories();
         getPaints();
@@ -55,17 +64,10 @@ function Publish() {
         getEngines();
         getGearboxes();
         getLocations();
-        setCurrentPicture("https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg");
     }, []);
 
-    let picture = {
-            id: 'a',
-            blob: 'a',
-            url: 'a',
-            type: 'a'
-    }
 
-    const fileSelectedHandler = event => {
+    const fileSelectedHandler = (event) => {
         const reader = new FileReader();
         reader.readAsDataURL(event.target.files[0]);
         let url1;
@@ -88,11 +90,12 @@ function Publish() {
 
     const fileUploadHandler = () => {
         if(picture.id !== 'a' && picture.blob !== undefined){
-            
-        pictures.push(picture);
-        handlePictureChange();
-        setPictures(pictures);
-        setIndexPic(pictures.length-1);
+
+            let arr = pictures;
+            arr.push(picture);
+            handlePictureChange();
+            setPictures(arr);
+            setIndexPic(pictures.length-1);
         }
         picture = {
             id: 'a',
@@ -100,6 +103,7 @@ function Publish() {
             url: 'a',
             type: 'a'
         }
+        document.getElementById("file").value = "";
     }
 
 
@@ -303,9 +307,9 @@ function Publish() {
         }
 
         const removeSelectedPicture = () => {
-            if(indexPic > 0 && typeof(currentPicture) !== ""){
+            if(typeof(currentPicture) !== "" && currentPicture !== "https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg"){
                 pictures.splice(indexPic -1, 1)
-                setIndexPic(indexPic => 0);
+                setIndexPic(0);
                 console.log(indexPic);
                 if(pictures.length > 0){
                     setCurrentPicture(URL.createObjectURL(pictures[0].blob));
@@ -324,7 +328,7 @@ function Publish() {
             <header><h2 className="titlePub">Публикувай</h2></header>
 
             
-            <div className="publishbox">
+            <section className="publishbox">
 
                     <form action="">
                     <div className="row1">
@@ -472,50 +476,50 @@ function Publish() {
                         <label   for="info" id="infolabel"><b>Описание</b></label>
                         <input  className="infoholder" type="text" id="infoholder" name="info" onChange={ getInfo }></input>
                     </form>
-            </div>
+            </section>
             
             <div className="picturesDiv">
 
-                <div className="uploadImage">
+            <div className="uploadImage">
                     <div className="uploadImageInner">
                     <input id="file" type="file" onChange={fileSelectedHandler} />
-                    <label for="file">Изберете снимка</label>
+                    <label for="file">Изберете снимки</label>
                     </div>
                     <button className="uploadPic"onClick={fileUploadHandler}>Качи</button>
-                </div>
+            </div>
 
-                <div className="carouselPublish">
-                    <div className="carouselInnerPublish"
-                    style={{backgroundImage: `${currentPicture ? currentPicture.url : 'https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg' }`}}>
-                        <div
-                        className="left"
-                        onClick={() => {
-                            indexPic - 1 > 0 && setCurrentPicture(URL.createObjectURL(pictures[indexPic - 2].blob))
-                            if(typeof(pictures[indexPic - 2]) !== 'undefined' && pictures[indexPic - 2] !== null){
-                                setIndexPic(indexPic-1)
-                            }
-                            
-                        }}
-                        >
-                        <ArrowBackIosIcon style={{ fontSize: 30 }} />
-                        </div>
+            <div className="carouselPublish">
+                <div className="carouselInnerPublish"
+                style={{backgroundImage: `url(${currentPicture})`}}>
+                    <div
+                    className="left"
+                    onClick={() => {
+                        indexPic - 1 > 0 && setCurrentPicture(URL.createObjectURL(pictures[indexPic - 2].blob))
+                        if(typeof(pictures[indexPic - 2]) !== 'undefined' && pictures[indexPic - 2] !== null){
+                            setIndexPic(indexPic-1)
+                        }
+                        
+                    }}
+                    >
+                    <ArrowBackIosIcon style={{ fontSize: 30 }} />
+                    </div>
 
-                        <div className="center"></div>
+                    <div className="center"></div>
 
-                        <div
-                        className="right"
-                        onClick={() => {
-                            indexPic < pictures.length && setCurrentPicture(URL.createObjectURL(pictures[indexPic].blob))
-                            if( typeof(pictures[indexPic]) !== 'undefined' && pictures[indexPic] !== null ){
-                                setIndexPic(indexPic+1)
-                            }
-                            
-                        }}
-                        >
-                        <ArrowForwardIosIcon style={{ fontSize: 30 }} />
-                        </div>
+                    <div
+                    className="right"
+                    onClick={() => {
+                         indexPic < pictures.length && setCurrentPicture(URL.createObjectURL(pictures[indexPic].blob))
+                         if( typeof(pictures[indexPic]) !== 'undefined' && pictures[indexPic] !== null ){
+                            setIndexPic(indexPic+1)
+                        }
+                        
+                    }}
+                    >
+                    <ArrowForwardIosIcon style={{ fontSize: 30 }} />
                     </div>
                 </div>
+            </div>
                 <button className="removeButton" onClick={removeSelectedPicture}>Премахни</button>
 
                 <PublishButton category={ category_value} make={ make_value} model={ model_value}
