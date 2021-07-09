@@ -27,7 +27,7 @@ const PublishButton = (props) => {
     }
 
     return (
-            <button style={{height: "20px", width: "200px"}} 
+            <button
             disabled={!props.category || !props.make || !props.model || !props.price || !props.year || !props.engine || !props.power || !props.mileage || !props.gearbox || !props.location || !props.paint || !props.ecategory} 
             id="publishbutton" onClick={ handleClick }>
             Публикувай
