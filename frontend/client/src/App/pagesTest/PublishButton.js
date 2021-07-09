@@ -12,16 +12,11 @@ const PublishButton = (props) => {
     async function handleClick(e) {
             e.preventDefault();
         if (props.update === undefined) {
-            await axios.post('/api/listings/addlisting', props).then(() => {
-                history.push({
-                    pathname: '/listingsresults',
-                    search: '',
-                    state: { details: props}
-                });
-            }).catch((err) => {
-                console.log(err);
+            history.push({
+                pathname: '/editlistings',
+                search: '',
+                state: { details: props}
             });
-            
         } else if (props.update === 'true') {
             history.push({
                 pathname: '/editlistings',

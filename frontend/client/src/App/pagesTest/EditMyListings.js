@@ -1,11 +1,12 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 import EditMyListingsView from './EditMyListingsView';
-import { useLocation } from 'react-router-dom';
+import { useLocation, useHistory } from 'react-router-dom';
 
 
 
 export default function EditMyListings () {
+    let history = useHistory();
     let error = '';
     const location = useLocation();
     const [message, setMessage] = useState('');
@@ -21,10 +22,18 @@ export default function EditMyListings () {
               }, 5000)
 
             if (location.state.details !== undefined) {
-                axios.put('/api/listings/update', location.state.details).then((res) => {
-                    setMessage(res.data.message);
-                    setChanged('true');
-                })
+                if (location.state.details.update === "true") {
+                    axios.put('/api/listings/update', location.state.details).then((res) => {
+                        setMessage(res.data.message);
+                        setChanged('true');
+                    })
+                } else if (location.state.details.update === undefined) {
+                    axios.post('/api/listings/addlisting', location.state.details).then((res) => {
+                        setMessage(res.data.message);
+                    }).catch((err) => {
+                        console.log(err);
+                    });
+                }
             }
 
             setTimeout(() => {
@@ -32,6 +41,7 @@ export default function EditMyListings () {
               }, 5000)
         }
 
+        history.replace();
 
 
         async function getListings() {

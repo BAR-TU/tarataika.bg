@@ -8,7 +8,6 @@ import axios from 'axios';
 
 function UpdateListing() {
     const { id } = useParams();
-    console.log(id);
     
     const [initialData, setData] = useState({
         category: '',
@@ -67,9 +66,10 @@ function UpdateListing() {
 
     let picture = {
         id: 'a',
-        blob: 'a'
+        blob: 'a',
+        url: 'a',
+        type: 'a'
     }
-
 
     useEffect(() => {
         var selected = document.getElementsByClassName("selected");
@@ -163,7 +163,7 @@ function UpdateListing() {
             setLocationsValue(res.data.location.location);
             setEcategoryValue(res.data.ecategory.category);
             setPaintValue(res.data.paint.paint);
-
+            setCurrentPicture("https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg");
             
 
             setInfo(res.data.info);
@@ -171,25 +171,40 @@ function UpdateListing() {
     }
 
     const fileSelectedHandler = event => {
+        const reader = new FileReader();
+        reader.readAsDataURL(event.target.files[0]);
+        let url1;
+        reader.onload = function () {
+            for(let i = 0; i < 100; i++){
+                if(reader.result[i] === ','){
+                    url1 = reader.result.substring(i+1);
+                    break;
+                }
+            }
 
-        picture = {
-            id: pictures.length,
-            blob: event.target.files[0]
-        }
+            picture = {
+                id: pictures.length,
+                blob: event.target.files[0],
+                url: url1,
+                type: event.target.files[0].type
+            }
+        };
     }
 
     const fileUploadHandler = () => {
         if(picture.id !== 'a' && picture.blob !== undefined){
             
-        pictures.push(picture);
-        handlePictureChange();
-        setIndexPic(indexPic+1);
-        console.log(indexPic);
-        }
-        picture = {
-            id: 'a',
-            blob: 'a'
-        }
+            pictures.push(picture);
+            handlePictureChange();
+            setPictures(pictures);
+            setIndexPic(pictures.length-1);
+            }
+            picture = {
+                id: 'a',
+                blob: 'a',
+                url: 'a',
+                type: 'a'
+            }
     }
 
 
@@ -435,10 +450,16 @@ function UpdateListing() {
         }
 
         const removeSelectedPicture = () => {
-            alert("Няма снимка за изтриване!");
-            console.log(indexPic)
-            if(indexPic => 0 && typeof(currentPicture) !== 'undefined'){
-                console.log();
+            if(indexPic > 0 && typeof(currentPicture) !== ""){
+                pictures.splice(indexPic -1, 1)
+                setIndexPic(indexPic => 0);
+                console.log(indexPic);
+                if(pictures.length > 0){
+                    setCurrentPicture(URL.createObjectURL(pictures[0].blob));
+                }
+                else {
+                    setCurrentPicture("https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg");
+                }
             } else {
                 alert("Няма снимка за изтриване!");
             }
@@ -447,7 +468,7 @@ function UpdateListing() {
     return(
     <main className="publishMain">
 
-            <header><h2 className="titlePub">Публикация</h2></header>
+            <header><h2 className="titlePub"></h2></header>
             
             <section className="box">
 
@@ -611,6 +632,7 @@ function UpdateListing() {
                 </section>
 
                 <div className="uploadImage">
+                    <span>Добавете нови снимки:</span>
             <input type="file" onChange={fileSelectedHandler} style={{height: "200px"}} />
             <button onClick={fileUploadHandler} style={{height: "20px"}}>Качи</button>
 

@@ -102,4 +102,9 @@ db.pictures.belongsTo(db.listings, {
   foreignKey: 'listing_id'
 });
 
+db.listings.belongsTo(db.users, {
+  as: 'user',
+  foreignKey: 'user_id'
+})
+
 module.exports = db;

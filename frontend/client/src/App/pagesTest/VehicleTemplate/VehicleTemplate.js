@@ -38,7 +38,8 @@ class VehicleTemplate extends React.Component {
                 paint: '',
                 info: '',
                 ecategory: '',
-                extras: [{extra: ''}]
+                extras: [{extra: ''}],
+                user: { username: '', phone_number: '', email: ''}
             }
         }
     }
@@ -241,7 +242,7 @@ class VehicleTemplate extends React.Component {
                     </div>
 
 
-                <div className="userinfo">UserInfoPlaceHolder</div>
+                <div className="userinfo">{details.user.username}<br/>{details.user.phone_number}<br/>{details.user.email}</div>
                 
                 <div className="vehicleExtras" style={{textAlign: 'center', fontSize: '28px'}}> <b>Екстри:</b> 
                     <div className="extrasContainer" style={{textAlign: 'left', fontSize: '22px'}}>

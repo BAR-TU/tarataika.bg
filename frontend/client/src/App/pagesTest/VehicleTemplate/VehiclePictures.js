@@ -9,7 +9,6 @@ function VehiclePictures(props) {
     const [currentPicture, setCurrentPicture] = useState('');
     const [pictures, setPictures] = useState([]);
     const [indexPic, setIndexPic] = useState(0);
-    let urls = '';
 
     useEffect(() => {
        getPictures(props.listingid)
