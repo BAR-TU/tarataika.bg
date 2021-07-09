@@ -58,37 +58,36 @@ function VehiclePictures(props) {
 
     return(
         <div className={classes.carouselPublish}>
-            <img src={currentPicture} alt="The mighty Lada"></img>
-        <div className="carouselInnerPublish"
-        style={{backgroundImage: `${currentPicture ? currentPicture.url : 'https://c4.wallpaperflare.com/wallpaper/631/410/389/car-vehicle-dmitry-strukov-drift-monster-wallpaper-preview.jpg' }`}}>
-            <div
-            className="left"
-            onClick={() => {
-                indexPic - 1 > 0 && setCurrentPicture(pictures[indexPic - 2])
-                if(typeof(pictures[indexPic - 2]) !== 'undefined' && pictures[indexPic - 2] !== null){
-                    setIndexPic(indexPic-1)
-                }
-                
-            }}
-            >
-            <ArrowBackIosIcon style={{ fontSize: 30 }} />
-            </div>
+                <div alt="The mighty Lada" className="carouselInnerPublish"
+            style={{backgroundImage: `url(${currentPicture}`}}>
+                <div
+                className="left"
+                onClick={() => {
+                    indexPic - 1 > 0 && setCurrentPicture(pictures[indexPic - 2])
+                    if(typeof(pictures[indexPic - 2]) !== 'undefined' && pictures[indexPic - 2] !== null){
+                        setIndexPic(indexPic-1)
+                    }
+                    
+                }}
+                >
+                <ArrowBackIosIcon style={{ fontSize: 30 }} />
+                </div>
 
-            <div className="center"></div>
+                <div className="center"></div>
 
-            <div
-            className="right"
-            onClick={() => {
-                 indexPic < pictures.length && setCurrentPicture(pictures[indexPic])
-                 if( typeof(pictures[indexPic]) !== 'undefined' && pictures[indexPic] !== null ){
-                    setIndexPic(indexPic+1)
-                }
-                
-            }}
-            >
-            <ArrowForwardIosIcon style={{ fontSize: 30 }} />
+                <div
+                className="right"
+                onClick={() => {
+                    indexPic < pictures.length && setCurrentPicture(pictures[indexPic])
+                    if( typeof(pictures[indexPic]) !== 'undefined' && pictures[indexPic] !== null ){
+                        setIndexPic(indexPic+1)
+                    }
+                    
+                }}
+                >
+                <ArrowForwardIosIcon style={{ fontSize: 30 }} />
+                </div>
             </div>
-        </div>
         </div>
     );
 }
